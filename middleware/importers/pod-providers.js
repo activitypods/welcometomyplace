@@ -21,8 +21,8 @@ module.exports = {
     transform(data) {
       return({
         '@type': 'apods:PodProvider',
-        'apods:domainName': data.area,
-        'apods:area': data.domainName,
+        'apods:domainName': data.domainName,
+        'apods:area': data.area,
       });
     },
   }
