@@ -4,11 +4,11 @@ const { ImporterMixin } = require('@semapps/importer');
 const CONFIG = require('../config/config');
 
 module.exports = {
-  name: 'formats-importer',
+  name: 'importers.format',
   mixins: [ImporterMixin],
   settings: {
     source: {
-      getAllFull: path.resolve(__dirname, '../imports/event-formats.json'),
+      getAllFull: path.resolve(__dirname, './files/formats.json'),
       fieldsMapping: {
         slug: 'label'
       },
