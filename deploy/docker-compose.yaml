@@ -43,8 +43,6 @@ services:
       - redis
     volumes:
       - ./middleware/logs:/app/middleware/logs
-      - ./middleware/jwt:/app/middleware/jwt
-      - ./middleware/uploads:/app/middleware/uploads
     expose:
       - "3000"
     labels:
@@ -64,12 +62,3 @@ services:
       - "traefik.http.routers.frontend.rule=Host(`mydomain.com`)"
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls.certresolver=myresolver"
-
-  redis:
-    image: redis
-    container_name: redis
-    expose:
-      - "6379"
-    volumes:
-      - ./data/redis:/data
-    command: ["redis-server", "--appendonly", "yes"]
