@@ -55,7 +55,12 @@ const SignupForm = ({ redirectTo }) => {
 
   const submit = (values) => {
     setLoading(true);
-    signup(values)
+    signup({
+      ...values,
+      preferredLocale: process.env.REACT_APP_LANG,
+      preferredFrontUrl: new URL(window.location.href).origin,
+      preferredFrontName: process.env.REACT_APP_NAME
+    })
       .then((webId) => {
         setTimeout(() => {
           // Reload to ensure the dataServer config is reset

@@ -17,6 +17,7 @@ module.exports = {
       reject: 'Refuser',
       send: 'Envoyer',
       send_invitation: "Envoyer l'invitation |||| Envoyer %{smart_count} invitations",
+      send_message: 'Envoyer un message',
       share: 'Partager',
       share_event: "Partager l'événement",
       signup: 'Créer un nouveau compte',

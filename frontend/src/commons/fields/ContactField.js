@@ -67,7 +67,6 @@ const ContactField = ({ source, context, ...rest }) => {
 
 ContactField.defaultProps = {
   addLabel: true,
-  label: 'Envoyer un message',
 };
 
 export default ContactField;
