@@ -1,6 +1,6 @@
 import React from 'react';
 import { ListBase, useTranslate } from 'react-admin';
-import { Button, Container, Grid, Hidden, useMediaQuery } from '@material-ui/core';
+import { Container, Grid, Hidden, useMediaQuery } from '@material-ui/core';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
 import { GridList, AvatarField } from '@semapps/archipelago-layout';
 import HeaderTitle from '../../layout/HeaderTitle';
@@ -15,7 +15,7 @@ const ProfileList = () => {
   if (!identity?.id) return null;
   return (
     <>
-      <HeaderTitle actions={xs ? [<Button to="/Profile/create">{translate('app.action.add')}</Button>] : null}>
+      <HeaderTitle actions={xs ? {"/Profile/create": translate('app.action.add')} : null}>
         {translate('app.page.network')}
       </HeaderTitle>
       <br />

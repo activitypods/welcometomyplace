@@ -1,7 +1,7 @@
 import React from 'react';
 import { ListBase, SimpleList, useTranslate } from 'react-admin';
 import HomeIcon from '@material-ui/icons/Home';
-import { Box, Button, Container } from '@material-ui/core';
+import { Box, Container } from '@material-ui/core';
 import HeaderTitle from '../../layout/HeaderTitle';
 import Alert from '@material-ui/lab/Alert';
 
@@ -9,7 +9,7 @@ const LocationList = (props) => {
   const translate = useTranslate();
   return (
     <>
-      <HeaderTitle actions={[<Button to="/Location/create">{translate('app.action.add')}</Button>]}>
+      <HeaderTitle actions={{"/Location/create": translate('app.action.add')}}>
         {translate('app.page.addresses')}
       </HeaderTitle>
       <br />

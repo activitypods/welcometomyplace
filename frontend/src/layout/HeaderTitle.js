@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-admin';
-import { makeStyles, Typography, Box, Grid, Container, useMediaQuery } from '@material-ui/core';
+import { makeStyles, Typography, Box, Button, Grid, Container, useMediaQuery } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -33,16 +33,13 @@ const HeaderTitle = ({ children, actions, record }) => {
             <Grid item xs={4}>
               <Box textAlign="right">
                 {actions &&
-                  actions.map((action, i) =>
-                    React.cloneElement(action, {
-                      key: i,
-                      component: Link,
-                      variant: 'contained',
-                      color: 'primary',
-                      // typographyVariant: 'button1',
-                      className: classes.button,
-                    })
-                  )}
+                  Object.entries(actions).map(([url, label], i) => (
+                    <Link to={url} key={i}>
+                      <Button variant="contained" color="primary">
+                        {label}
+                      </Button>
+                    </Link>
+                  ))}
               </Box>
             </Grid>
           </Grid>

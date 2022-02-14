@@ -1,6 +1,5 @@
 import React from 'react';
 import { EditBase, linkToRecord, useTranslate } from 'react-admin';
-import { Button } from '@material-ui/core';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
 import EventForm from './EventForm';
 import EditPage from '../../layout/EditPage';
@@ -14,7 +13,7 @@ const EventEdit = (props) => {
     <EditBase redirect="show" {...props}>
       <EditPage
         title={<EditTitle />}
-        actions={[<Button to={linkToRecord('/Event', props.id, 'show')}>{translate('ra.action.show')}</Button>]}
+        actions={{ [linkToRecord('/Event', props.id, 'show')]: translate('ra.action.show')}}
       >
         <EventForm />
       </EditPage>

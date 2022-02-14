@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ListBase, useTranslate } from 'react-admin';
-import { Container, Grid, Hidden, Button, useMediaQuery, AppBar, Tabs, Tab, makeStyles } from '@material-ui/core';
+import { Container, Grid, Hidden, useMediaQuery, AppBar, Tabs, Tab, makeStyles } from '@material-ui/core';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
 import CardsList from '../../commons/lists/CardsList';
 import EventCard from './EventCard';
@@ -27,11 +27,7 @@ const EventList = (props) => {
   return (
     <>
       <HeaderTitle
-        actions={[
-          <Button to="/Event/create">
-            {translate(xs ? 'app.action.create_event_short' : 'app.action.create_event')}
-          </Button>,
-        ]}
+        actions={{ '/Event/create': translate(xs ? 'app.action.create_event_short' : 'app.action.create_event')}}
       >
         {translate('app.page.events')}
       </HeaderTitle>
