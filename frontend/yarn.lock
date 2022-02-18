@@ -1663,39 +1663,39 @@
   resolved "https://registry.yarnpkg.com/@redux-saga/types/-/types-1.1.0.tgz#0e81ce56b4883b4b2a3001ebe1ab298b84237204"
   integrity sha512-afmTuJrylUU/0OtqzaRkbyYFFNgCF73Bvel/sw90pvGrWIZ+vyoIJqA6eMSoA6+nb443kTmulmBtC9NerXboNg==
 
-"@semapps/activitypub-components@0.4.0-alpha.7":
-  version "0.4.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/@semapps/activitypub-components/-/activitypub-components-0.4.0-alpha.7.tgz#2c5a9a9c4320be93a9077d2c6d95dcaa39a20b86"
-  integrity sha512-0UejnXEjp8oCHhb6IqLJ4V0eGVd1fhgUkI6KKJ7BJ1JPV8v664uNZ6fbmiA6/wAID6LaJP7iuydkgg1K6EVdSA==
+"@semapps/activitypub-components@0.4.0-alpha.10":
+  version "0.4.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@semapps/activitypub-components/-/activitypub-components-0.4.0-alpha.10.tgz#21a7fbe56432a3f36b9d55b237652828b56c388d"
+  integrity sha512-iAoJ8ZTaS+e3yYkhz2JmTAaugh7iAp5MtYdByve6/tSAEwCKYAMWIUEvzomlz4hDkynljxg5yc0wO9yfGmgJeg==
 
-"@semapps/archipelago-layout@0.4.0-alpha.7":
-  version "0.4.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/@semapps/archipelago-layout/-/archipelago-layout-0.4.0-alpha.7.tgz#5f741436ab5c38ef60e53ad026c0581649b07fe7"
-  integrity sha512-gT4KQT61SVVjxk0O0AozX3rcCS7iX+HRuY+6iDiKxNNCcto6Xzp5YrWgKQDj8dGpMtkl1Cii8kU5VEXWqzjI9A==
+"@semapps/archipelago-layout@0.4.0-alpha.10":
+  version "0.4.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@semapps/archipelago-layout/-/archipelago-layout-0.4.0-alpha.10.tgz#c3c20cc487bfd9b027ce1445932f1c039ae31268"
+  integrity sha512-zT8QVTwwUMztStQ7D/TbsKGg5C1XTiS9ef/mWztk/06zCDRL4lg3Io+gj7lJ3V1yfWAA4Mt4tril32mMb6nhcQ==
   dependencies:
     "@material-ui/lab" "^4.0.0-alpha.57"
-    "@semapps/semantic-data-provider" "0.4.0-alpha.7"
+    "@semapps/semantic-data-provider" "0.4.0-alpha.10"
     autosuggest-highlight "^3.1.1"
     classnames "^2.2.6"
     lodash.throttle "^4.1.1"
     react-markdown "^4.3.1"
     react-masonry-css "^1.0.14"
 
-"@semapps/auth-provider@0.4.0-alpha.7":
-  version "0.4.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/@semapps/auth-provider/-/auth-provider-0.4.0-alpha.7.tgz#44707d09d051084b616544f2f5d8872bfa78b564"
-  integrity sha512-MmZv6FA81MK1DHUcx8GWxEVVMOmNyadAmrdAySLaGhycg07Lu6p0VNswZOU78ZzT04pbvkFNjMF0j8qoNI4tIg==
+"@semapps/auth-provider@0.4.0-alpha.10":
+  version "0.4.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@semapps/auth-provider/-/auth-provider-0.4.0-alpha.10.tgz#00cc7d9b7ef249c82c63a295078ff5de7f0427e0"
+  integrity sha512-9Ktr/dConToSPOHXNZA9wQ1J25wg4plr5WsAelcGg/gvhpUnqBZESd9ZFeeEX3sh6df0Xvn2iooHnFGxafaylQ==
   dependencies:
     "@material-ui/lab" "^4.0.0-alpha.57"
-    "@semapps/archipelago-layout" "0.4.0-alpha.7"
-    "@semapps/semantic-data-provider" "0.4.0-alpha.7"
+    "@semapps/archipelago-layout" "0.4.0-alpha.10"
+    "@semapps/semantic-data-provider" "0.4.0-alpha.10"
     jwt-decode "^3.0.0"
     url-join "^4.0.1"
 
-"@semapps/date-components@0.4.0-alpha.7":
-  version "0.4.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/@semapps/date-components/-/date-components-0.4.0-alpha.7.tgz#17ed7d8c551c69b54e8e4f13247fccde2c97ba3a"
-  integrity sha512-96Nq36JYzMJ68wdidoNcLfL1cy5GtMcc+ITz5pZcocEcT/ZjiqxmYo6vvb8yy+20B2EjQzLnRfFHnvirBbdiHw==
+"@semapps/date-components@0.4.0-alpha.10":
+  version "0.4.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@semapps/date-components/-/date-components-0.4.0-alpha.10.tgz#058c8573bb4b420baa7b51a1ffac1a1dc15129e4"
+  integrity sha512-4XRxnw6rfhlw7zc5hqNYQpIC3dx3qEMpJaZjw06VEEcWChpfBzIkpO41mDaTERQZNG0bbkE8sNBnZp/TWcQ8wQ==
   dependencies:
     "@date-io/core" "^1.3.6"
     "@date-io/date-fns" "^1.3.13"
@@ -1706,10 +1706,10 @@
     "@material-ui/pickers" "^3.2.10"
     date-fns "~2.8.1"
 
-"@semapps/geo-components@0.4.0-alpha.7":
-  version "0.4.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/@semapps/geo-components/-/geo-components-0.4.0-alpha.7.tgz#5d87ca854d0d806cad071c1eaf547c68b122ac70"
-  integrity sha512-7JZbAaqq4NGJiOxViecnrnH+a/+cmYMt4GlBNbRgIy1vVsspa/yxgNUiLY7zMhMJFDcOZo9m4CGn2DxUEgZpIw==
+"@semapps/geo-components@0.4.0-alpha.10":
+  version "0.4.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@semapps/geo-components/-/geo-components-0.4.0-alpha.10.tgz#836fa7ce685cf4a35b67ece684d1346fa0bb5cb2"
+  integrity sha512-mX56uuxT3QZiQ7GNO5rhqjugD1Uc90DE77O4zqSSn/HoDHi3dIZJq/QUsb/Pw9KHwjiigKl8QC5Niz5USz6jRg==
   dependencies:
     "@material-ui/lab" "^4.0.0-alpha.57"
     autosuggest-highlight "^3.1.1"
@@ -1717,19 +1717,19 @@
     react-leaflet "^3.2.5"
     react-leaflet-markercluster "^3.0.0-rc1"
 
-"@semapps/markdown-components@0.4.0-alpha.7":
-  version "0.4.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/@semapps/markdown-components/-/markdown-components-0.4.0-alpha.7.tgz#8f9d78e07d550a5d82c337df3cd656117a977885"
-  integrity sha512-8IRi2tgCqpooqgb75IYw3MR4HqRPtRdB9Lwf4z+/bQ7ZXnxKYt9QBNQ2p16ZBuCYWPUl9wTh2Ye3xO82/43Qsg==
+"@semapps/markdown-components@0.4.0-alpha.10":
+  version "0.4.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@semapps/markdown-components/-/markdown-components-0.4.0-alpha.10.tgz#5864aabe10b0c3ec3b6379e983254139a09efd21"
+  integrity sha512-BWlGxhH530PfgnCT764hhxamOHq6FSSaTUyJ7dbjnu8tWo2LPoveyHANqyJg4Lgbbe+BxBWsoc6kHDop0I34LA==
   dependencies:
-    "@semapps/archipelago-layout" "0.4.0-alpha.7"
+    "@semapps/archipelago-layout" "0.4.0-alpha.10"
     markdown-to-jsx "^7.1.3"
     react-mde "^11.5.0"
 
-"@semapps/semantic-data-provider@0.4.0-alpha.7":
-  version "0.4.0-alpha.7"
-  resolved "https://registry.yarnpkg.com/@semapps/semantic-data-provider/-/semantic-data-provider-0.4.0-alpha.7.tgz#e8c8727cc7fa19647abc1e46dc03edafb5f9cd85"
-  integrity sha512-/RfidXT/bAj/pj+HllfN8GOWY8n5PiNK114P8mElX5OH8Q6AKIK+h3TfGz1cqqOvSiiFXwKvU4wzyjz/aDYDVA==
+"@semapps/semantic-data-provider@0.4.0-alpha.10":
+  version "0.4.0-alpha.10"
+  resolved "https://registry.yarnpkg.com/@semapps/semantic-data-provider/-/semantic-data-provider-0.4.0-alpha.10.tgz#da3c6f8d5195dd72b3e124c4ada0b4703d9b1061"
+  integrity sha512-n47I01FTNv0RLlqca2wvK4LLdmwJ/e85FHXAUqLiufkeNL/evKrySO8adLVvE+oA1iPwmRcvUm0ZgDYnSyWVOw==
   dependencies:
     "@rdfjs/data-model" "^1.3.4"
     crypto-js "^4.1.1"

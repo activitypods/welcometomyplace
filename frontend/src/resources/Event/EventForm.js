@@ -8,6 +8,24 @@ import frLocale from 'date-fns/locale/fr';
 import BodyLabel from '../../commons/lists/BodyList/BodyLabel';
 import Alert from '@material-ui/lab/Alert';
 
+const futureDate = (value) => {
+  if( value && value <= (new Date()) ) {
+    return 'app.validation.futureDate';
+  }
+};
+
+const afterStartTime = (value, allValues) => {
+  if( allValues.startTime && value <= allValues.startTime ) {
+    return 'app.validation.afterStartTime';
+  }
+};
+
+const beforeEndTime = (value, allValues) => {
+  if( allValues.startTime && value >= allValues.endTime ) {
+    return 'app.validation.beforeEndTime';
+  }
+};
+
 const EventForm = ({ className, ...rest }) => {
   const translate = useTranslate();
   return (
@@ -30,7 +48,7 @@ const EventForm = ({ className, ...rest }) => {
             locale: frLocale,
           }}
           fullWidth
-          validate={[required()]}
+          validate={[required(), futureDate]}
         />
         <DateTimeInput
           source="endTime"
@@ -42,9 +60,9 @@ const EventForm = ({ className, ...rest }) => {
             locale: frLocale,
           }}
           fullWidth
-          validate={[required()]}
+          validate={[required(), afterStartTime]}
         />
-        <ReferenceInput reference="Location" source="location" fullWidth>
+        <ReferenceInput reference="Location" source="location" fullWidth validate={[required()]}>
           <SelectInput optionText="vcard:given-name" />
         </ReferenceInput>
         <ImageInput source="image" accept="image/*">
@@ -71,6 +89,7 @@ const EventForm = ({ className, ...rest }) => {
             locale: frLocale,
           }}
           fullWidth
+          validate={[afterStartTime, beforeEndTime]}
         />
         <NumberInput source="apods:maxAttendees" fullWidth helperText={translate('app.helper.max_attendees')} />
         <TextInput
