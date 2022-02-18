@@ -20,7 +20,7 @@ const LocationList = (props) => {
         <ListBase {...props}>
           <SimpleList
             primaryText={(record) => record['vcard:given-name']}
-            secondaryText={(record) => record['vcard:hasAddress']['vcard:given-name']}
+            secondaryText={(record) => record['vcard:hasAddress']?.['vcard:given-name']}
             leftAvatar={() => <HomeIcon />}
             rowStyle={() => ({
               backgroundColor: 'white',

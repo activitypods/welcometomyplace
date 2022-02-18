@@ -1,5 +1,5 @@
 import React from 'react';
-import {SimpleForm, TextInput, useTranslate} from 'react-admin';
+import { required, SimpleForm, TextInput, useTranslate } from 'react-admin';
 import { extractContext, LocationInput } from '@semapps/geo-components';
 
 export const LocationForm = (props) => {
@@ -28,6 +28,7 @@ export const LocationForm = (props) => {
             },
           })}
           optionText={(resource) => resource['vcard:given-name']}
+          validate={[required()]}
           fullWidth
         />
         <TextInput
