@@ -2,6 +2,8 @@
 
 # Welcome to my place
 
+This application is about events which are private by default: you only see those you have been invited to. Anyone is free to create an event and share it with its network. After an event, all participants can add the contact of all other participants. But at the beginning, you must know the contact link (or the ID of type `@bob@podprovider.com`) to start your personnal network.
+
 ## Getting started
 
 ### Launch the triple store
