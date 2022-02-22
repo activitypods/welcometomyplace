@@ -20,9 +20,9 @@ const afterStartTime = (value, allValues) => {
   }
 };
 
-const beforeEndTime = (value, allValues) => {
-  if( allValues.startTime && value >= allValues.endTime ) {
-    return 'app.validation.beforeEndTime';
+const beforeStartTime = (value, allValues) => {
+  if( allValues.startTime && value >= allValues.startTime ) {
+    return 'app.validation.beforeStartTime';
   }
 };
 
@@ -89,7 +89,7 @@ const EventForm = ({ className, ...rest }) => {
             locale: frLocale,
           }}
           fullWidth
-          validate={[afterStartTime, beforeEndTime]}
+          validate={[beforeStartTime]}
         />
         <NumberInput source="apods:maxAttendees" fullWidth helperText={translate('app.helper.max_attendees')} />
         <TextInput

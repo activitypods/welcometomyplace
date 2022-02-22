@@ -101,7 +101,7 @@ module.exports = {
     validation: {
       futureDate: 'Doit être dans le futur',
       afterStartTime: "Doit être après la date de début de l'événement",
-      beforeEndTime: "Doit être avant la date de fin de l'événement",
+      beforeStartTime: "Doit être avant la date de début de l'événement",
     },
   },
 };
