@@ -53,6 +53,9 @@ module.exports = {
       add_contact:
         'Pour ajouter un utilisateur à votre réseau, vous devez connaître son identifiant (au format @bob@serveur.com).',
       addresses_visibility: 'Les adresses ne sont visibles que des personnes invité à vos événements',
+      event_draft_mode: "Cet événement n'est actuellement visible que par vous. Dès que vous serez satisfait de sa présentation, vous pourrez le partager avec vos contacts (bouton en haut à droite).",
+      event_join_right: "Vous avez été invité à cet événement. Pour accepter l'invitation, veuillez cliquer sur le bouton \"Je m'inscris\".",
+      event_share_right: "L'organisateur vous a donné le droit de partager cet événement avec vos contacts (bouton en haut à droite).",
       first_event:
         "Si vous avez des questions ou difficultés concernant la création d'événements, n'hésitez pas à écrire à ",
       max_attendees: 'Attention: vous êtes compté comme participant',

@@ -52,6 +52,9 @@ module.exports = {
     helper: {
       add_contact: 'To add an user to your network, you need to know his ID (format: @bob@server.com).',
       addresses_visibility: 'Your addresses are visible only by people invited to your events',
+      event_draft_mode: "You are currently the only one who can see this event. As soon as you are satisfied of its presentation, you can it with your contacts (top-right button).",
+      event_join_right: "You have been invited to this event. To accept the invitation, please click on the \"Join\" button.",
+      event_share_right: "The organizer has given you the right to share this event with your contacts (top-right button).",
       first_event: "If you have questions or troubles regarding the creation of events, feel free to contact us at ",
       max_attendees: 'Warning: you are counted as an attendee',
       no_contact: 'You must add contacts to your network to be able to invite them',
