@@ -23,10 +23,6 @@ const useStyles = makeStyles((theme) => ({
       marginBottom: 0,
     },
   },
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
   breadcrumbs: {
     paddingTop: 15,
     paddingBottom: 10,

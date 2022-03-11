@@ -59,6 +59,7 @@ module.exports = {
       first_event:
         "Si vous avez des questions ou difficultés concernant la création d'événements, n'hésitez pas à écrire à ",
       max_attendees: 'Attention: vous êtes compté comme participant',
+      message_profile_show_right: "Envoyer un message à %{username} lui donnera le droit de voir votre profil, pour lui permettre de vous répondre.",
       no_contact: 'Vous devez ajouter des contacts à votre réseau pour pouvoir les inviter',
       no_address: 'Vous devez ajouter au moins une adresse à votre profil avant de pouvoir proposer un événement',
       other_conditions: 'Vous pouvez entrer plusieurs conditions supplémentaires (une par ligne)',

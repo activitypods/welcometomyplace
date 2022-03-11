@@ -57,6 +57,7 @@ module.exports = {
       event_share_right: "The organizer has given you the right to share this event with your contacts (top-right button).",
       first_event: "If you have questions or troubles regarding the creation of events, feel free to contact us at ",
       max_attendees: 'Warning: you are counted as an attendee',
+      message_profile_show_right: "Sending a message to %{username} will give him/her the right to see your profile, in order to be able to respond.",
       no_contact: 'You must add contacts to your network to be able to invite them',
       no_address: 'You must add at least one address to your profile before creating an event',
       other_conditions: 'You can enter several additional conditions (one by line)',

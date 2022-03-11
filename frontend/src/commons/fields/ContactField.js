@@ -3,7 +3,8 @@ import { useNotify, useRecordContext, useTranslate } from 'react-admin';
 import { Box, TextField, Button } from '@material-ui/core';
 import { Form, Field } from 'react-final-form';
 import SendIcon from '@material-ui/icons/Send';
-import { useOutbox, OBJECT_TYPES } from '@semapps/activitypub-components';
+import { useOutbox, useCollection, OBJECT_TYPES } from '@semapps/activitypub-components';
+import Alert from "@material-ui/lab/Alert";
 
 const FinalFormTextField = ({ input: { name, onChange, value, ...restInput }, meta, ...rest }) => (
   <TextField
@@ -23,6 +24,7 @@ const ContactField = ({ source, context, ...rest }) => {
   const notify = useNotify();
   const outbox = useOutbox();
   const translate = useTranslate();
+  const { items: contacts, loaded: contactsLoaded } = useCollection('apods:contacts');
 
   const onSubmit = async (values) => {
     try {
@@ -44,6 +46,11 @@ const ContactField = ({ source, context, ...rest }) => {
       onSubmit={onSubmit}
       render={({ handleSubmit, form, submitting }) => (
         <form onSubmit={(event) => handleSubmit(event).then(form.reset)}>
+          {contactsLoaded && !contacts.includes(record[source]) &&
+            <Box mb={1}>
+              <Alert severity="warning">{translate('app.helper.message_profile_show_right', { username: record?.['vcard:given-name']})}</Alert>
+            </Box>
+          }
           <Field
             name="content"
             component={FinalFormTextField}
