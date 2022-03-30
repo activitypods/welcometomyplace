@@ -56,8 +56,28 @@ const LocalLoginPage = (props) => {
   if (loading) {
     return null;
   } else if (identity?.id) {
-    // Do not show login page if user is already connected
-    return <Redirect to={redirectTo || '/'} />;
+    const currentUrl = new URL(window.location.href).origin;
+    if( redirectTo ) {
+      if( redirectTo.startsWith(currentUrl) ) {
+        window.location.href = redirectTo;
+        return null;
+      } else if ( redirectTo.startsWith('/') ) {
+        return <Redirect to={redirectTo} />;
+      } else if ( redirectTo.startsWith('http') ) {
+        // Distant application
+        // TODO ensure that it is an authorized application as we are passing down the token allowing to identify the user
+
+        const token = localStorage.getItem('token');
+        const url = new URL(redirectTo);
+        url.searchParams.set('token', token);
+        window.location.href = url.toString();
+
+        return null;
+      }
+    } else {
+      // Do not show login page if user is already connected
+      return <Redirect to="/" />;
+    }
   } else {
     return (
       <ThemeProvider theme={muiTheme}>
