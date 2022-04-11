@@ -53,8 +53,8 @@ const ShareDialog = ({ close, resourceUri }) => {
   const { record } = useShowContext();
   const translate = useTranslate();
   const isOrganizer = record?.['dc:creator'] === identity?.id;
-  const { items: invitees } = useCollection(record?.['apods:invitees']);
-  const { items: inviters } = useCollection(record?.['apods:inviters']);
+  const { items: announces } = useCollection(record?.['apods:announces']);
+  const { items: announcers } = useCollection(record?.['apods:announcers']);
   const [newInvitations, setNewInvitations] = useState({});
   const [sendingInvitation, setSendingInvitation] = useState(false);
   const xs = useMediaQuery((theme) => theme.breakpoints.down('xs'), { noSsr: true });
@@ -91,7 +91,7 @@ const ShareDialog = ({ close, resourceUri }) => {
     if (actorsWithNewViewRight.length > 0) {
       if (isOrganizer) {
         await outbox.post({
-          type: ACTIVITY_TYPES.INVITE,
+          type: ACTIVITY_TYPES.ANNOUNCE,
           actor: outbox.owner,
           object: resourceUri,
           target: actorsWithNewViewRight,
@@ -103,7 +103,7 @@ const ShareDialog = ({ close, resourceUri }) => {
           type: ACTIVITY_TYPES.OFFER,
           actor: outbox.owner,
           object: {
-            type: ACTIVITY_TYPES.INVITE,
+            type: ACTIVITY_TYPES.ANNOUNCE,
             actor: outbox.owner,
             object: resourceUri,
             target: actorsWithNewViewRight,
@@ -122,7 +122,7 @@ const ShareDialog = ({ close, resourceUri }) => {
         type: ACTIVITY_TYPES.OFFER,
         actor: outbox.owner,
         object: {
-          type: ACTIVITY_TYPES.INVITE,
+          type: ACTIVITY_TYPES.ANNOUNCE,
           object: resourceUri,
         },
         target: actorsWithNewShareRight,
@@ -149,8 +149,8 @@ const ShareDialog = ({ close, resourceUri }) => {
           <ContactsShareList
             addInvitation={addInvitation}
             removeInvitation={removeInvitation}
-            invitees={invitees}
-            inviters={inviters}
+            announces={announces}
+            announcers={announcers}
             isOrganizer={isOrganizer}
           />
         </ListBase>

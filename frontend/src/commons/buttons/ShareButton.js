@@ -7,9 +7,9 @@ import ShareDialog from "../ShareDialog/ShareDialog";
 const ShareButton = () => {
   const [shareOpen, setShareOpen] = useState(false);
   const { record } = useShowContext();
-  const { loaded, error } = useCollection(record?.['apods:invitees']);
+  const { loaded, error } = useCollection(record?.['apods:announces']);
   const translate = useTranslate();
-  // If the user can see the list of invitees, it means he can share
+  // If the user can see the list of announces, it means he can share
   if (loaded && !error) {
     return (
       <>
