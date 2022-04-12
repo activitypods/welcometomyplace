@@ -20,7 +20,7 @@ yarn install
 yarn run dev
 ```
 
-Once in Moleculer REPL, you can call this command to import the formats and POD providers list (you can of course modify it):
+Once in [Moleculer REPL](https://moleculer.services/docs/0.14/moleculer-repl.html), you can use these commands to import the formats and POD providers list (you can of course modify it):
 
 ```bash
 call importers.formats.freshImport
