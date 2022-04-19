@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ContactsShareList = ({ addInvitation, removeInvitation, invitees, inviters, isOrganizer }) => {
+const ContactsShareList = ({ addInvitation, removeInvitation, announces, announcers, isOrganizer }) => {
   const classes = useStyles();
   const translate = useTranslate();
   const { ids, data, loading, ...rest } = useListContext();
@@ -25,8 +25,8 @@ const ContactsShareList = ({ addInvitation, removeInvitation, invitees, inviters
           record={data[id]}
           addInvitation={addInvitation}
           removeInvitation={removeInvitation}
-          invitee={invitees.includes(data[id].describes)}
-          inviter={inviters.includes(data[id].describes)}
+          canView={announces.includes(data[id].describes)}
+          canShare={announcers.includes(data[id].describes)}
           isOrganizer={isOrganizer}
           {...rest}
         />
