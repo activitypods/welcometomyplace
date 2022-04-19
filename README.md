@@ -57,5 +57,5 @@ cd /THIS_REPO/frontend
 yarn run link-semapps-packages
 ```
 
-Additionally, frontend packages need to be rebuilt, or your changes will not be taken into account by Archipelago.
+Additionally, frontend packages need to be rebuilt, or your changes will not be taken into account.
 You can use `yarn run build` to build a package once, or `yarn run dev` to rebuild a package on every change.
