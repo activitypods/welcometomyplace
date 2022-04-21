@@ -20,7 +20,7 @@ yarn install
 yarn run dev
 ```
 
-Once in Moleculer REPL, you can call this command to import the formats and POD providers list (you can of course modify it):
+Once in [Moleculer REPL](https://moleculer.services/docs/0.14/moleculer-repl.html), you can use these commands to import the formats and POD providers list (you can of course modify it):
 
 ```bash
 call importers.formats.freshImport
@@ -57,5 +57,5 @@ cd /THIS_REPO/frontend
 yarn run link-semapps-packages
 ```
 
-Additionally, frontend packages need to be rebuilt, or your changes will not be taken into account by Archipelago.
+Additionally, frontend packages need to be rebuilt, or your changes will not be taken into account.
 You can use `yarn run build` to build a package once, or `yarn run dev` to rebuild a package on every change.
