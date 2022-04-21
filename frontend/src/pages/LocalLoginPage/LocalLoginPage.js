@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { Notification, useGetIdentity, useTranslate } from 'react-admin';
+import { Notification, useGetIdentity, useTranslate, useNotify } from 'react-admin';
 import { Card, Avatar, makeStyles, createTheme, ThemeProvider, Typography } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import { Link, Redirect } from 'react-router-dom';
@@ -52,6 +52,7 @@ const LocalLoginPage = (props) => {
   const redirectTo = searchParams.get('redirect');
   const { identity, loading } = useGetIdentity();
   const translate = useTranslate();
+  const notify = useNotify();
 
   if (loading) {
     return null;
@@ -65,47 +66,49 @@ const LocalLoginPage = (props) => {
         return <Redirect to={redirectTo} />;
       } else if ( redirectTo.startsWith('http') ) {
         // Distant application
-        // TODO ensure that it is an authorized application as we are passing down the token allowing to identify the user
-
-        const token = localStorage.getItem('token');
-        const url = new URL(redirectTo);
-        url.searchParams.set('token', token);
-        window.location.href = url.toString();
-
-        return null;
+        const authorizedApps = process.env.REACT_APP_AUTHORIZED_APPS ? process.env.REACT_APP_AUTHORIZED_APPS.split(',') : [];
+        if( authorizedApps.some(url => redirectTo.startsWith(url)) ) {
+          const token = localStorage.getItem('token');
+          const url = new URL(redirectTo);
+          url.searchParams.set('token', token);
+          window.location.href = url.toString();
+          return null;
+        } else {
+          notify(translate('app.notification.app_not_authorized', { url: redirectTo }), 'error')
+        }
       }
     } else {
       // Do not show login page if user is already connected
       return <Redirect to="/" />;
     }
-  } else {
-    return (
-      <ThemeProvider theme={muiTheme}>
-        <div className={classnames(classes.main, className)} {...rest}>
-          <Card className={classes.card}>
-            <div className={classes.avatar}>
-              <Avatar className={classes.icon}>
-                <LockIcon />
-              </Avatar>
-            </div>
-            {isSignup ? <SignupForm redirectTo={redirectTo} /> : <LoginForm redirectTo={redirectTo} />}
-            <div className={classes.switch}>
-              {isSignup ? (
-                <Link to={'/login?' + searchParams.toString()}>
-                  <Typography variant="body2">{translate('app.action.login')}</Typography>
-                </Link>
-              ) : (
-                <Link to={'/login?signup=true&' + searchParams.toString()}>
-                  <Typography variant="body2">{translate('app.action.signup')}</Typography>
-                </Link>
-              )}
-            </div>
-          </Card>
-          <Notification />
-        </div>
-      </ThemeProvider>
-    );
   }
+
+  return (
+    <ThemeProvider theme={muiTheme}>
+      <div className={classnames(classes.main, className)} {...rest}>
+        <Card className={classes.card}>
+          <div className={classes.avatar}>
+            <Avatar className={classes.icon}>
+              <LockIcon />
+            </Avatar>
+          </div>
+          {isSignup ? <SignupForm redirectTo={redirectTo} /> : <LoginForm redirectTo={redirectTo} />}
+          <div className={classes.switch}>
+            {isSignup ? (
+              <Link to={'/login?' + searchParams.toString()}>
+                <Typography variant="body2">{translate('app.action.login')}</Typography>
+              </Link>
+            ) : (
+              <Link to={'/login?signup=true&' + searchParams.toString()}>
+                <Typography variant="body2">{translate('app.action.signup')}</Typography>
+              </Link>
+            )}
+          </div>
+        </Card>
+        <Notification />
+      </div>
+    </ThemeProvider>
+  );
 };
 
 LocalLoginPage.propTypes = {
