@@ -51,11 +51,10 @@ const NewPasswordForm = (props) => {
     authProvider.setNewPassword({ ...values, token })
       .then((res) => {
         setTimeout(() => {
-          window.location.reload();
           window.location.href = '/login';
           setLoading(false);
         }, 2000);
-        notify('auth.message.password_changed', 'info');
+        notify('app.notification.password_changed', 'info');
       })
       .catch((error) => {
         setLoading(false);

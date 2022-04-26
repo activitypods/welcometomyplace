@@ -95,7 +95,8 @@ module.exports = {
       user_not_found: "L'utilisateur %{username} n'existe pas",
       reset_password_submited: "Un e-mail a été envoyé avec les instructions de réinitialisation du mot de passe",
       reset_password_error: "Une erreur s'est produite",
-      password_changed: "Le mot de passe a été changé avec succès"
+      password_changed: "Le mot de passe a été changé avec succès",
+      new_password_error: "Une erreur s'est produite",
     },
     permission: {
       view: "Droit de s'inscrire",

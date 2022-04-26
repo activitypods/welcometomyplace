@@ -92,7 +92,8 @@ module.exports = {
       user_not_found: "User %{username} doesn't exist",
       reset_password_submited: "An email has been send with reset password instructions",
       reset_password_error: 'An error occurred',
-      password_changed: "Password changed successfully"
+      password_changed: "Password changed successfully",
+      new_password_error: 'An error occurred',
     },
     permission: {
       view: "Allowed to join",

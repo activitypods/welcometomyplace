@@ -46,7 +46,8 @@ const ResetPasswordForm = (props) => {
     setLoading(true);
     authProvider.resetPassword({ ...values })
       .then((res) => {
-        notify('auth.message.reset_password_submited', 'info');
+        setLoading(false);
+        notify('app.notification.reset_password_submited', 'info');
       })
       .catch((error) => {
         setLoading(false);
