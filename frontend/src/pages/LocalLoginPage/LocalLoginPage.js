@@ -7,6 +7,8 @@ import LockIcon from '@material-ui/icons/Lock';
 import { Link, Redirect } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import SignupForm from './SignupForm';
+import ResetPasswordForm from './ResetPasswordForm';
+import NewPasswordForm from './NewPasswordForm';
 
 const useStyles = makeStyles((theme) => ({
   main: {
@@ -37,7 +39,8 @@ const useStyles = makeStyles((theme) => ({
   },
   switch: {
     margin: '1em',
-    display: 'flex',
+    display: 'grid',
+    textAlign: 'center',
     justifyContent: 'center',
   },
 }));
@@ -48,6 +51,11 @@ const LocalLoginPage = (props) => {
   const muiTheme = useMemo(() => createTheme(theme), [theme]);
   const searchParams = new URLSearchParams(location.search);
   const isSignup = searchParams.has('signup');
+  const isResetPassword = searchParams.has('reset_password');
+  const isNewPassword = searchParams.has('new_password');
+  const isLogin = !isSignup && !isResetPassword && !isNewPassword;
+
+  searchParams.delete('reset_password'); // Delete parameter so that it doesn't appear on the links below
   searchParams.delete('signup'); // Delete parameter so that it doesn't appear on the links below
   const redirectTo = searchParams.get('redirect');
   const { identity, loading } = useGetIdentity();
@@ -68,22 +76,44 @@ const LocalLoginPage = (props) => {
                 <LockIcon />
               </Avatar>
             </div>
-            {isSignup ? <SignupForm redirectTo={redirectTo} /> : <LoginForm redirectTo={redirectTo} />}
+
+            {isSignup ? <SignupForm redirectTo={redirectTo} /> : null}
+
+            {isResetPassword ? <ResetPasswordForm></ResetPasswordForm> : null}
+            {isNewPassword ? <NewPasswordForm location={location}></NewPasswordForm> : null}
+
+            {isLogin ? <LoginForm redirectTo={redirectTo} /> : null}
+
             <div className={classes.switch}>
-              {isSignup ? (
+
+              {isSignup || isResetPassword ? (
                 <Link to={'/login?' + searchParams.toString()}>
                   <Typography variant="body2">{translate('app.action.login')}</Typography>
                 </Link>
-              ) : (
-                <Link to={'/login?signup=true&' + searchParams.toString()}>
-                  <Typography variant="body2">{translate('app.action.signup')}</Typography>
-                </Link>
-              )}
+              ) : null}
+
+              {isLogin
+                ?
+                (
+                  <>
+                    <div>
+                      <Link to={'/login?signup=true&' + searchParams.toString()}>
+                        <Typography variant="body2">{translate('app.action.signup')}</Typography>
+                      </Link>
+                    </div>
+                    <div>
+                      <Link to={'/login?reset_password=true&' + searchParams.toString()}>
+                        <Typography variant="body2">{translate('app.action.reset_password')}</Typography>
+                      </Link>
+                    </div>
+                  </>
+                ) : null
+              }
             </div>
           </Card>
           <Notification />
-        </div>
-      </ThemeProvider>
+        </div >
+      </ThemeProvider >
     );
   }
 };

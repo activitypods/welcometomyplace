@@ -21,6 +21,8 @@ module.exports = {
       share: 'Partager',
       share_event: "Partager l'événement",
       signup: 'Créer un nouveau compte',
+      reset_password: 'Réinitialisation du mot de passe',
+      set_new_password: 'Definir un nouveau mot de passe',
     },
     page: {
       events: 'Tableau de bord',
@@ -48,6 +50,8 @@ module.exports = {
       message: 'Message',
       provider: 'Hébergeur',
       user_id: 'Identifiant utilisateur',
+      new_password: 'Nouveau mot de passe',
+      confirm_new_password: 'Confirmer le nouveau mot de passe'
     },
     helper: {
       add_contact:
@@ -89,6 +93,9 @@ module.exports = {
       message_send_error: "Erreur lors de l'envoi du message: %{error}",
       profile_data_not_found: "Votre profil n'a pas été trouvé, veuillez vous déconnecter et vous reconnecter",
       user_not_found: "L'utilisateur %{username} n'existe pas",
+      reset_password_submited: "Un e-mail a été envoyé avec les instructions de réinitialisation du mot de passe",
+      reset_password_error: "Une erreur s'est produite",
+      password_changed: "Le mot de passe a été changé avec succès"
     },
     permission: {
       view: "Droit de s'inscrire",
