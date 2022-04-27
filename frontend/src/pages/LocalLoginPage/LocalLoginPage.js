@@ -67,7 +67,6 @@ const LocalLoginPage = (props) => {
       } else if ( redirectTo.startsWith('http') ) {
         // Distant application
         const authorizedApps = process.env.REACT_APP_AUTHORIZED_APPS ? process.env.REACT_APP_AUTHORIZED_APPS.split(',') : [];
-        console.log('authorizedApps', authorizedApps);
         if( authorizedApps.some(url => redirectTo.startsWith(url)) ) {
           const token = localStorage.getItem('token');
           const url = new URL(redirectTo);
