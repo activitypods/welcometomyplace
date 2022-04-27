@@ -86,6 +86,7 @@ module.exports = {
       message_send_error: "Error while sending the message: %{error}",
       profile_data_not_found: "Your profile couldn't be found, please reconnect yourself",
       user_not_found: "User %{username} doesn't exist",
+      app_not_authorized: "Unauthorized app: we cannot redirect to the URL %{url}",
     },
     permission: {
       view: "Allowed to join",
