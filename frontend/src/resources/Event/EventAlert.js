@@ -8,8 +8,8 @@ const EventAlert = () => {
   const translate = useTranslate();
   const { record } = useShowContext();
   const { identity } = useGetIdentity();
-  const { items: invitees, loading } = useCollection(record?.['apods:invitees']);
-  const { items: inviters } = useCollection(record?.['apods:inviters']);
+  const { items: announces, loading } = useCollection(record?.['apods:announces']);
+  const { items: announcers } = useCollection(record?.['apods:announcers']);
   const { items: attendees } = useCollection(record?.['apods:attendees']);
 
   if (!record || !identity?.id || loading) return null;
@@ -17,7 +17,7 @@ const EventAlert = () => {
   let message;
 
   if (record?.['dc:creator'] === identity?.id) {
-    if (invitees.length === 0) {
+    if (announces.length === 0) {
       message = translate('app.helper.event_draft_mode');
     }
   } else {
@@ -26,7 +26,7 @@ const EventAlert = () => {
       : [record?.['apods:hasStatus']];
     if (!attendees.includes(identity?.id) && !status.includes('apods:Closed')) {
       message = translate('app.helper.event_join_right');
-    } else if (inviters.includes(identity?.id)) {
+    } else if (announcers.includes(identity?.id)) {
       message = translate('app.helper.event_share_right');
     }
   }

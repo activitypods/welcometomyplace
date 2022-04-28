@@ -93,6 +93,7 @@ module.exports = {
       message_send_error: "Erreur lors de l'envoi du message: %{error}",
       profile_data_not_found: "Votre profil n'a pas été trouvé, veuillez vous déconnecter et vous reconnecter",
       user_not_found: "L'utilisateur %{username} n'existe pas",
+      app_not_authorized: "Application non-autorisée: impossible de rediriger vers l'URL %{url}",
       reset_password_submited: "Un e-mail a été envoyé avec les instructions de réinitialisation du mot de passe",
       reset_password_error: "Une erreur s'est produite",
       password_changed: "Le mot de passe a été changé avec succès",
