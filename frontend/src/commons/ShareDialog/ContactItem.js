@@ -29,12 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ContactItem = ({ record, addInvitation, removeInvitation, invitee, inviter, isOrganizer }) => {
+const ContactItem = ({ record, addInvitation, removeInvitation, canView, canShare, isOrganizer }) => {
   const classes = useStyles();
   const translate = useTranslate();
 
-  const [viewChecked, setViewChecked] = useState(invitee);
-  const [shareChecked, setShareChecked] = useState(inviter);
+  const [viewChecked, setViewChecked] = useState(canView);
+  const [shareChecked, setShareChecked] = useState(canShare);
 
   const switchView = useCallback(() => {
     if (!viewChecked) {
@@ -50,8 +50,8 @@ const ContactItem = ({ record, addInvitation, removeInvitation, invitee, inviter
   const switchShare = useCallback(() => {
     if (!shareChecked) {
       setShareChecked(true);
-      // If user is already invitee, we only add a share right
-      if (invitee) {
+      // If user can already view, we only add a share right
+      if (canView) {
         addInvitation(record.describes, ['share']);
       } else {
         setViewChecked(true);
@@ -59,13 +59,13 @@ const ContactItem = ({ record, addInvitation, removeInvitation, invitee, inviter
       }
     } else {
       setShareChecked(false);
-      if (invitee) {
+      if (canView) {
         removeInvitation(record.describes);
       } else {
         addInvitation(record.describes, ['view']);
       }
     }
-  }, [invitee, addInvitation, removeInvitation, record, shareChecked, setViewChecked, setShareChecked]);
+  }, [canView, addInvitation, removeInvitation, record, shareChecked, setViewChecked, setShareChecked]);
 
   return (
     <ListItem className={classes.listItem}>
@@ -82,13 +82,13 @@ const ContactItem = ({ record, addInvitation, removeInvitation, invitee, inviter
       <ListItemText
         className={classes.secondaryText}
         primary={translate('app.permission.view')}
-        secondary={<Switch size="small" checked={viewChecked} disabled={invitee} onChange={switchView} />}
+        secondary={<Switch size="small" checked={viewChecked} disabled={canView} onChange={switchView} />}
       />
       {isOrganizer && (
         <ListItemText
           className={classes.secondaryText}
           primary={translate('app.permission.share')}
-          secondary={<Switch size="small" checked={shareChecked} disabled={inviter} onChange={switchShare} />}
+          secondary={<Switch size="small" checked={shareChecked} disabled={canShare} onChange={switchShare} />}
         />
       )}
     </ListItem>

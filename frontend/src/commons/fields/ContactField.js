@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNotify, useRecordContext, useTranslate } from 'react-admin';
+import { useNotify, useRecordContext, useTranslate, useGetIdentity } from 'react-admin';
 import { Box, TextField, Button } from '@material-ui/core';
 import { Form, Field } from 'react-final-form';
 import SendIcon from '@material-ui/icons/Send';
@@ -24,6 +24,7 @@ const ContactField = ({ source, context, ...rest }) => {
   const notify = useNotify();
   const outbox = useOutbox();
   const translate = useTranslate();
+  const { identity } = useGetIdentity();
   const { items: contacts, loaded: contactsLoaded } = useCollection('apods:contacts');
 
   const onSubmit = async (values) => {
@@ -46,7 +47,7 @@ const ContactField = ({ source, context, ...rest }) => {
       onSubmit={onSubmit}
       render={({ handleSubmit, form, submitting }) => (
         <form onSubmit={(event) => handleSubmit(event).then(form.reset)}>
-          {contactsLoaded && !contacts.includes(record[source]) &&
+          {identity?.id !== record['dc:creator'] && contactsLoaded && !contacts.includes(record[source]) &&
             <Box mb={1}>
               <Alert severity="warning">{translate('app.helper.message_profile_show_right', { username: record?.['vcard:given-name']})}</Alert>
             </Box>

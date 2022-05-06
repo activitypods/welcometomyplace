@@ -21,6 +21,8 @@ module.exports = {
       share: 'Share',
       share_event: 'Share event',
       signup: 'Signup',
+      reset_password: 'Reset password',
+      set_new_password: 'Set new password',
     },
     page: {
       events: 'My events',
@@ -48,6 +50,8 @@ module.exports = {
       message: 'Message',
       provider: 'Provider',
       user_id: 'User ID',
+      new_password: 'New password',
+      confirm_new_password: 'Confirm new password',
     },
     helper: {
       add_contact: 'To add an user to your network, you need to know his ID (format: @bob@server.com).',
@@ -86,6 +90,11 @@ module.exports = {
       message_send_error: "Error while sending the message: %{error}",
       profile_data_not_found: "Your profile couldn't be found, please reconnect yourself",
       user_not_found: "User %{username} doesn't exist",
+      app_not_authorized: "Unauthorized app: we cannot redirect to the URL %{url}",
+      reset_password_submited: "An email has been send with reset password instructions",
+      reset_password_error: 'An error occurred',
+      password_changed: "Password changed successfully",
+      new_password_error: 'An error occurred',
     },
     permission: {
       view: "Allowed to join",
