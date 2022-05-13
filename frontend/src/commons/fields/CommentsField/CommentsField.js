@@ -8,6 +8,8 @@ import SendIcon from '@material-ui/icons/Send';
 import { useOutbox, useCollection, OBJECT_TYPES } from '@semapps/activitypub-components';
 import Alert from "@material-ui/lab/Alert";
 import useSuggestions from "./useSuggestions";
+import CustomMention from "./CustomMention";
+import {formatUsername, stripHtml} from "../../../utils";
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -27,7 +29,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ContactField = ({ source, context, ...rest }) => {
+const CommentsField = ({ source, context, ...rest }) => {
   const record = useRecordContext(rest);
   const { identity } = useGetIdentity();
   const classes = useStyles();
@@ -38,7 +40,21 @@ const ContactField = ({ source, context, ...rest }) => {
   const suggestion = useSuggestions();
 
   const onSubmit = async (values) => {
-    console.log('values', values);
+    const document = new DOMParser().parseFromString(values.comment, 'text/html');
+    const mentions = Array.from(document.body.getElementsByClassName('mention'));
+    const mentionedUsersUris = mentions.map(node => node.attributes['data-mention-id'].value);
+
+    mentions.forEach(node => {
+      const userId = formatUsername(node.attributes['data-mention-id'].value);
+      const link = document.createElement('a');
+      link.setAttribute('href', new URL(window.location.href).origin + '/u/' + userId);
+      link.textContent = userId;
+      node.parentNode.replaceChild(link, node);
+    });
+
+    // return doc.body.textContent || "";
+    console.log('mentionedUsersUris', mentionedUsersUris);
+    console.log('body', document.body);
     // try {
     //   await outbox.post({
     //     type: OBJECT_TYPES.NOTE,
@@ -53,7 +69,7 @@ const ContactField = ({ source, context, ...rest }) => {
     // }
   };
 
-  // Don't init the comment field until the suggestions are loaded, otherwise it will not work
+  // Don't init the comment field until the suggestion items are loaded, as the suggestion can only be initialized once
   if( !suggestion.items ) return null;
 
   return (
@@ -86,7 +102,7 @@ const ContactField = ({ source, context, ...rest }) => {
                   ...DefaultEditorOptions,
                   extensions: [
                     ...DefaultEditorOptions.extensions,
-                    Mention.configure({
+                    CustomMention.configure({
                       HTMLAttributes: {
                         class: 'mention',
                       },
@@ -108,8 +124,8 @@ const ContactField = ({ source, context, ...rest }) => {
   );
 };
 
-ContactField.defaultProps = {
+CommentsField.defaultProps = {
   addLabel: true,
 };
 
-export default ContactField;
+export default CommentsField;

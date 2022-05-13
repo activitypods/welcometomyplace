@@ -85,7 +85,7 @@ export default forwardRef((props, ref) => {
             key={index}
             onClick={() => selectItem(index)}
           >
-            {item}
+            {item.label}
           </button>
         ))
         : <div className={classes.item}>Aucun résultat</div>

@@ -64,11 +64,10 @@ const useSuggestions = () => {
   const items = useMemo(() => {
     if( attendeesLoaded && profilesLoaded ) {
       return ({ query }) => {
-        // See how to return ID + label: https://github.com/ueberdosis/tiptap/pull/1322
         return profiles
           .filter(profile => attendees.includes(profile.describes))
-          .map(profile => profile['vcard:given-name'])
-          .filter(name => name.toLowerCase().startsWith(query.toLowerCase()))
+          .map(profile => ({ id: profile.describes, label: profile['vcard:given-name'] }))
+          .filter(({ label }) => label.toLowerCase().startsWith(query.toLowerCase()))
           .slice(0, 5)
       }
     }
