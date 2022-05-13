@@ -57,7 +57,7 @@ const EventShow = (props) => {
             </GridList>
           </ReferenceCollectionField>
           <HostLocationField />
-          <CommentsField label="Commentaires" source="dc:creator" context="id" />
+          <CommentsField label="Commentaires" source="replies" context="id" />
         </BodyList>
       </>
     </ShowBase>

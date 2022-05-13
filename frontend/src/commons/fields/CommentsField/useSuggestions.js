@@ -61,17 +61,28 @@ const useSuggestions = () => {
     resource: 'Profile'
   });
 
-  const items = useMemo(() => {
+  const availableMentions = useMemo(() => {
     if( attendeesLoaded && profilesLoaded ) {
+      const result = profiles
+        .filter(profile => attendees.includes(profile.describes))
+        .map(profile => ({ id: profile.describes, label: profile['vcard:given-name'] }));
+
+      result.unshift({ id: '@invitees', label: 'Tous les invités' });
+      result.unshift({ id: '@attendees', label: 'Tous les participants' });
+
+      return result;
+    }
+  }, [attendeesLoaded, profilesLoaded, attendees, profiles])
+
+  const items = useMemo(() => {
+    if( availableMentions ) {
       return ({ query }) => {
-        return profiles
-          .filter(profile => attendees.includes(profile.describes))
-          .map(profile => ({ id: profile.describes, label: profile['vcard:given-name'] }))
+        return availableMentions
           .filter(({ label }) => label.toLowerCase().startsWith(query.toLowerCase()))
           .slice(0, 5)
       }
     }
-  }, [attendeesLoaded, profilesLoaded, attendees, profiles]);
+  }, [availableMentions]);
 
   return ({
     items, render
