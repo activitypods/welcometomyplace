@@ -5,6 +5,8 @@ import UserPage from './pages/UserPage';
 import EventPage from './pages/EventPage';
 import OffersPage from './pages/OffersPage';
 import RequestsPage from './pages/RequestsPage';
+import SettingsPage from './pages/SettingsPage';
+import { Route } from "react-router-dom";
 
 export default [
   <RouteWithoutLayout exact path="/" component={HomePage} />,
@@ -12,4 +14,5 @@ export default [
   <RouteWithoutLayout exact path="/e/:id" component={EventPage} />,
   <RouteWithoutLayout exact path="/offers/:id" component={OffersPage} />,
   <RouteWithoutLayout exact path="/requests/:id" component={RequestsPage} />,
+  <Route exact path="/account/settings" component={SettingsPage} />,
 ];

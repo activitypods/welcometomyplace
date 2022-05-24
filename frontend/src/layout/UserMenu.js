@@ -18,6 +18,10 @@ const MyAddressMenu = forwardRef(({ onClick, label }, ref) => (
   <MenuItemLink ref={ref} to="/Location" primaryText={label} leftIcon={<HomeIcon />} onClick={onClick} />
 ));
 
+const AccountSettingsMenu = forwardRef(({ onClick, label, profileUri }, ref) => (
+  <MenuItemLink ref={ref} to={'/account/settings'} primaryText={label} leftIcon={<HomeIcon />} onClick={onClick} />
+));
+
 const MyNetworkMenu = forwardRef(({ onClick, label }, ref) => (
   <MenuItemLink ref={ref} to="/Profile" primaryText={label} leftIcon={<GroupIcon />} onClick={onClick} />
 ));
@@ -39,6 +43,11 @@ const UserMenu = ({ logout, ...otherProps }) => {
             profileUri={identity?.profileData?.id}
           />,
           <MyAddressMenu key="my-address" label={translate('app.page.addresses')} />,
+          <AccountSettingsMenu
+            key="settings"
+            label={translate('app.page.settings')}
+            profileUri={identity?.profileData?.id}
+          />,
           <MyNetworkMenu key="my-network" label={translate('app.page.network')} />,
           React.cloneElement(logout, { key: 'logout' }),
         ]

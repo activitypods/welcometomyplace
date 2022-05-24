@@ -29,6 +29,7 @@ module.exports = {
       addresses: 'Mes adresses',
       network: 'Mon réseau',
       profile: 'Mon profil',
+      settings: 'Mes paramètres',
     },
     tab: {
       next_events: 'Prochains événements',
@@ -98,6 +99,8 @@ module.exports = {
       reset_password_error: "Une erreur s'est produite",
       password_changed: "Le mot de passe a été changé avec succès",
       new_password_error: "Une erreur s'est produite",
+      invalid_password: "Mot de passe incorrect",
+      update_settings_error: 'Une erreur s\'est produite',
     },
     permission: {
       view: "Droit de s'inscrire",
@@ -115,6 +118,8 @@ module.exports = {
       futureDate: 'Doit être dans le futur',
       afterStartTime: "Doit être après la date de début de l'événement",
       beforeStartTime: "Doit être avant la date de début de l'événement",
+      email: "Doit être un email valide",
+      confirmNewPassword: "Doit être le même que le nouveau champ de mot de passe"
     },
   },
 };
