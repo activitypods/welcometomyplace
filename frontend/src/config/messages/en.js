@@ -51,6 +51,8 @@ module.exports = {
       message: 'Message',
       provider: 'Provider',
       user_id: 'User ID',
+      email: 'Email',
+      current_password: 'Current password',
       new_password: 'New password',
       confirm_new_password: 'Confirm new password',
     },

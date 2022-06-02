@@ -51,6 +51,8 @@ module.exports = {
       message: 'Message',
       provider: 'Hébergeur',
       user_id: 'Identifiant utilisateur',
+      email: 'Email',
+      current_password: 'Mot de passe actuel',
       new_password: 'Nouveau mot de passe',
       confirm_new_password: 'Confirmer le nouveau mot de passe'
     },

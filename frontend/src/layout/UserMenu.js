@@ -3,6 +3,7 @@ import { UserMenu as RaUserMenu, MenuItemLink, useGetIdentity, linkToRecord, use
 import PersonIcon from '@material-ui/icons/Person';
 import GroupIcon from '@material-ui/icons/Group';
 import HomeIcon from '@material-ui/icons/Home';
+import SettingsIcon from '@material-ui/icons/Settings';
 
 const MyProfileMenu = forwardRef(({ onClick, label, profileUri }, ref) => (
   <MenuItemLink
@@ -19,7 +20,7 @@ const MyAddressMenu = forwardRef(({ onClick, label }, ref) => (
 ));
 
 const AccountSettingsMenu = forwardRef(({ onClick, label, profileUri }, ref) => (
-  <MenuItemLink ref={ref} to={'/account/settings'} primaryText={label} leftIcon={<HomeIcon />} onClick={onClick} />
+  <MenuItemLink ref={ref} to={'/account/settings'} primaryText={label} leftIcon={<SettingsIcon />} onClick={onClick} />
 ));
 
 const MyNetworkMenu = forwardRef(({ onClick, label }, ref) => (

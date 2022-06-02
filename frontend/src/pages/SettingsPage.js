@@ -36,6 +36,19 @@ const SettingsPage = () => {
 		// eslint-disable-next-line
 	}, [setFormDefaultValue, authProvider])
 
+	const onSubmit = React.useCallback(
+		async (params) => {
+			try {
+				await authProvider.updateAccountSettings({ ...params })
+				notify('auth.message.account_settings_updated', 'success');
+			}
+			catch (error) {
+				notify(error.message, 'error');
+			}
+		},
+		[authProvider, notify]
+	);
+
 	if (!identity?.id) return null;
 
 	return (
@@ -44,19 +57,30 @@ const SettingsPage = () => {
 				{translate('app.page.settings')}
 			</HeaderTitle>
 			<Container>
-				<SimpleForm initialValues={formDefaultValue}
-					save={(params) => {
-						authProvider.updateAccountSettings({ ...params }).then(() => {
-							notify('auth.message.account_settings_updated', 'success');
-						}).catch((error) => {
-							notify(error.message, 'error');
-						})
-					}}
-				>
-					<TextInput source="email" type="email" validate={validateEmail} />
-					<TextInput source="currentPassword" type="password" validate={required()} />
-					<TextInput source="newPassword" type="password" />
-					<TextInput source="confirmNewPassword" type="password" validate={validateConfirmNewPassword} />
+				<SimpleForm initialValues={formDefaultValue} save={onSubmit}>
+					<TextInput
+						label={translate('app.input.email')}
+						source="email"
+						type="email"
+						validate={validateEmail}
+					/>
+					<TextInput
+						label={translate('app.input.current_password')}
+						source="currentPassword"
+						type="password"
+						validate={required()}
+					/>
+					<TextInput
+						label={translate('app.input.new_password')}
+						source="newPassword"
+						type="password"
+					/>
+					<TextInput
+						label={translate('app.input.confirm_new_password')}
+						source="confirmNewPassword"
+						type="password"
+						validate={validateConfirmNewPassword}
+					/>
 				</SimpleForm>
 
 			</Container>
