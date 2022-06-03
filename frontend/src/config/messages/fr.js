@@ -74,6 +74,7 @@ module.exports = {
       share_contact:
         'Pour vous connecter avec une personne que vous connaissez, vous pouvez lui envoyer le lien ci-dessous.',
       location_comment: 'Indications supplémentaires pour aider les invités à trouver ce lieu',
+      g1_tipjar_input: 'La clé publique de votre compte Ğ1. Permet aux autres membres du réseau de facilement vous envoyer de la monnaie libre.'
     },
     message: {
       copied_to_clipboard: 'Copié !',

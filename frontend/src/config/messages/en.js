@@ -71,6 +71,7 @@ module.exports = {
       profile_visibility: "Your profile is visible only by users you have accepted in your network",
       share_contact: 'To connect with someone you know, you can send him the link below.',
       location_comment: 'Additional information to help attendees to find this place',
+      g1_tipjar_input: 'The public key of your Ğ1 account. This will allow other members to easily send you money.'
     },
     message: {
       copied_to_clipboard: 'Copied !',
