@@ -29,6 +29,7 @@ module.exports = {
       addresses: 'My addresses',
       network: 'My network',
       profile: 'My profile',
+      settings: 'My settings',
     },
     tab: {
       next_events: 'Coming events',
@@ -50,6 +51,8 @@ module.exports = {
       message: 'Message',
       provider: 'Provider',
       user_id: 'User ID',
+      email: 'Email',
+      current_password: 'Current password',
       new_password: 'New password',
       confirm_new_password: 'Confirm new password',
     },
@@ -95,6 +98,9 @@ module.exports = {
       reset_password_error: 'An error occurred',
       password_changed: "Password changed successfully",
       new_password_error: 'An error occurred',
+      invalid_password: "Invalid password",
+      get_settings_error: 'An error occurred',
+      update_settings_error: 'An error occurred',
     },
     permission: {
       view: "Allowed to join",
@@ -112,6 +118,8 @@ module.exports = {
       futureDate: 'Must be in the future',
       afterStartTime: "Must be after the event's start time",
       beforeStartTime: "Must be before the event's start time",
+      email: "Must be a valid email",
+      confirmNewPassword: "Must be the same as new password field"
     },
   },
 };
