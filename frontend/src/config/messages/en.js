@@ -99,6 +99,7 @@ module.exports = {
       password_changed: "Password changed successfully",
       new_password_error: 'An error occurred',
       invalid_password: "Invalid password",
+      get_settings_error: 'An error occurred',
       update_settings_error: 'An error occurred',
     },
     permission: {

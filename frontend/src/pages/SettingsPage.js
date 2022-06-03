@@ -63,23 +63,27 @@ const SettingsPage = () => {
 						source="email"
 						type="email"
 						validate={validateEmail}
+						fullWidth
 					/>
 					<TextInput
 						label={translate('app.input.current_password')}
 						source="currentPassword"
 						type="password"
 						validate={required()}
+						fullWidth
 					/>
 					<TextInput
 						label={translate('app.input.new_password')}
 						source="newPassword"
 						type="password"
+						fullWidth
 					/>
 					<TextInput
 						label={translate('app.input.confirm_new_password')}
 						source="confirmNewPassword"
 						type="password"
 						validate={validateConfirmNewPassword}
+						fullWidth
 					/>
 				</SimpleForm>
 

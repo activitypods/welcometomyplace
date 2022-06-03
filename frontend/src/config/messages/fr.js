@@ -102,7 +102,8 @@ module.exports = {
       password_changed: "Le mot de passe a été changé avec succès",
       new_password_error: "Une erreur s'est produite",
       invalid_password: "Mot de passe incorrect",
-      update_settings_error: 'Une erreur s\'est produite',
+      get_settings_error: "Une erreur s'est produite",
+      update_settings_error: "Une erreur s'est produite",
     },
     permission: {
       view: "Droit de s'inscrire",
