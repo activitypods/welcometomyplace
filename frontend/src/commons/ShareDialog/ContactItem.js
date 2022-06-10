@@ -29,43 +29,62 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ContactItem = ({ record, addInvitation, removeInvitation, canView, canShare, isOrganizer }) => {
+const ContactItem = ({ record, updateRecord, addInvitation, removeInvitation, isOrganizer }) => {
   const classes = useStyles();
   const translate = useTranslate();
 
-  const [viewChecked, setViewChecked] = useState(canView);
-  const [shareChecked, setShareChecked] = useState(canShare);
+  const [viewChecked, setViewChecked] = useState(record.canViewEvent);
+  const [shareChecked, setShareChecked] = useState(record.canShareEvent);
+
+  React.useEffect(() => {
+    setViewChecked(record.canViewEvent)
+    setShareChecked(record.canShareEvent)
+  }, [record])
 
   const switchView = useCallback(() => {
     if (!viewChecked) {
       setViewChecked(true);
       addInvitation(record.describes, ['view']);
+      updateRecord({ ...record, canViewEvent: true })
     } else {
       setViewChecked(false);
       setShareChecked(false);
       removeInvitation(record.describes);
+      updateRecord({ ...record, canViewEvent: false })
     }
-  }, [addInvitation, removeInvitation, record, viewChecked, setViewChecked, setShareChecked]);
+  }, [addInvitation, updateRecord, removeInvitation, record, viewChecked, setViewChecked, setShareChecked]);
 
   const switchShare = useCallback(() => {
     if (!shareChecked) {
       setShareChecked(true);
       // If user can already view, we only add a share right
-      if (canView) {
+      if (record.canViewEvent) {
         addInvitation(record.describes, ['share']);
+        updateRecord({ ...record, canShareEvent: true })
       } else {
         setViewChecked(true);
         addInvitation(record.describes, ['view', 'share']);
+        updateRecord({ ...record, canViewEvent: true, canShareEvent: true })
       }
     } else {
       setShareChecked(false);
-      if (canView) {
+      if (record.canViewEvent) {
         removeInvitation(record.describes);
+        updateRecord({ ...record, canShareEvent: false })
       } else {
         addInvitation(record.describes, ['view']);
+        updateRecord({ ...record, canViewEvent: true, canShareEvent: false })
       }
     }
-  }, [canView, addInvitation, removeInvitation, record, shareChecked, setViewChecked, setShareChecked]);
+  }, [
+    record,
+    updateRecord,
+    addInvitation,
+    removeInvitation,
+    shareChecked,
+    setViewChecked,
+    setShareChecked
+  ]);
 
   return (
     <ListItem className={classes.listItem}>
@@ -82,13 +101,13 @@ const ContactItem = ({ record, addInvitation, removeInvitation, canView, canShar
       <ListItemText
         className={classes.secondaryText}
         primary={translate('app.permission.view')}
-        secondary={<Switch size="small" checked={viewChecked} disabled={canView} onChange={switchView} />}
+        secondary={<Switch size="small" checked={viewChecked} disabled={record.viewSwitchReadonly} onChange={switchView} />}
       />
       {isOrganizer && (
         <ListItemText
           className={classes.secondaryText}
           primary={translate('app.permission.share')}
-          secondary={<Switch size="small" checked={shareChecked} disabled={canShare} onChange={switchShare} />}
+          secondary={<Switch size="small" checked={shareChecked} disabled={record.shareSwitchReadonly} onChange={switchShare} />}
         />
       )}
     </ListItem>

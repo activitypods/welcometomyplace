@@ -135,5 +135,10 @@ module.exports = {
       email: "Doit être un email valide",
       confirmNewPassword: "Doit être le même que le nouveau champ de mot de passe"
     },
+    share: {
+      all_contacts: 'Tous mes contacts',
+      allow_view: 'Autoriser la vue',
+      allow_share: 'Autoriser le partage',
+    }
   },
 };
