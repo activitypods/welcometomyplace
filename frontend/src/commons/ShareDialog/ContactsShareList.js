@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { List, makeStyles, Box, CircularProgress } from '@material-ui/core';
 import ContactItem from './ContactItem';
 import AllContactsItem from './AllContactsItem';
@@ -21,7 +21,7 @@ const ContactsShareList = ({ addInvitation, removeInvitation, announces, announc
 
   const [records, setRecords] = React.useState([]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setRecords(ids.reduce((acc, id) => {
       const viewSwitchReadonly = announces.includes(data[id].describes)
       const shareSwitchReadonly = announcers.includes(data[id].describes)
@@ -44,7 +44,7 @@ const ContactsShareList = ({ addInvitation, removeInvitation, announces, announc
       }
       return item
     })
-    setRecords(newRecords)    
+    setRecords(newRecords)
   }, [records, setRecords])
 
   return (

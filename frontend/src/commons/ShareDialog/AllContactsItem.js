@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState, useEffect } from 'react';
 import { makeStyles, Avatar, Switch, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
 import { useTranslate } from 'react-admin';
 
@@ -44,7 +44,7 @@ const AllContactItem = ({ records, setRecords, addInvitation, removeInvitation, 
     [records]
   )
 
-  React.useEffect(() => {
+  useEffect(() => {
     const toggleView = records
       .filter(record => !record.viewSwitchReadonly)
       .some(record => record.canViewEvent)

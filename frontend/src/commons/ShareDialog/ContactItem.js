@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useEffect } from 'react';
 import { makeStyles, Avatar, Switch, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
 import { formatUsername } from '../../utils';
 import { useTranslate } from 'react-admin';
@@ -36,7 +36,7 @@ const ContactItem = ({ record, updateRecord, addInvitation, removeInvitation, is
   const [viewChecked, setViewChecked] = useState(record.canViewEvent);
   const [shareChecked, setShareChecked] = useState(record.canShareEvent);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setViewChecked(record.canViewEvent)
     setShareChecked(record.canShareEvent)
   }, [record])
