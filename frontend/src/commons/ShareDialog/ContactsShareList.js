@@ -1,6 +1,7 @@
 import React from 'react';
 import { List, makeStyles, Box, CircularProgress } from '@material-ui/core';
 import ContactItem from './ContactItem';
+import AllContactsItem from './AllContactsItem';
 import { useListContext, useTranslate } from 'react-admin';
 import Alert from '@material-ui/lab/Alert';
 
@@ -13,20 +14,57 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ContactsShareList = ({ addInvitation, removeInvitation, announces, announcers, isOrganizer }) => {
+const ContactsShareList = ({ addInvitation, removeInvitation, announces, announcers, isOrganizer, newInvitations }) => {
   const classes = useStyles();
   const translate = useTranslate();
   const { ids, data, loading, ...rest } = useListContext();
+
+  const [records, setRecords] = React.useState([]);
+
+  React.useEffect(() => {
+    setRecords(ids.reduce((acc, id) => {
+      const viewSwitchReadonly = announces.includes(data[id].describes)
+      const shareSwitchReadonly = announcers.includes(data[id].describes)
+      return [...acc, {
+        ...data[id],
+        viewSwitchReadonly,
+        shareSwitchReadonly,
+        canViewEvent: announces.includes(data[id].describes),
+        canShareEvent: announcers.includes(data[id].describes),
+      }]
+    }, []))
+  }, [
+    ids, data, announcers, announces
+  ])
+
+  const updateRecord = React.useCallback((record) => {
+    const newRecords = records.map((item) => {
+      if (item.id === record.id) {
+        return { ...record }
+      }
+      return item
+    })
+    setRecords(newRecords)    
+  }, [records, setRecords])
+
   return (
     <List dense className={classes.list}>
-      {ids.map((id, i) => (
-        <ContactItem
-          key={i}
-          record={data[id]}
+      {isOrganizer && (
+        <AllContactsItem
+          records={records}
           addInvitation={addInvitation}
           removeInvitation={removeInvitation}
-          canView={announces.includes(data[id].describes)}
-          canShare={announcers.includes(data[id].describes)}
+          isOrganizer={isOrganizer}
+          setRecords={setRecords}
+        />)
+      }
+      {records.map((record) => (
+        <ContactItem
+          key={record.describes}
+          record={record}
+          addInvitation={addInvitation}
+          removeInvitation={removeInvitation}
+          updateRecord={updateRecord}
           isOrganizer={isOrganizer}
           {...rest}
         />
