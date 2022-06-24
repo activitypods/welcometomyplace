@@ -3,6 +3,7 @@ import { ImageInput, TextInput, SimpleForm, useTranslate } from 'react-admin';
 import { ImageField } from '@semapps/semantic-data-provider';
 import { Box } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
+import {g1PublicKeyToUrl, g1UrlToPublicKey} from "../../utils";
 
 export const ProfileForm = (props) => {
   const translate = useTranslate();
@@ -16,6 +17,13 @@ export const ProfileForm = (props) => {
       <ImageInput source="vcard:photo" accept="image/*">
         <ImageField source="src" />
       </ImageInput>
+      <TextInput
+        source="foaf:tipjar"
+        parse={v => g1PublicKeyToUrl(v)}
+        format={v => g1UrlToPublicKey(v)}
+        helperText={translate('app.helper.g1_tipjar_input')}
+        fullWidth
+      />
     </SimpleForm>
   );
 };

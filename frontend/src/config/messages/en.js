@@ -4,6 +4,7 @@ module.exports = {
   app: {
     action: {
       accept: 'Accept',
+      accept_contact_request: 'Accept contact request',
       add: 'Add',
       contact_organizer: 'Contact organizer',
       copy: 'Copy to clipboard',
@@ -11,10 +12,13 @@ module.exports = {
       create_event_short: 'Add',
       edit_profile: 'Edit my profile',
       ignore: 'Ignore',
+      ignore_contact_request: 'Ignore contact request',
       join: "Join",
       leave: 'Leave',
       login: 'Login with an account',
       reject: 'Reject',
+      reject_contact_request: 'Reject contact request',
+      remove_contact: 'Remove contact',
       send: 'Send',
       send_invitation: "Send invitation |||| Send %{smart_count} invitations",
       send_message: 'Send message',
@@ -42,6 +46,8 @@ module.exports = {
     },
     block: {
       contact_requests: 'New contact requests',
+      g1_account: 'G1 account',
+      organized_events: 'Organized events'
     },
     input: {
       about_you: 'A few words about you',
@@ -71,6 +77,8 @@ module.exports = {
       profile_visibility: "Your profile is visible only by users you have accepted in your network",
       share_contact: 'To connect with someone you know, you can send him the link below.',
       location_comment: 'Additional information to help attendees to find this place',
+      g1_tipjar_field: 'To send G1 money to this user, copy his public key below and use it inside the Cesium software.',
+      g1_tipjar_input: 'The public key of your Ğ1 account. This will allow other members to easily send you money.'
     },
     message: {
       copied_to_clipboard: 'Copied !',
@@ -91,6 +99,7 @@ module.exports = {
       login_to_view_event: 'Please connect to your account to view this event',
       message_sent: 'Your message has been sent',
       message_send_error: "Error while sending the message: %{error}",
+      organized_events_visibility: "Below are shown only events you have been invited to",
       profile_data_not_found: "Your profile couldn't be found, please reconnect yourself",
       user_not_found: "User %{username} doesn't exist",
       app_not_authorized: "Unauthorized app: we cannot redirect to the URL %{url}",

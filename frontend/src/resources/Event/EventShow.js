@@ -1,5 +1,5 @@
 import React from 'react';
-import { ShowBase, useTranslate } from 'react-admin';
+import {linkToRecord, ShowBase, useTranslate} from 'react-admin';
 import { ImageField, ReferenceField } from '@semapps/semantic-data-provider';
 import { GridList, AvatarField } from '@semapps/archipelago-layout';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
@@ -7,7 +7,7 @@ import { ReferenceCollectionField } from '@semapps/activitypub-components';
 import EventAlert from './EventAlert';
 import MarkdownField from '../../commons/fields/MarkdownField';
 import HeaderShow from '../../layout/HeaderShow';
-import StickyCard from '../../commons/cards/StickyCard';
+import EventJoinCard from '../../commons/cards/EventJoinCard';
 import BodyList from '../../commons/lists/BodyList/BodyList';
 import EventDetails from './EventDetails';
 import EventConditionsField from '../../commons/fields/EventConditionsField';
@@ -36,9 +36,9 @@ const EventShow = (props) => {
         <EventAlert />
         <BodyList
           aside={
-            <StickyCard>
+            <EventJoinCard>
               <EventDetails orientation="vertical" />
-            </StickyCard>
+            </EventJoinCard>
           }
         >
           <ImageField source="image" fullWidth />
@@ -46,7 +46,7 @@ const EventShow = (props) => {
           <EventConditionsField source="name" />
           <ReferenceCollectionField reference="Actor" source="apods:attendees">
             <GridList xs={4} sm={2} linkType={false}>
-              <ReferenceField reference="Profile" source="url" linkType={false}>
+              <ReferenceField reference="Profile" source="url" link={(record, resource) => linkToRecord('/' + resource, record.url, 'show')}>
                 <AvatarField
                   label="vcard:given-name"
                   image="vcard:photo"

@@ -1,8 +1,11 @@
-import React, { useCallback } from 'react';
-import { useNotify, useQueryWithStore, useRefresh, useTranslate } from 'react-admin';
-import { Button, makeStyles, Card, Avatar, Grid, Typography, Box, useMediaQuery } from '@material-ui/core';
-import { useCollection, useOutbox, ACTIVITY_TYPES } from '@semapps/activitypub-components';
+import React from 'react';
+import { linkToRecord, useQueryWithStore, useTranslate, Link } from 'react-admin';
+import { makeStyles, Card, Avatar, Grid, Typography, Box, useMediaQuery } from '@material-ui/core';
+import { useCollection } from '@semapps/activitypub-components';
 import { formatUsername } from '../../utils';
+import AcceptContactRequestButton from "../buttons/AcceptContactRequestButton";
+import IgnoreContactRequestButton from "../buttons/IgnoreContactRequestButton";
+import RejectContactRequestButton from "../buttons/RejectContactRequestButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -26,6 +29,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 'bold',
     lineHeight: 2,
     marginRight: 6,
+    color: 'black'
   },
   avatar: {
     width: 50,
@@ -43,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ContactRequest = ({ activity, accept, reject, ignore }) => {
+const ContactRequest = ({ activity, refetch }) => {
   const classes = useStyles();
   const xs = useMediaQuery((theme) => theme.breakpoints.down('xs'), { noSsr: true });
   const translate = useTranslate();
@@ -60,13 +64,17 @@ const ContactRequest = ({ activity, accept, reject, ignore }) => {
 
   return (
     <>
-      <Avatar src={profile?.['vcard:photo']} className={classes.avatar} />
+      <Link to={linkToRecord('/Profile', activity.object.object, 'show')}>
+        <Avatar src={profile?.['vcard:photo']} className={classes.avatar} />
+      </Link>
       <Grid container spacing={xs ? 2 : 2}>
         <Grid item xs={12} sm={8}>
           <div>
-            <Typography variant="body1" className={classes.name} component="span">
-              {profile?.['vcard:given-name']}
-            </Typography>
+            <Link to={linkToRecord('/Profile', activity.object.object, 'show')}>
+              <Typography variant="body1" className={classes.name} component="span">
+                {profile?.['vcard:given-name']}
+              </Typography>
+            </Link>
             <Typography variant="subtitle1" component="span">
               {profile && formatUsername(profile.describes)}
             </Typography>
@@ -75,17 +83,17 @@ const ContactRequest = ({ activity, accept, reject, ignore }) => {
         </Grid>
         <Grid item xs={12} sm={4}>
           <Box display="flex" alignItems="middle" justifyContent={xs ? 'flex-start' : 'flex-end'}>
-            <Button variant="contained" color="primary" className={classes.button} onClick={() => accept(activity)}>
+            <AcceptContactRequestButton activity={activity} refetch={refetch} variant="contained" color="primary" className={classes.button} >
               {translate('app.action.accept')}
-            </Button>
+            </AcceptContactRequestButton>
             {activity.context ? (
-              <Button variant="contained" color="grey" className={classes.button} onClick={() => ignore(activity)}>
+              <IgnoreContactRequestButton activity={activity} refetch={refetch} variant="contained" color="grey" className={classes.button}>
                 {translate('app.action.ignore')}
-              </Button>
+              </IgnoreContactRequestButton>
             ) : (
-              <Button variant="contained" color="grey" className={classes.button} onClick={() => reject(activity)}>
+              <RejectContactRequestButton activity={activity} refetch={refetch} variant="contained" color="grey" className={classes.button}>
                 {translate('app.action.reject')}
-              </Button>
+              </RejectContactRequestButton>
             )}
           </Box>
         </Grid>
@@ -96,68 +104,8 @@ const ContactRequest = ({ activity, accept, reject, ignore }) => {
 
 const ContactRequestsBlock = () => {
   const classes = useStyles();
-  const outbox = useOutbox();
-  const notify = useNotify();
-  const refresh = useRefresh();
   const translate = useTranslate();
-  let { items: contactRequests, removeItem } = useCollection('apods:contactRequests');
-
-  const accept = useCallback(
-    async (activity) => {
-      try {
-        await outbox.post({
-          type: ACTIVITY_TYPES.ACCEPT,
-          actor: outbox.owner,
-          object: activity.id,
-          to: activity.actor,
-        });
-        notify('app.notification.contact_request_accepted');
-        removeItem(activity.id);
-        setTimeout(refresh, 3000);
-      } catch (e) {
-        notify(e.message, 'error');
-      }
-    },
-    [outbox, refresh, notify, removeItem]
-  );
-
-  const reject = useCallback(
-    async (activity) => {
-      try {
-        await outbox.post({
-          type: ACTIVITY_TYPES.REJECT,
-          actor: outbox.owner,
-          object: activity.id,
-          to: activity.actor,
-        });
-        notify('app.notification.contact_request_rejected');
-        removeItem(activity.id);
-        setTimeout(refresh, 3000);
-      } catch (e) {
-        notify(e.message, 'error');
-      }
-    },
-    [outbox, refresh, notify, removeItem]
-  );
-
-  const ignore = useCallback(
-    async (activity) => {
-      try {
-        await outbox.post({
-          type: ACTIVITY_TYPES.IGNORE,
-          actor: outbox.owner,
-          object: activity.id,
-          to: activity.actor,
-        });
-        notify('app.notification.contact_request_ignored');
-        removeItem(activity.id);
-        setTimeout(refresh, 3000);
-      } catch (e) {
-        notify(e.message, 'error');
-      }
-    },
-    [outbox, refresh, notify, removeItem]
-  );
+  const { items: contactRequests, refetch } = useCollection('apods:contactRequests');
 
   if (contactRequests.length === 0) return null;
 
@@ -168,7 +116,7 @@ const ContactRequestsBlock = () => {
       </Box>
       {contactRequests.map((activity) => (
         <Box className={classes.list}>
-          <ContactRequest activity={activity} accept={accept} reject={reject} ignore={ignore} />
+          <ContactRequest activity={activity} refetch={refetch} />
         </Box>
       ))}
     </Card>

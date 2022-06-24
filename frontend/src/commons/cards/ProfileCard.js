@@ -67,7 +67,7 @@ const ProfileCard = () => {
       </Box>
       <Box className={classes.button} pb={3} pr={3} pl={3}>
         <Link to={linkToRecord('/Profile', identity?.webIdData?.url)}>
-          <Button variant="contained" color="primary" type="submit">
+          <Button variant="contained" color="primary" fullWidth>
             {translate('app.action.edit_profile')}
           </Button>
         </Link>

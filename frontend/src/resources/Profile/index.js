@@ -26,6 +26,7 @@ export default {
         'vcard:note': 'About you',
         'vcard:photo': 'Picture',
         'vcard:hasAddress': 'Address',
+        'foaf:tipjar': 'G1 account'
       },
     },
     fr: {
@@ -36,6 +37,7 @@ export default {
         'vcard:note': 'En deux mots',
         'vcard:photo': 'Photo',
         'vcard:hasAddress': 'Adresse',
+        'foaf:tipjar': 'Compte G1'
       },
     },
   },
