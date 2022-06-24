@@ -5,6 +5,8 @@ import ProfileHeader from './ProfileHeader';
 import BodyList from '../../commons/lists/BodyList/BodyList';
 import ContactField from '../../commons/fields/ContactField';
 import G1AccountField from "../../commons/fields/G1AccountField";
+import OrganizedEventsField from "../../commons/fields/OrganizedEventsField";
+import ContactCard from "../../commons/cards/ContactCard";
 
 const ProfileShow = (props) => {
   useCheckAuthenticated();
@@ -13,9 +15,12 @@ const ProfileShow = (props) => {
     <ShowBase {...props}>
       <>
         <ProfileHeader />
-        <BodyList>
+        <BodyList
+          aside={<ContactCard />}
+        >
           <ContactField source="describes" label={translate('app.action.send_message')} />
-          <G1AccountField source="foaf:tipjar" addLabel />
+          <OrganizedEventsField source="describes" label={translate('app.block.organized_events')} />
+          <G1AccountField source="foaf:tipjar" label={translate('app.block.g1_account')} />
         </BodyList>
       </>
     </ShowBase>

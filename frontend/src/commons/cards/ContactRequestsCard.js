@@ -1,5 +1,5 @@
 import React from 'react';
-import { useQueryWithStore, Link, useTranslate } from 'react-admin';
+import { useQueryWithStore, Link, useTranslate, linkToRecord } from 'react-admin';
 import {
   makeStyles,
   Card,
@@ -49,7 +49,7 @@ const ContactRequest = ({ activity }) => {
   if (loading) return null;
 
   return (
-    <Link to="/Profile">
+    <Link to={linkToRecord('/Profile', activity.object.object, 'show')}>
       <ListItem button className={classes.listItem}>
         <ListItemAvatar>
           <Avatar src={profile?.['vcard:photo']}>{profile?.['vcard:given-name']?.[0]}</Avatar>

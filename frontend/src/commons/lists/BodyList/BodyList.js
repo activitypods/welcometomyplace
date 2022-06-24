@@ -2,6 +2,7 @@ import React from 'react';
 import { useTranslate, getFieldLabelTranslationArgs, useShowContext } from 'react-admin';
 import { Box, Grid, Hidden, makeStyles, Container } from '@material-ui/core';
 import BodyLabel from './BodyLabel';
+import StickyBox from "../../cards/StickyBox";
 
 const useStyles = makeStyles((theme) => ({
   divider: {
@@ -26,7 +27,7 @@ const BodyList = ({ children, aside }) => {
         <Grid container spacing={3}>
           <Grid item xs={12} md={aside ? 8 : 12} lg={aside ? 9 : 12}>
             {fields.map((field, i) => (
-              <div key={field.props.source} id={field.props.source} className={classes.divider}>
+              <div key={i} id={field.props.source} className={classes.divider}>
                 {field.props.addLabel ? (
                   <>
                     <BodyLabel first={i === 0}>
@@ -56,11 +57,15 @@ const BodyList = ({ children, aside }) => {
               </div>
             ))}
           </Grid>
-          <Hidden smDown>
-            <Grid item md={4} lg={3}>
-              {aside}
-            </Grid>
-          </Hidden>
+          {aside &&
+            <Hidden smDown>
+              <Grid item md={4} lg={3}>
+                <StickyBox>
+                  {aside}
+                </StickyBox>
+              </Grid>
+            </Hidden>
+          }
         </Grid>
       </Container>
     </Box>

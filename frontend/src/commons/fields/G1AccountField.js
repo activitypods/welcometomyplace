@@ -1,11 +1,12 @@
 import React from 'react';
-import {makeStyles, TextField, Typography} from "@material-ui/core";
+import { useTranslate } from "react-admin";
+import { makeStyles, TextField, Typography } from "@material-ui/core";
 import { g1UrlToPublicKey } from '../../utils';
 import CopyButton from "../buttons/CopyButton";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 480
+    // maxWidth: 480
   },
   input: {
     paddingTop: 6
@@ -14,12 +15,11 @@ const useStyles = makeStyles((theme) => ({
 
 const G1AccountField = ({ record, source }) => {
   const classes = useStyles();
+  const translate = useTranslate();
   const publicKey = record && g1UrlToPublicKey(record[source]);
   return(
     <>
-      <Typography>
-        Pour envoyer de la monnaie libre à cet utilisateur, copiez sa clé publique ci-dessous et utilisez-la dans le logiciel Cesium.
-      </Typography>
+      <Typography>{translate('app.helper.g1_tipjar_field')}</Typography>
       <TextField
         variant="filled"
         margin="dense"
@@ -30,6 +30,10 @@ const G1AccountField = ({ record, source }) => {
       />
     </>
   )
-}
+};
+
+G1AccountField.defaultProps = {
+  addLabel: true,
+};
 
 export default G1AccountField;

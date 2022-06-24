@@ -60,7 +60,7 @@ const AddContactCard = () => {
             <Box className={classes.title} p={2}>
               <Typography variant="h6">{translate('app.card.add_contact')}</Typography>
             </Box>
-            <Box className={classes.block} p={2}>
+            <Box className={classes.block} p={2} pb={1}>
               <Typography variant="body2" className={classes.helper}>
                 {translate('app.helper.add_contact')}
               </Typography>
@@ -68,8 +68,8 @@ const AddContactCard = () => {
               <br />
               <Field id="content" name="content" component={Input} label={translate('app.input.about_you')} />
             </Box>
-            <Box className={classes.button} pb={3} pr={3} pl={3}>
-              <Button variant="contained" color="primary" type="submit">
+            <Box className={classes.button} p={2} pt={0}>
+              <Button variant="contained" color="primary" type="submit" fullWidth>
                 {translate('app.action.send')}
               </Button>
             </Box>
