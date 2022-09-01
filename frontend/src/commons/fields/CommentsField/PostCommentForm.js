@@ -24,13 +24,18 @@ const useStyles = makeStyles(theme => ({
       borderWidth: '0px !important',
       borderRadius: 0,
       borderBottom: '1px solid #FFF',
-      minHeight: 60
+      minHeight: 60,
+      outline: 'unset !important'
     },
     '& > div > p': {
       marginTop: 12,
-      marginBottom: 12
-    }
-  }
+      marginBottom: 12,
+      fontFamily: theme.typography.body1.fontFamily,
+      marginBlockStart: '0.5em',
+      marginBlockEnd: '0.5em'
+    },
+    marginBottom: -19
+  },
 }));
 
 const PostCommentForm = ({ context }) => {
