@@ -14,7 +14,7 @@ import EventConditionsField from '../../commons/fields/EventConditionsField';
 import EditButton from '../../commons/buttons/EditButton';
 import ShareButton from '../../commons/buttons/ShareButton';
 import HostLocationField from '../../commons/fields/HostLocationField';
-import ContactField from '../../commons/fields/ContactField';
+import CommentsField from "../../commons/fields/CommentsField/CommentsField";
 
 const EventShow = (props) => {
   const { identity } = useCheckAuthenticated();
@@ -57,7 +57,7 @@ const EventShow = (props) => {
             </GridList>
           </ReferenceCollectionField>
           <HostLocationField />
-          <ContactField label={translate('app.action.contact_organizer')} source="dc:creator" context="id" />
+          <CommentsField label="Commentaires" source="replies" context="id" />
         </BodyList>
       </>
     </ShowBase>

@@ -13,6 +13,7 @@
     "@semapps/semantic-data-provider": "0.4.0-alpha.25",
     "@sentry/react": "^6.13.3",
     "@sentry/tracing": "^6.13.3",
+    "@tiptap/extension-mention": "^2.0.0-beta.95",
     "date-fns": "~2.8.1",
     "final-form-calculate": "^1.3.2",
     "history": "4.10.1",
@@ -21,13 +22,15 @@
     "leaflet.markercluster": "^1.4.1",
     "ra-language-english": "^3.17.0",
     "ra-language-french": "^3.17.0",
+    "ra-richtext-tiptap": "^0.0.1",
     "react": "^16.13.1",
     "react-admin": "^3.17.0",
     "react-copy-to-clipboard": "^5.0.4",
     "react-dom": "^16.13.1",
     "react-scrollchor": "^7.0.1",
     "react-sticky-box": "^0.9.3",
-    "speakingurl": "^14.0.1"
+    "speakingurl": "^14.0.1",
+    "tippy.js": "^6.3.7"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
