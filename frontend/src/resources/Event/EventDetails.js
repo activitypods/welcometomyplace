@@ -28,7 +28,7 @@ const EventDetails = (props) => {
         showTime
         label={translate('app.input.date')}
         source="startTime"
-        options={{ year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }}
+        options={{ weekday: 'short', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }}
         icon={<EventIcon />}
       />
       <DurationField
