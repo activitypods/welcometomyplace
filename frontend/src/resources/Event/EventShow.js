@@ -1,5 +1,5 @@
-import React from 'react';
-import {linkToRecord, ShowBase, useTranslate} from 'react-admin';
+import React, { useCallback } from 'react';
+import { linkToRecord, ShowBase, useTranslate } from 'react-admin';
 import { ImageField, ReferenceField } from '@semapps/semantic-data-provider';
 import { GridList, AvatarField } from '@semapps/archipelago-layout';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
@@ -19,6 +19,13 @@ import ContactField from '../../commons/fields/ContactField';
 const EventShow = (props) => {
   const { identity } = useCheckAuthenticated();
   const translate = useTranslate();
+  const contactFieldLabel = useCallback(record => {
+    if (identity?.id === record['dc:creator']) {
+      return translate('app.action.contact_attendees')
+    } else {
+      return translate('app.action.contact_organizer');
+    }
+  }, [identity, translate]);
   if (!identity?.id) return null;
   return (
     <ShowBase {...props}>
@@ -57,7 +64,7 @@ const EventShow = (props) => {
             </GridList>
           </ReferenceCollectionField>
           <HostLocationField />
-          <ContactField label={translate('app.action.contact_organizer')} source="dc:creator" context="id" />
+          <ContactField label={contactFieldLabel} source="dc:creator" context="id" />
         </BodyList>
       </>
     </ShowBase>

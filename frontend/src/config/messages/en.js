@@ -7,6 +7,7 @@ module.exports = {
       accept_contact_request: 'Accept contact request',
       add: 'Add',
       contact_organizer: 'Contact organizer',
+      contact_attendees: 'Contact attendees',
       copy: 'Copy to clipboard',
       create_event: 'Add an event',
       create_event_short: 'Add',

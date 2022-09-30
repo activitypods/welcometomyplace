@@ -33,7 +33,7 @@ const BodyList = ({ children, aside }) => {
                     <BodyLabel first={i === 0}>
                       {translate(
                         ...getFieldLabelTranslationArgs({
-                          label: field.props.label,
+                          label: typeof field.props.label === 'function' ? field.props.label(record) : field.props.label,
                           resource,
                           source: field.props.source,
                         })

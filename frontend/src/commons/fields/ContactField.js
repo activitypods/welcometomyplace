@@ -26,15 +26,19 @@ const ContactField = ({ source, context, ...rest }) => {
   const translate = useTranslate();
   const { identity } = useGetIdentity();
   const { items: contacts, loaded: contactsLoaded } = useCollection('apods:contacts');
+  const { items: attendees } = useCollection(record?.['apods:attendees']);
+  const isOwner = identity?.id === record[source];
 
   const onSubmit = async (values) => {
     try {
       await outbox.post({
         type: OBJECT_TYPES.NOTE,
         attributedTo: outbox.owner,
-        to: record[source],
         content: values.content,
         context: context ? record[context] : undefined,
+        to: isOwner && record.type === OBJECT_TYPES.EVENT
+          ? attendees.filter(userUri => userUri !== record[source])
+          : record[source],
       });
       notify('app.notification.message_sent', 'success');
     } catch (e) {
@@ -47,7 +51,7 @@ const ContactField = ({ source, context, ...rest }) => {
       onSubmit={onSubmit}
       render={({ handleSubmit, form, submitting }) => (
         <form onSubmit={(event) => handleSubmit(event).then(form.reset)}>
-          {identity?.id !== record['dc:creator'] && contactsLoaded && !contacts.includes(record[source]) &&
+          {!isOwner && contactsLoaded && !contacts.includes(record[source]) &&
             <Box mb={1}>
               <Alert severity="warning">{translate('app.helper.message_profile_show_right', { username: record?.['vcard:given-name']})}</Alert>
             </Box>

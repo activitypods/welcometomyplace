@@ -7,6 +7,7 @@ module.exports = {
       accept_contact_request: 'Accepter la demande',
       add: 'Ajouter',
       contact_organizer: "Contacter l'organisateur",
+      contact_attendees: "Contacter les participants",
       copy: 'Copier dans votre presse-papier',
       create_event: 'Proposer une rencontre',
       create_event_short: 'Proposer',
