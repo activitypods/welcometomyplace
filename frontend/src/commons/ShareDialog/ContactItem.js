@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ContactItem = ({ record, addInvitation, removeInvitation, canView, canShare, isOrganizer }) => {
+const ContactItem = ({ record, addInvitation, removeInvitation, canView, canShare, isOrganizer, style }) => {
   const classes = useStyles();
   const translate = useTranslate();
 
@@ -68,7 +68,7 @@ const ContactItem = ({ record, addInvitation, removeInvitation, canView, canShar
   }, [canView, addInvitation, removeInvitation, record, shareChecked, setViewChecked, setShareChecked]);
 
   return (
-    <ListItem className={classes.listItem}>
+    <ListItem className={classes.listItem} style={style}>
       <ListItemAvatar className={classes.avatarItem}>
         <Avatar src={record?.['vcard:photo']} className={classes.avatar}>
           {record['vcard:given-name']?.[0]}
