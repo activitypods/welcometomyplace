@@ -16,7 +16,6 @@ import { useCollection, useOutbox, ACTIVITY_TYPES } from '@semapps/activitypub-c
 const useStyles = makeStyles((theme) => ({
   dialogPaper: {
     margin: 16,
-    width: '100%'
   },
   title: {
     padding: 24,
