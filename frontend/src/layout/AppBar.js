@@ -5,8 +5,6 @@ import {
   AppBar as MuiAppBar,
   IconButton,
   Toolbar,
-  Badge,
-  useMediaQuery,
 } from '@material-ui/core';
 import { LogoutButton } from '@semapps/auth-provider';
 import { Link } from 'react-router-dom';
@@ -40,7 +38,6 @@ const useStyles = makeStyles((theme) => ({
 
 const AppBar = ({ title }) => {
   const classes = useStyles();
-  const xs = useMediaQuery((theme) => theme.breakpoints.down('xs'), { noSsr: true });
   return (
     <MuiAppBar position="sticky" className={classes.root}>
       <Toolbar>
@@ -51,13 +48,7 @@ const AppBar = ({ title }) => {
         </Link>
         <Typography variant="h4" className={classes.title}>
           <Link to="/Event">
-            {xs ? (
-              title
-            ) : (
-              <Badge badgeContent="Beta" color="primary" classes={{ root: classes.beta, badge: classes.badge }}>
-                {title}
-              </Badge>
-            )}
+            {title}
           </Link>
         </Typography>
         <UserMenu logout={<LogoutButton />} />

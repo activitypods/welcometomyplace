@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ListBase, useTranslate } from 'react-admin';
-import { Container, Grid, Hidden, useMediaQuery, AppBar, Tabs, Tab, makeStyles } from '@material-ui/core';
+import { Container, Grid, Hidden, useMediaQuery, AppBar, Tabs, Tab, makeStyles, Box } from '@material-ui/core';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
 import CardsList from '../../commons/lists/CardsList';
 import EventCard from './EventCard';
@@ -9,6 +9,8 @@ import ProfileCard from '../../commons/cards/ProfileCard';
 import ShareContactCard from '../../commons/cards/ShareContactCard';
 import ContactRequestsCard from '../../commons/cards/ContactRequestsCard';
 import AddContactCard from '../../commons/cards/AddContactCard';
+import Alert from "@material-ui/lab/Alert";
+import AppIcon from '../../config/AppIcon';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -16,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: 'none',
     zIndex: 900,
   },
+  mission: {
+    backgroundColor: theme.palette.primary.main
+  }
 }));
 
 const EventList = (props) => {
@@ -43,6 +48,11 @@ const EventList = (props) => {
       <Container>
         <Grid container spacing={3}>
           <Grid item xs={12} md={8} lg={9}>
+            <Box mb={2}>
+              <Alert icon={<AppIcon />} variant="filled" className={classes.mission}>
+                La raison d'être de Bienvenue chez moi: Favoriser un vivre ensemble basé sur l’accueil, la confiance et l’entraide
+              </Alert>
+            </Box>
             <ListBase
               filter={{ 'apods:hasStatus': tab === 0 ? 'http://activitypods.org/ns/core#Coming' : 'http://activitypods.org/ns/core#Finished' }}
               perPage={1000}
