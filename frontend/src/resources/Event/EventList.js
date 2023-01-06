@@ -50,7 +50,7 @@ const EventList = (props) => {
           <Grid item xs={12} md={8} lg={9}>
             <Box mb={2}>
               <Alert icon={<AppIcon />} variant="filled" className={classes.mission}>
-                La raison d'être de Bienvenue chez moi: Favoriser un vivre ensemble basé sur l’accueil, la confiance et l’entraide
+                {translate('app.description_long')}
               </Alert>
             </Box>
             <ListBase

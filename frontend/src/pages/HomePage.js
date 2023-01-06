@@ -27,7 +27,8 @@ const useStyles = makeStyles(() => ({
   description: {
     color: 'white',
     fontStyle: 'italic',
-    marginTop: 16
+    marginTop: 16,
+    whiteSpace: 'pre-line',
   },
   text: {
     color: 'white',
@@ -58,8 +59,7 @@ const HomePage = ({ title }) => {
           {title}
         </Typography>
         <Typography align="center" className={classes.description}>
-          Favoriser un vivre ensemble<br />
-          basé sur l’accueil, la confiance et l’entraide
+          {translate('app.description_short')}
         </Typography>
         <Box display="flex" pt={2} pb={3} alignItems="center">
           <Link to="/login?signup">
