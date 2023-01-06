@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, makeStyles, Typography, ThemeProvider, useMediaQuery, Badge } from '@material-ui/core';
+import { Box, Button, makeStyles, Typography, ThemeProvider } from '@material-ui/core';
 import { Link, useGetIdentity, useTranslate } from 'react-admin';
 import { Redirect } from 'react-router-dom';
 import AppIcon from '../config/AppIcon';
@@ -20,15 +20,18 @@ const useStyles = makeStyles(() => ({
   title: {
     lineHeight: 1,
     color: 'white',
+    [theme.breakpoints.down('xs')]: {
+      fontSize: '1.8em'
+    },
+  },
+  description: {
+    color: 'white',
+    fontStyle: 'italic',
+    marginTop: 16,
+    whiteSpace: 'pre-line',
   },
   text: {
     color: 'white',
-  },
-  badge: {
-    top: 2,
-    [theme.breakpoints.down('xs')]: {
-      top: -3,
-    },
   },
   logo: {
     fontSize: 100,
@@ -43,7 +46,6 @@ const HomePage = ({ title }) => {
   const classes = useStyles();
   const { loading, identity } = useGetIdentity();
   const translate = useTranslate();
-  const xs = useMediaQuery(() => theme.breakpoints.down('xs'), { noSsr: true });
 
   if (loading) return null;
 
@@ -54,11 +56,12 @@ const HomePage = ({ title }) => {
       <Box className={classes.root}>
         <AppIcon className={classes.logo} />
         <Typography variant="h4" className={classes.title}>
-          <Badge badgeContent="Beta" color="primary" classes={{ badge: classes.badge }}>
-            {title}
-          </Badge>
+          {title}
         </Typography>
-        <Box display="flex" flexDirection={xs ? 'column' : 'row'} pt={3} pb={3} alignItems="center">
+        <Typography align="center" className={classes.description}>
+          {translate('app.description_short')}
+        </Typography>
+        <Box display="flex" pt={2} pb={3} alignItems="center">
           <Link to="/login?signup">
             <Button variant="contained" color="secondary" className={classes.button}>
               {translate('auth.action.signup')}

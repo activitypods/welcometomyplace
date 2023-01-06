@@ -2,6 +2,8 @@
 
 module.exports = {
   app: {
+    description_short: 'Favoriser un vivre ensemble\nbasé sur l’accueil, la confiance et l’entraide',
+    description_long: 'Une application pour favoriser un vivre ensemble basé sur l’accueil, la confiance et l’entraide',
     action: {
       accept: 'Accepter',
       accept_contact_request: 'Accepter la demande',

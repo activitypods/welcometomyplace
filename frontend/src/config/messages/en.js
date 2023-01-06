@@ -2,6 +2,8 @@
 
 module.exports = {
   app: {
+    description_short: 'Foster living together\nbased on welcome, trust and mutual aid',
+    description_long: 'An application to foster living together based on welcome, trust and mutual aid',
     action: {
       accept: 'Accept',
       accept_contact_request: 'Accept contact request',
