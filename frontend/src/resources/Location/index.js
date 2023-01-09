@@ -1,13 +1,7 @@
-import LocationCreate from './LocationCreate';
-import LocationEdit from './LocationEdit';
-import LocationList from './LocationList';
 import PlaceIcon from '@material-ui/icons/Place';
 
 export default {
   config: {
-    create: LocationCreate,
-    edit: LocationEdit,
-    list: LocationList,
     icon: PlaceIcon,
     options: {
       label: 'Adresses',

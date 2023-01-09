@@ -5,4 +5,3 @@ export { default as Profile } from './Profile';
 
 // Common
 export { default as Format } from './Common/Format';
-export { default as PodProvider } from './Common/PodProvider';

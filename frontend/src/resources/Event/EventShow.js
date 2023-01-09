@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
 import { linkToRecord, ShowBase, useTranslate } from 'react-admin';
-import { ImageField, ReferenceField } from '@semapps/semantic-data-provider';
-import { GridList, AvatarField } from '@semapps/archipelago-layout';
+import { ImageField, ReferenceField } from '@semapps/field-components';
+import { AvatarWithLabelField } from '@semapps/field-components';
+import { GridList } from '@semapps/list-components';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
 import { ReferenceCollectionField } from '@semapps/activitypub-components';
 import EventAlert from './EventAlert';
@@ -54,7 +55,7 @@ const EventShow = (props) => {
           <ReferenceCollectionField reference="Actor" source="apods:attendees">
             <GridList xs={4} sm={2} linkType={false}>
               <ReferenceField reference="Profile" source="url" link={(record, resource) => linkToRecord('/' + resource, record.url, 'show')}>
-                <AvatarField
+                <AvatarWithLabelField
                   label="vcard:given-name"
                   image="vcard:photo"
                   defaultLabel={translate('app.user.unknown')}

@@ -1,6 +1,6 @@
 import React from 'react';
 import { DateField, TextField, useTranslate } from 'react-admin';
-import { ReferenceField } from '@semapps/semantic-data-provider';
+import { ReferenceField } from '@semapps/field-components';
 import IconsList from '../../commons/lists/IconsList';
 import DurationField from '../../commons/fields/DurationField';
 import FaceIcon from '@material-ui/icons/Face';

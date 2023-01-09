@@ -1,7 +1,7 @@
 import React from 'react';
 import { DateField, TextField } from 'react-admin';
 import Chip from '../../commons/Chip';
-import { ReferenceField } from '@semapps/semantic-data-provider';
+import { ReferenceField } from '@semapps/field-components';
 import { makeStyles, Box } from '@material-ui/core';
 import EventIcon from '@material-ui/icons/Event';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
