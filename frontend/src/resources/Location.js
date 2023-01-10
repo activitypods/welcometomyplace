@@ -1,18 +1,6 @@
-import PlaceIcon from '@material-ui/icons/Place';
-
 export default {
-  config: {
-    icon: PlaceIcon,
-    options: {
-      label: 'Adresses',
-    },
-  },
   dataModel: {
-    types: ['vcard:Location'],
-    list: {
-      servers: 'pod',
-      dereference: ['vcard:hasAddress/vcard:hasGeo'],
-    },
+    types: ['vcard:Location']
   },
   translations: {
     en: {

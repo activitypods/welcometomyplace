@@ -1,30 +1,43 @@
 import React, { forwardRef } from 'react';
-import { UserMenu as RaUserMenu, MenuItemLink, useGetIdentity, linkToRecord, useTranslate } from 'react-admin';
+import { UserMenu as RaUserMenu, MenuItemLink, useGetIdentity, useTranslate } from 'react-admin';
+import { makeStyles, MenuItem, ListItemIcon } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import GroupIcon from '@material-ui/icons/Group';
 import HomeIcon from '@material-ui/icons/Home';
-import SettingsIcon from '@material-ui/icons/Settings';
+import usePreferredApp from "../hooks/usePreferredApp";
 
-const MyProfileMenu = forwardRef(({ onClick, label, profileUri }, ref) => (
-  <MenuItemLink
-    ref={ref}
-    to={linkToRecord('/Profile', profileUri)}
-    primaryText={label}
-    leftIcon={<PersonIcon />}
-    onClick={onClick}
-  />
+const useStyles = makeStyles((theme) => ({
+  root: {
+    color: theme.palette.text.secondary,
+  },
+  active: {
+    color: theme.palette.text.primary,
+  },
+  icon: { minWidth: theme.spacing(5) },
+}));
+
+const OutsideMenuItemLink = ({ to, primaryText, leftIcon }) => {
+  const classes = useStyles();
+  return (
+    <a href={to}>
+      <MenuItem className={classes.root} activeClassName={classes.active}>
+        <ListItemIcon className={classes.icon}>{leftIcon}</ListItemIcon>
+        {primaryText}
+      </MenuItem>
+    </a>
+  );
+};
+
+const MyProfileMenu = forwardRef(({ onClick, label, to }, ref) => (
+  <OutsideMenuItemLink ref={ref} to={to} primaryText={label} leftIcon={<PersonIcon />} onClick={onClick} />
 ));
 
-const MyAddressMenu = forwardRef(({ onClick, label }, ref) => (
-  <MenuItemLink ref={ref} to="/Location" primaryText={label} leftIcon={<HomeIcon />} onClick={onClick} />
+const MyAddressMenu = forwardRef(({ onClick, to, label }, ref) => (
+  <OutsideMenuItemLink ref={ref} to={to} primaryText={label} leftIcon={<HomeIcon />} onClick={onClick} />
 ));
 
-const AccountSettingsMenu = forwardRef(({ onClick, label, profileUri }, ref) => (
-  <MenuItemLink ref={ref} to={'/account/settings'} primaryText={label} leftIcon={<SettingsIcon />} onClick={onClick} />
-));
-
-const MyNetworkMenu = forwardRef(({ onClick, label }, ref) => (
-  <MenuItemLink ref={ref} to="/Profile" primaryText={label} leftIcon={<GroupIcon />} onClick={onClick} />
+const MyNetworkMenu = forwardRef(({ onClick, to, label }, ref) => (
+  <OutsideMenuItemLink ref={ref} to={to} primaryText={label} leftIcon={<GroupIcon />} onClick={onClick} />
 ));
 
 const LoginMenu = forwardRef(({ onClick, label }, ref) => (
@@ -33,6 +46,7 @@ const LoginMenu = forwardRef(({ onClick, label }, ref) => (
 
 const UserMenu = ({ logout, ...otherProps }) => {
   const { identity } = useGetIdentity();
+  const preferredApp = usePreferredApp();
   const translate = useTranslate();
   return (
     <RaUserMenu {...otherProps}>
@@ -41,15 +55,18 @@ const UserMenu = ({ logout, ...otherProps }) => {
           <MyProfileMenu
             key="my-profile"
             label={translate('app.page.profile')}
-            profileUri={identity?.profileData?.id}
+            to={preferredApp('as:Profile', identity?.profileData?.id)}
           />,
-          <MyAddressMenu key="my-address" label={translate('app.page.addresses')} />,
-          <AccountSettingsMenu
-            key="settings"
-            label={translate('app.page.settings')}
-            profileUri={identity?.profileData?.id}
+          <MyAddressMenu
+            key="my-address"
+            label={translate('app.page.addresses')}
+            to={preferredApp('vcard:Location')}
           />,
-          <MyNetworkMenu key="my-network" label={translate('app.page.network')} />,
+          <MyNetworkMenu
+            key="my-network"
+            label={translate('app.page.network')}
+            to={preferredApp('as:Profile')}
+          />,
           React.cloneElement(logout, { key: 'logout' }),
         ]
       ) : (

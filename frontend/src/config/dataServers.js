@@ -10,6 +10,7 @@ const dataServers = {
         'as:Event': ['/events'],
         'vcard:Location': ['/locations'],
         'vcard:Individual': ['/profiles'],
+        'apods:FrontAppRegistration': ['/front-apps'],
       },
     },
     uploadsContainer: '/files',
