@@ -23,8 +23,7 @@ const dataServers = {
     noProxy: true,
     containers: {
       common: {
-        'apods:EventFormat': ['/formats'],
-        'apods:PodProvider': ['/pod-providers'],
+        'apods:EventFormat': ['/formats']
       },
     },
   },

@@ -4,7 +4,7 @@ import { makeStyles, MenuItem, ListItemIcon } from '@material-ui/core';
 import PersonIcon from '@material-ui/icons/Person';
 import GroupIcon from '@material-ui/icons/Group';
 import HomeIcon from '@material-ui/icons/Home';
-import usePreferredApp from "../hooks/usePreferredApp";
+import useOpenExternalApp from "../hooks/useOpenExternalApp";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,7 +46,7 @@ const LoginMenu = forwardRef(({ onClick, label }, ref) => (
 
 const UserMenu = ({ logout, ...otherProps }) => {
   const { identity } = useGetIdentity();
-  const preferredApp = usePreferredApp();
+  const openExternalApp = useOpenExternalApp();
   const translate = useTranslate();
   return (
     <RaUserMenu {...otherProps}>
@@ -55,17 +55,17 @@ const UserMenu = ({ logout, ...otherProps }) => {
           <MyProfileMenu
             key="my-profile"
             label={translate('app.page.profile')}
-            to={preferredApp('as:Profile', identity?.profileData?.id)}
+            to={openExternalApp('as:Profile', identity?.profileData?.id)}
           />,
           <MyAddressMenu
             key="my-address"
             label={translate('app.page.addresses')}
-            to={preferredApp('vcard:Location')}
+            to={openExternalApp('vcard:Location')}
           />,
           <MyNetworkMenu
             key="my-network"
             label={translate('app.page.network')}
-            to={preferredApp('as:Profile')}
+            to={openExternalApp('as:Profile')}
           />,
           React.cloneElement(logout, { key: 'logout' }),
         ]

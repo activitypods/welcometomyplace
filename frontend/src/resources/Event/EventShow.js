@@ -16,13 +16,13 @@ import EditButton from '../../commons/buttons/EditButton';
 import ShareButton from '../../commons/buttons/ShareButton';
 import HostLocationField from '../../commons/fields/HostLocationField';
 import ContactField from '../../commons/fields/ContactField';
-import usePreferredApp from "../../hooks/usePreferredApp";
+import useOpenExternalApp from "../../hooks/useOpenExternalApp";
 
-const LinkToPreferredApp = ({ type, linkType = 'show', children }) => {
+const LinkToExternalApp = ({ type, linkType = 'show', children }) => {
   const record = useRecordContext();
-  const preferredApp = usePreferredApp();
+  const openExternalApp = useOpenExternalApp();
   return (
-    <a href={preferredApp(type, record.id, linkType)}>
+    <a href={openExternalApp(type, record.id, linkType)}>
       {children}
     </a>
   )
@@ -66,14 +66,14 @@ const EventShow = (props) => {
           <ReferenceCollectionField reference="Actor" source="apods:attendees">
             <GridList xs={4} sm={2} linkType={false}>
               <ReferenceField reference="Profile" source="url" link={false}>
-                  <LinkToPreferredApp type="as:Profile">
+                  <LinkToExternalApp type="as:Profile">
                     <AvatarWithLabelField
                       label="vcard:given-name"
                       image="vcard:photo"
                       defaultLabel={translate('app.user.unknown')}
                       labelColor="grey.300"
                     />
-                  </LinkToPreferredApp>
+                  </LinkToExternalApp>
               </ReferenceField>
             </GridList>
           </ReferenceCollectionField>
