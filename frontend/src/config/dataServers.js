@@ -4,7 +4,7 @@ const dataServers = {
     default: true,
     authServer: true,
     baseUrl: null, // Calculated from the token
-    sparqlEndpoint: null,
+    sparqlEndpoint: null, // Calculated from the token
     containers: {
       pod: {
         'as:Event': ['/events'],
