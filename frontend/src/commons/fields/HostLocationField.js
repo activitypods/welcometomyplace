@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, useMediaQuery } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { MapField } from '@semapps/geo-components';
-import { ReferenceField } from '@semapps/semantic-data-provider';
+import { ReferenceField } from '@semapps/field-components';
 import { useRecordContext, useTranslate } from 'react-admin';
 
 const HostLocationField = ({ label, source, ...rest }) => {

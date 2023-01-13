@@ -1,8 +1,8 @@
 import React from 'react';
 import { makeStyles, Box, Card, Typography, Avatar, Button } from '@material-ui/core';
-import { useGetIdentity, linkToRecord, useTranslate } from 'react-admin';
-import { Link } from 'react-router-dom';
+import { useGetIdentity, useTranslate } from 'react-admin';
 import { formatUsername } from '../../utils';
+import useOpenExternalApp from "../../hooks/useOpenExternalApp";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,6 +51,7 @@ const ProfileCard = () => {
   const classes = useStyles();
   const { identity } = useGetIdentity();
   const translate = useTranslate();
+  const openExternalApp = useOpenExternalApp();
   if (!identity) return null;
   return (
     <Card className={classes.root}>
@@ -66,11 +67,11 @@ const ProfileCard = () => {
         <Typography align="center">{formatUsername(identity.id)}</Typography>
       </Box>
       <Box className={classes.button} pb={3} pr={3} pl={3}>
-        <Link to={linkToRecord('/Profile', identity?.webIdData?.url)}>
+        <a href={openExternalApp('as:Profile', identity?.webIdData?.url, 'edit')}>
           <Button variant="contained" color="primary" fullWidth>
             {translate('app.action.edit_profile')}
           </Button>
-        </Link>
+        </a>
       </Box>
     </Card>
   );

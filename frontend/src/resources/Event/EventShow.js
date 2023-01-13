@@ -1,7 +1,8 @@
 import React, { useCallback } from 'react';
-import { linkToRecord, ShowBase, useTranslate } from 'react-admin';
-import { ImageField, ReferenceField } from '@semapps/semantic-data-provider';
-import { GridList, AvatarField } from '@semapps/archipelago-layout';
+import { ShowBase, useRecordContext, useTranslate } from 'react-admin';
+import { ImageField, ReferenceField } from '@semapps/field-components';
+import { AvatarWithLabelField } from '@semapps/field-components';
+import { GridList } from '@semapps/list-components';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
 import { ReferenceCollectionField } from '@semapps/activitypub-components';
 import EventAlert from './EventAlert';
@@ -15,6 +16,17 @@ import EditButton from '../../commons/buttons/EditButton';
 import ShareButton from '../../commons/buttons/ShareButton';
 import HostLocationField from '../../commons/fields/HostLocationField';
 import ContactField from '../../commons/fields/ContactField';
+import useOpenExternalApp from "../../hooks/useOpenExternalApp";
+
+const LinkToExternalApp = ({ type, linkType = 'show', children }) => {
+  const record = useRecordContext();
+  const openExternalApp = useOpenExternalApp();
+  return (
+    <a href={openExternalApp(type, record.id, linkType)}>
+      {children}
+    </a>
+  )
+}
 
 const EventShow = (props) => {
   const { identity } = useCheckAuthenticated();
@@ -53,13 +65,15 @@ const EventShow = (props) => {
           <EventConditionsField source="name" />
           <ReferenceCollectionField reference="Actor" source="apods:attendees">
             <GridList xs={4} sm={2} linkType={false}>
-              <ReferenceField reference="Profile" source="url" link={(record, resource) => linkToRecord('/' + resource, record.url, 'show')}>
-                <AvatarField
-                  label="vcard:given-name"
-                  image="vcard:photo"
-                  defaultLabel={translate('app.user.unknown')}
-                  labelColor="grey.300"
-                />
+              <ReferenceField reference="Profile" source="url" link={false}>
+                  <LinkToExternalApp type="as:Profile">
+                    <AvatarWithLabelField
+                      label="vcard:given-name"
+                      image="vcard:photo"
+                      defaultLabel={translate('app.user.unknown')}
+                      labelColor="grey.300"
+                    />
+                  </LinkToExternalApp>
               </ReferenceField>
             </GridList>
           </ReferenceCollectionField>
