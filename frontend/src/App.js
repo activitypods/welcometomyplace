@@ -17,7 +17,7 @@ const history = createBrowserHistory();
 const customPodProviders = process.env.REACT_APP_POD_PROVIDER_DOMAIN_NAME
   && [{ 'apods:domainName': process.env.REACT_APP_POD_PROVIDER_DOMAIN_NAME, 'apods:area': 'Local' }];
 
-const LoginPage = props => <PodLoginPage text="Veuillez choisir un fournisseur de PODs dans la liste ci-dessous" customPodProviders={customPodProviders} {...props} />
+const LoginPage = props => <PodLoginPage customPodProviders={customPodProviders} {...props} />
 
 const App = () => (
   <Admin
