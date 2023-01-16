@@ -17,7 +17,10 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 900,
   },
   mission: {
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
+    [theme.breakpoints.up('xs')]: {
+      marginTop: 5,
+    }
   }
 }));
 
