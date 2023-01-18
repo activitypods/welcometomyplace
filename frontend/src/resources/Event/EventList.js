@@ -6,7 +6,6 @@ import CardsList from '../../commons/lists/CardsList';
 import EventCard from './EventCard';
 import HeaderTitle from '../../layout/HeaderTitle';
 import ProfileCard from '../../commons/cards/ProfileCard';
-import ShareContactCard from '../../commons/cards/ShareContactCard';
 import Alert from "@material-ui/lab/Alert";
 import AppIcon from '../../config/AppIcon';
 
@@ -66,7 +65,6 @@ const EventList = (props) => {
           <Hidden smDown>
             <Grid item md={4} lg={3}>
               <ProfileCard />
-              <ShareContactCard />
             </Grid>
           </Hidden>
         </Grid>

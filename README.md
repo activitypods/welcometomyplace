@@ -9,7 +9,7 @@ Most data are stored directly in users PODs. See the [ActivityPods](https://gith
 ## Getting started
 
 Requirements:
-- Node (v12.20 recommended)
+- Node (v14 recommended)
 - Yarn
 - Docker and docker-compose (if you wish to run a local middleware)
 
