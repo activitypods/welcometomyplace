@@ -6,9 +6,6 @@ import CardsList from '../../commons/lists/CardsList';
 import EventCard from './EventCard';
 import HeaderTitle from '../../layout/HeaderTitle';
 import ProfileCard from '../../commons/cards/ProfileCard';
-import ShareContactCard from '../../commons/cards/ShareContactCard';
-import ContactRequestsCard from '../../commons/cards/ContactRequestsCard';
-import AddContactCard from '../../commons/cards/AddContactCard';
 import Alert from "@material-ui/lab/Alert";
 import AppIcon from '../../config/AppIcon';
 
@@ -19,7 +16,10 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 900,
   },
   mission: {
-    backgroundColor: theme.palette.primary.main
+    backgroundColor: theme.palette.primary.main,
+    [theme.breakpoints.up('xs')]: {
+      marginTop: 5,
+    }
   }
 }));
 
@@ -65,9 +65,6 @@ const EventList = (props) => {
           <Hidden smDown>
             <Grid item md={4} lg={3}>
               <ProfileCard />
-              <ContactRequestsCard />
-              <ShareContactCard />
-              <AddContactCard />
             </Grid>
           </Hidden>
         </Grid>
