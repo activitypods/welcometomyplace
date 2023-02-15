@@ -1,0 +1,10 @@
+{
+  "@context": "https://activitypods.org/context.json",
+  "id": "https://welcometomyplace.org/application.json",
+  "type": "Application",
+  "name": "Welcome to my place",
+  "content": "Private meetings at home that promote a living together based on welcome, trust and mutual aid.",
+  "image": "https://welcometomyplace.org/logo512.png",
+  "apods:handledTypes": "https://www.w3.org/ns/activitystreams#Event",
+  "dc:language": "en"
+}
