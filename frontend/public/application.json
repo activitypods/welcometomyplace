@@ -6,5 +6,5 @@
   "content": "Private meetings at home that promote a living together based on welcome, trust and mutual aid.",
   "image": "http://localhost:4000/logo512.png",
   "apods:handledTypes": "https://www.w3.org/ns/activitystreams#Event",
-  "dc:language": "fr"
+  "dc:language": "en"
 }
