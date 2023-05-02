@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { SimpleForm, ImageInput, TextInput, required, NumberInput, SelectInput, useTranslate } from 'react-admin';
 import { Box } from '@material-ui/core';
 import { MarkdownInput } from '@semapps/markdown-components';
@@ -8,6 +8,7 @@ import { DateTimeInput } from '@semapps/date-components';
 import frLocale from 'date-fns/locale/fr';
 import BodyLabel from '../../commons/lists/BodyList/BodyLabel';
 import Alert from '@material-ui/lab/Alert';
+import QuickCreateLocationInput from "../../commons/inputs/QuickCreateLocationInput/QuickCreateLocationInput";
 
 const futureDate = (value) => {
   if( value && value <= (new Date()) ) {
@@ -29,6 +30,14 @@ const beforeStartTime = (value, allValues) => {
 
 const EventForm = ({ className, ...rest }) => {
   const translate = useTranslate();
+
+  // Needed to trigger orm change and enable save button :
+  // https://codesandbox.io/s/react-admin-v3-advanced-recipes-quick-createpreview-voyci
+  const [locationVersion, setLocationVersion] = useState(0);
+  const handleLocationChange = useCallback(() => {
+    setLocationVersion(locationVersion + 1);
+  }, [locationVersion]);
+
   return (
     <>
       <Box mb={1}>
@@ -63,9 +72,13 @@ const EventForm = ({ className, ...rest }) => {
           fullWidth
           validate={[required(), afterStartTime]}
         />
-        <ReferenceInput reference="Location" source="location" fullWidth validate={[required()]}>
-          <SelectInput optionText="vcard:given-name" />
-        </ReferenceInput>
+        <QuickCreateLocationInput
+          key={locationVersion}
+          reference="Location"
+          source="location"
+          validate={[required()]}
+          onChange={handleLocationChange}
+        />
         <ImageInput source="image" accept="image/*">
           <ImageField source="src" />
         </ImageInput>

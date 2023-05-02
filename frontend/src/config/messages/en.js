@@ -8,6 +8,7 @@ module.exports = {
       accept: 'Accept',
       accept_contact_request: 'Accept contact request',
       add: 'Add',
+      add_location: 'Add an address',
       contact_organizer: 'Contact organizer',
       contact_attendees: 'Contact attendees',
       copy: 'Copy to clipboard',
@@ -125,6 +126,7 @@ module.exports = {
     },
     user: {
       unknown: 'Unknown',
+      location: "At %{surname}'s"
     },
     validation: {
       futureDate: 'Must be in the future',

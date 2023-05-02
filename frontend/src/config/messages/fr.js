@@ -8,6 +8,7 @@ module.exports = {
       accept: 'Accepter',
       accept_contact_request: 'Accepter la demande',
       add: 'Ajouter',
+      add_location: 'Ajouter une adresse',
       contact_organizer: "Contacter l'organisateur",
       contact_attendees: "Contacter les participants",
       copy: 'Copier dans votre presse-papier',
@@ -129,6 +130,7 @@ module.exports = {
     },
     user: {
       unknown: 'Inconnu',
+      location: "Chez %{surname}"
     },
     validation: {
       futureDate: 'Doit être dans le futur',
