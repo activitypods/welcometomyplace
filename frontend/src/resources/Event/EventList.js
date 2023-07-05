@@ -2,11 +2,6 @@ import React, { useState } from "react";
 import {
   Pagination,
   useTranslate,
-  useListController,
-  ListPaginationContext,
-  useListPaginationContext,
-  useListParams,
-  ListContextProvider,
 } from "react-admin";
 import {
   Container,
@@ -26,6 +21,7 @@ import HeaderTitle from "../../layout/HeaderTitle";
 import ProfileCard from "../../commons/cards/ProfileCard";
 import Alert from "@material-ui/lab/Alert";
 import AppIcon from "../../config/AppIcon";
+import { PageCachedListBase } from "../../commons/lists/PageCachedListBase";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -40,55 +36,6 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }));
-
-/** List base that does not trigger new queries on pagination changes
- * but servers pages from its memoized state. Sort, filter, order are
- * not affected.
- */
-const PageCacheListBase = ({ children, ...props }) => {
-  /* We need `useListParams` here, to grab query string filter,
-    pagination, etc. options since `syncWithLocation` is false.
-    This prevents `useListController` to use the page props
-    provided by `useListParams`.
-  */
-  const [listParams] = useListParams(props);
-  // Get props from data provider. Pagination is disabled here.
-  const controllerProps = useListController({
-    ...listParams,
-    ...props,
-    page: undefined,
-    perPage: undefined,
-    syncWithLocation: false,
-  });
-  // Pagination defaults come from the `useListParams`.
-  const [currentPage, setCurrentPage] = useState(listParams.page);
-  const [perPage, setPerPage] = useState(listParams.perPage);
-
-  // Here, we intercept, to use the custom pagination.
-  const customPaginationContext = {
-    ...useListPaginationContext(controllerProps),
-    page: currentPage,
-    perPage: perPage,
-    setPage: setCurrentPage,
-    setPerPage: setPerPage,
-  };
-
-  const listContext = {
-    ...controllerProps,
-    ids: controllerProps.ids.slice(
-      (currentPage - 1) * perPage,
-      currentPage * perPage
-    ),
-  };
-
-  return (
-    <ListContextProvider value={listContext}>
-      <ListPaginationContext.Provider value={customPaginationContext}>
-        {children}
-      </ListPaginationContext.Provider>
-    </ListContextProvider>
-  );
-};
 
 const EventList = (props) => {
   useCheckAuthenticated();
@@ -136,7 +83,7 @@ const EventList = (props) => {
                 {translate("app.description_long")}
               </Alert>
             </Box>
-            <PageCacheListBase
+            <PageCachedListBase
               filter={{
                 "apods:hasStatus":
                   tab === 0
@@ -152,7 +99,7 @@ const EventList = (props) => {
                 rowsPerPageOptions={[2, 5, 10, 20, 50, 100]}
                 perPage={tab === 0 ? 50 : 10}
               />
-            </PageCacheListBase>
+            </PageCachedListBase>
           </Grid>
           <Hidden smDown>
             <Grid item md={4} lg={3}>
