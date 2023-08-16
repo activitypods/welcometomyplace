@@ -1,6 +1,15 @@
-import React, { useCallback, useMemo, useState, useEffect } from 'react';
-import { makeStyles, Avatar, Switch, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
-import { useTranslate } from 'react-admin';
+import React from "react";
+import {
+  makeStyles,
+  Avatar,
+  Switch,
+  ListItemAvatar,
+  ListItemText,
+} from "@material-ui/core";
+import { LoadingIndicator, useTranslate } from "react-admin";
+import PublicIcon from "@material-ui/icons/Public";
+
+/** @typedef {import("./ShareDialog").InvitationState} InvitationState */
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -8,17 +17,17 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 0,
   },
   primaryText: {
-    width: '30%',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    flexBasis: '100%',
+    width: "30%",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    flexBasis: "100%",
   },
   secondaryText: {
-    textAlign: 'center',
-    width: '60%',
-    fontStyle: 'italic',
-    color: 'grey',
+    textAlign: "center",
+    width: "60%",
+    fontStyle: "italic",
+    color: "grey",
   },
   avatarItem: {
     minWidth: 50,
@@ -28,143 +37,126 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const AllContactItem = ({ records, setRecords, addInvitation, removeInvitation, isOrganizer }) => {
+/**
+ * @param {Object} props
+ * @param {Record<string, InvitationState} props.invitations
+ * @param {(invitations: Record<string, InvitationState>) => void} props.onChange
+ * @param {boolean} props.isOrganizer
+ * @param {Record<string, any>} props.contactData
+ */
+const AllContactItem = ({
+  contactData,
+  onChange,
+  invitations,
+  isOrganizer,
+}) => {
   const classes = useStyles();
   const translate = useTranslate();
 
-  const [viewChecked, setViewChecked] = useState(false);
-  const [shareChecked, setShareChecked] = useState(false);
+  const viewChecked =
+    contactData &&
+    Object.values(contactData).every(
+      (contact) =>
+        invitations[contact.describes]?.canView ||
+        invitations[contact.describes]?.canShare
+    );
+  const shareChecked =
+    contactData &&
+    Object.values(contactData).every(
+      (contact) => invitations[contact.describes]?.canShare
+    );
+  const viewSwitchReadonly =
+    contactData &&
+    Object.values(contactData).every(
+      (contact) =>
+        invitations[contact.describes]?.viewReadonly ||
+        invitations[contact.describes]?.shareReadonly
+    );
+  const shareSwitchReadonly =
+    contactData &&
+    Object.values(contactData).every(
+      (contact) => invitations[contact.describes]?.shareReadonly
+    );
 
-  const viewSwitchReadonly = useMemo(
-    () => records.every(record => record.viewSwitchReadonly),
-    [records]
-  )
-  const shareSwitchReadonly = useMemo(
-    () => records.every(record => record.shareSwitchReadonly),
-    [records]
-  )
+  const switchShare = () => {
+    const newInvitations = Object.values(contactData).reduce((acc, contact) => {
+      if (invitations[contact.describes]?.shareReadonly) {
+        return acc;
+      } else {
+        const newShareState = !shareChecked;
+        return {
+          ...acc,
+          [contact.describes]: {
+            ...invitations[contact.describes],
+            canShare: newShareState,
+            // If share is enabled, view should be enabled too.
+            canView: newShareState || viewChecked,
+          },
+        };
+      }
+    }, {});
+    onChange(newInvitations);
+  };
 
-  useEffect(() => {
-    const toggleView = records
-      .filter(record => !record.viewSwitchReadonly)
-      .some(record => record.canViewEvent)
-    const toggleShare = records
-      .filter(record => !record.shareSwitchReadonly)
-      .some(record => record.canShareEvent)
-
-    setViewChecked(toggleView)
-    setShareChecked(toggleShare)
-  }, [records, setViewChecked, setShareChecked])
-
-  const switchView = useCallback(() => {
-    if (!viewChecked) {
-      setViewChecked(true);
-      const newRecords = records.map((record) => {
-        if (record.viewSwitchReadonly) {
-          return record;
-        }
-
-        addInvitation(record.describes, ['view']);
-        return { ...record, canViewEvent: true }
-      })
-      setRecords(newRecords)
-    } else {
-      setViewChecked(false);
-      setShareChecked(false);
-      const newRecords = records.map((record) => {
-        if (record.viewSwitchReadonly) {
-          return record
-        }
-
-        removeInvitation(record.describes);
-        return { ...record, canViewEvent: false }
-      })
-      setRecords(newRecords)
-    }
-  }, [
-    records,
-    setRecords,
-    addInvitation,
-    removeInvitation,
-    viewChecked,
-    setViewChecked,
-    setShareChecked
-  ]);
-
-  const switchShare = useCallback(() => {
-    if (!shareChecked) {
-      setShareChecked(true);
-
-      const newRecords = records.map((record) => {
-        if (record.shareSwitchReadonly) {
-          return record;
-        }
-
-        if (record.canViewEvent) {
-          addInvitation(record.describes, ['share']);
-          return { ...record, canShareEvent: true }
-        }
-        else {
-          setViewChecked(true);
-          addInvitation(record.describes, ['view', 'share']);
-          return { ...record, canViewEvent: true, canShareEvent: true }
-        }
-      })
-      setRecords(newRecords)
-    } else {
-      setShareChecked(false);
-
-      const newRecords = records.map((record) => {
-        if (record.shareSwitchReadonly) {
-          return record;
-        }
-        if (record.canViewEvent) {
-          removeInvitation(record.describes);
-          return { ...record, canShareEvent: false }
-        } else {
-          addInvitation(record.describes, ['view']);
-          return { ...record, canViewEvent: true, canShareEvent: false }
-        }
-      })
-      setRecords(newRecords)
-    }
-  }, [
-    records,
-    setRecords,
-    addInvitation,
-    removeInvitation,
-    shareChecked,
-    setViewChecked,
-    setShareChecked
-  ]);
+  const switchView = () => {
+    const newInvitations = Object.values(contactData).reduce((acc, contact) => {
+      if (invitations[contact.describes]?.viewReadonly) {
+        return acc;
+      } else {
+        const newViewState = !viewChecked;
+        return {
+          ...acc,
+          [contact.describes]: {
+            ...invitations[contact.describes],
+            canView: newViewState,
+            // If view is disabled, share should be disabled too.
+            canShare: newViewState && shareChecked,
+          },
+        };
+      }
+    }, {});
+    onChange(newInvitations);
+  };
 
   return (
-    <ListItem className={classes.listItem}>
+    <div className={classes.listItem}>
       <ListItemAvatar className={classes.avatarItem}>
         <Avatar className={classes.avatar}>
-          C
+          {!contactData && <LoadingIndicator />}
+          {contactData && <PublicIcon />}
         </Avatar>
-
       </ListItemAvatar>
       <ListItemText
         className={classes.primaryText}
-        primary={translate('app.share.all_contacts')}
+        primary={translate("app.permission.contacts")}
       />
       <ListItemText
         className={classes.secondaryText}
-        primary={translate('app.share.allow_view')}
+        primary={translate("app.permission.view")}
         secondary={
-          <Switch size="small" checked={viewChecked} disabled={viewSwitchReadonly} onChange={switchView} />
+          <Switch
+            size="small"
+            checked={viewChecked || shareChecked}
+            disabled={viewSwitchReadonly || shareSwitchReadonly || !contactData}
+            onChange={switchView}
+          />
         }
       />
       {isOrganizer && (
         <ListItemText
           className={classes.secondaryText}
-          primary={translate('app.share.allow_share')}
-          secondary={<Switch size="small" checked={shareChecked} disabled={shareSwitchReadonly} onChange={switchShare} />}
+          primary={translate("app.permission.share")}
+          secondary={
+            <Switch
+              size="small"
+              checked={shareChecked}
+              disabled={shareSwitchReadonly || !contactData}
+              onChange={switchShare}
+            />
+          }
         />
       )}
-    </ListItem>
+    </div>
   );
 };
 

@@ -1,7 +1,17 @@
-import React, { useCallback, useState, useEffect } from 'react';
-import { makeStyles, Avatar, Switch, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
-import { formatUsername } from '../../utils';
-import { useTranslate } from 'react-admin';
+import React from "react";
+import {
+  makeStyles,
+  Avatar,
+  Switch,
+  ListItemAvatar,
+  ListItemText,
+} from "@material-ui/core";
+import { formatUsername } from "../../utils";
+import { useTranslate } from "react-admin";
+
+/**
+ * @typedef {import("./GroupContactsItem").InvitationState} InvitationState
+ */
 
 const useStyles = makeStyles((theme) => ({
   listItem: {
@@ -9,17 +19,17 @@ const useStyles = makeStyles((theme) => ({
     paddingRight: 0,
   },
   primaryText: {
-    width: '30%',
-    whiteSpace: 'nowrap',
-    overflow: 'hidden',
-    textOverflow: 'ellipsis',
-    flexBasis: '100%',
+    width: "30%",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+    flexBasis: "100%",
   },
   secondaryText: {
-    textAlign: 'center',
-    width: '60%',
-    fontStyle: 'italic',
-    color: 'grey',
+    textAlign: "center",
+    width: "60%",
+    fontStyle: "italic",
+    color: "grey",
   },
   avatarItem: {
     minWidth: 50,
@@ -29,88 +39,91 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ContactItem = ({ record, updateRecord, addInvitation, removeInvitation, isOrganizer }) => {
+/**
+ * @param {Object} props
+ * @param {import("react-admin").Record} props.record
+ * @param {InvitationState} [props.invitation]
+ * @param {(invitations: Record<string, InvitationState>) => void} props.onChange
+ * @param {boolean} props.isOrganizer
+ */
+const ContactItem = ({ record, invitation, onChange, isOrganizer }) => {
   const classes = useStyles();
   const translate = useTranslate();
 
-  const [viewChecked, setViewChecked] = useState(record.canViewEvent);
-  const [shareChecked, setShareChecked] = useState(record.canShareEvent);
+  // The invitation may still be undefined. In that case, create a default one.
+  // TODO: Maybe, this should be handled in the ShareDialog instead?
+  const invitationState = invitation || {
+    canView: false,
+    canShare: false,
+    viewReadonly: false,
+    shareReadonly: !isOrganizer,
+  };
 
-  useEffect(() => {
-    setViewChecked(record.canViewEvent)
-    setShareChecked(record.canShareEvent)
-  }, [record])
+  const changeCanView = () => {
+    const newViewState = !invitationState.canView;
+    onChange({
+      [record.describes]: {
+        ...invitationState,
+        canView: newViewState,
+        // Set to false, if the user can't view the record anymore.
+        canShare: newViewState && invitationState.canShare,
+      },
+    });
+  };
 
-  const switchView = useCallback(() => {
-    if (!viewChecked) {
-      setViewChecked(true);
-      addInvitation(record.describes, ['view']);
-      updateRecord({ ...record, canViewEvent: true })
-    } else {
-      setViewChecked(false);
-      setShareChecked(false);
-      removeInvitation(record.describes);
-      updateRecord({ ...record, canViewEvent: false })
-    }
-  }, [addInvitation, updateRecord, removeInvitation, record, viewChecked, setViewChecked, setShareChecked]);
-
-  const switchShare = useCallback(() => {
-    if (!shareChecked) {
-      setShareChecked(true);
-      // If user can already view, we only add a share right
-      if (record.canViewEvent) {
-        addInvitation(record.describes, ['share']);
-        updateRecord({ ...record, canShareEvent: true })
-      } else {
-        setViewChecked(true);
-        addInvitation(record.describes, ['view', 'share']);
-        updateRecord({ ...record, canViewEvent: true, canShareEvent: true })
-      }
-    } else {
-      setShareChecked(false);
-      if (record.canViewEvent) {
-        removeInvitation(record.describes);
-        updateRecord({ ...record, canShareEvent: false })
-      } else {
-        addInvitation(record.describes, ['view']);
-        updateRecord({ ...record, canViewEvent: true, canShareEvent: false })
-      }
-    }
-  }, [
-    record,
-    updateRecord,
-    addInvitation,
-    removeInvitation,
-    shareChecked,
-    setViewChecked,
-    setShareChecked
-  ]);
+  const changeCanShare = () => {
+    const newShareState = !invitationState.canShare;
+    onChange({
+      [record.describes]: {
+        ...invitationState,
+        canShare: newShareState,
+        // Set to true, if the user can share the record.
+        canView: newShareState || invitationState.canView,
+      },
+    });
+  };
 
   return (
-    <ListItem className={classes.listItem}>
+    <div className={classes.listItem}>
       <ListItemAvatar className={classes.avatarItem}>
-        <Avatar src={record?.['vcard:photo']} className={classes.avatar}>
-          {record['vcard:given-name']?.[0]}
+        <Avatar src={record?.["vcard:photo"]} className={classes.avatar}>
+          {record["vcard:given-name"]?.[0]}
         </Avatar>
       </ListItemAvatar>
       <ListItemText
         className={classes.primaryText}
-        primary={record['vcard:given-name']}
+        primary={record["vcard:given-name"]}
         secondary={formatUsername(record.describes)}
       />
       <ListItemText
         className={classes.secondaryText}
-        primary={translate('app.permission.view')}
-        secondary={<Switch size="small" checked={viewChecked} disabled={record.viewSwitchReadonly} onChange={switchView} />}
+        primary={translate("app.permission.view")}
+        secondary={
+          <Switch
+            size="small"
+            checked={invitationState.canView || invitationState.canShare}
+            disabled={
+              invitationState.viewReadonly || invitationState.shareReadonly
+            }
+            onClick={changeCanView}
+          />
+        }
       />
       {isOrganizer && (
         <ListItemText
           className={classes.secondaryText}
-          primary={translate('app.permission.share')}
-          secondary={<Switch size="small" checked={shareChecked} disabled={record.shareSwitchReadonly} onChange={switchShare} />}
+          primary={translate("app.permission.share")}
+          secondary={
+            <Switch
+              size="small"
+              checked={invitationState.canShare}
+              disabled={invitationState.shareReadonly}
+              onClick={changeCanShare}
+            />
+          }
         />
       )}
-    </ListItem>
+    </div>
   );
 };
 

@@ -1,80 +1,123 @@
-import React, { useEffect } from 'react';
-import { List, makeStyles, Box, CircularProgress } from '@material-ui/core';
-import ContactItem from './ContactItem';
-import AllContactsItem from './AllContactsItem';
-import { useListContext, useTranslate } from 'react-admin';
-import Alert from '@material-ui/lab/Alert';
+import React from "react";
+import {
+  List,
+  makeStyles,
+  Box,
+  CircularProgress,
+  TextField,
+  Grid,
+  styled,
+} from "@material-ui/core";
+import ContactItem from "./ContactItem";
+import AllContactsItem from "./AllContactsItem";
+import { useListContext, useTranslate } from "react-admin";
+import Alert from "@material-ui/lab/Alert";
+import { ResourceSelectWithTags } from "@semapps/tag-components";
+import GroupContactsItem from "./GroupContactsItem";
+
+/**
+ * @typedef {import('./ShareDialog').InvitationState} InvitationState
+ */
 
 const useStyles = makeStyles((theme) => ({
   list: {
-    width: '100%',
-    maxWidth: '100%',
+    width: "100%",
+    maxWidth: "100%",
     backgroundColor: theme.palette.background.paper,
     padding: 0,
   },
 }));
 
-const ContactsShareList = ({ addInvitation, removeInvitation, announces, announcers, isOrganizer, newInvitations }) => {
+/**
+ * @param {Object} props
+ * @param {Record<string, InvitationState} props.invitations
+ * @param {(invitations: Record<string, InvitationState) => void} props.onChange
+ * @param {boolean} props.isOrganizer
+ */
+const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
   const classes = useStyles();
   const translate = useTranslate();
-  const { ids, data, loading, ...rest } = useListContext();
-
-  const [records, setRecords] = React.useState([]);
-
-  useEffect(() => {
-    setRecords(ids.reduce((acc, id) => {
-      const viewSwitchReadonly = announces.includes(data[id].describes)
-      const shareSwitchReadonly = announcers.includes(data[id].describes)
-      return [...acc, {
-        ...data[id],
-        viewSwitchReadonly,
-        shareSwitchReadonly,
-        canViewEvent: announces.includes(data[id].describes),
-        canShareEvent: announcers.includes(data[id].describes),
-      }]
-    }, []))
-  }, [
-    ids, data, announcers, announces
-  ])
-
-  const updateRecord = React.useCallback((record) => {
-    const newRecords = records.map((item) => {
-      if (item.id === record.id) {
-        return { ...record }
-      }
-      return item
-    })
-    setRecords(newRecords)
-  }, [records, setRecords])
+  const {
+    ids: contactIds,
+    data: contactData,
+    loading,
+    ...rest
+  } = useListContext();
 
   return (
     <List dense className={classes.list}>
-      {isOrganizer && (
-        <AllContactsItem
-          records={records}
-          addInvitation={addInvitation}
-          removeInvitation={removeInvitation}
-          isOrganizer={isOrganizer}
-          setRecords={setRecords}
-        />)
+      {
+        // @sebastien, this condition is from the original PR, is this necessary?
+        isOrganizer && (
+          <AllContactsItem
+            contactData={contactData}
+            invitations={invitations}
+            onChange={onChange}
+            isOrganizer={isOrganizer}
+          />
+        )
       }
-      {records.map((record) => (
-        <ContactItem
-          key={record.describes}
-          record={record}
-          addInvitation={addInvitation}
-          removeInvitation={removeInvitation}
-          updateRecord={updateRecord}
-          isOrganizer={isOrganizer}
-          {...rest}
-        />
-      ))}
+      <ResourceSelectWithTags
+        labelResourcePredicate="vcard:given-name"
+        labelTagPredicate="vcard:label"
+        relationshipPredicate="vcard:hasMember"
+        entityResource="Profile"
+        tagResource="Group"
+        // Selection is handled and rendered by invitation (render*Option), not by the component.
+        // The tags (groups) are rendered in the always-open list, do don't render them in the text area.
+        renderTags={() => null}
+        // Don't show the option list as popup. Wrap in a grid and adjust style, to avoid two scrollbars.
+        PopperComponent={styled(Grid)({
+          "& .MuiAutocomplete-listbox": { maxHeight: "unset" },
+        })}
+        open
+        tagName={translate("app.group.group")}
+        resourceName={translate("app.group.profile")}
+        loading={loading}
+        onChange={() => {}}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            variant="outlined"
+            label={translate("app.action.search")}
+            fullWidth
+          />
+        )}
+        renderTagOption={(option) => {
+          return (
+            <GroupContactsItem
+              key={option.id}
+              group={option}
+              onChange={onChange}
+              invitations={invitations}
+              isOrganizer={isOrganizer}
+            />
+          );
+        }}
+        renderResourceOption={(option) => (
+          <ContactItem
+            key={option.id}
+            record={option}
+            invitation={invitations[option.describes]}
+            onChange={onChange}
+            isOrganizer={isOrganizer}
+            {...rest}
+          />
+        )}
+      />
       {loading && (
-        <Box display="flex" alignItems="center" justifyContent="center" height={250}>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          height={250}
+        >
           <CircularProgress size={60} thickness={6} />
         </Box>
       )}
-      {!loading && ids.length === 0 && <Alert severity="warning">{translate('app.helper.no_contact')}</Alert>}
+      {!loading && contactIds.length === 0 && (
+        <Alert severity="warning">{translate("app.helper.no_contact")}</Alert>
+      )}
     </List>
   );
 };
