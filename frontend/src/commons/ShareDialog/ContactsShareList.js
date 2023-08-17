@@ -7,6 +7,7 @@ import {
   TextField,
   Grid,
   styled,
+  ListItem,
 } from "@material-ui/core";
 import ContactItem from "./ContactItem";
 import AllContactsItem from "./AllContactsItem";
@@ -49,12 +50,14 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
       {
         // @sebastien, this condition is from the original PR, is this necessary?
         isOrganizer && (
-          <AllContactsItem
-            contactData={contactData}
-            invitations={invitations}
-            onChange={onChange}
-            isOrganizer={isOrganizer}
-          />
+          <ListItem>
+            <AllContactsItem
+              contactData={contactData}
+              invitations={invitations}
+              onChange={onChange}
+              isOrganizer={isOrganizer}
+            />
+          </ListItem>
         )
       }
       <ResourceSelectWithTags

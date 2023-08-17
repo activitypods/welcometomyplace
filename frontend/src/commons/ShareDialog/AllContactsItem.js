@@ -12,10 +12,6 @@ import PublicIcon from "@material-ui/icons/Public";
 /** @typedef {import("./ShareDialog").InvitationState} InvitationState */
 
 const useStyles = makeStyles((theme) => ({
-  listItem: {
-    paddingLeft: 0,
-    paddingRight: 0,
-  },
   primaryText: {
     width: "30%",
     whiteSpace: "nowrap",
@@ -119,7 +115,7 @@ const AllContactItem = ({
   };
 
   return (
-    <div className={classes.listItem}>
+    <>
       <ListItemAvatar className={classes.avatarItem}>
         <Avatar className={classes.avatar}>
           {!contactData && <LoadingIndicator />}
@@ -156,7 +152,7 @@ const AllContactItem = ({
           }
         />
       )}
-    </div>
+    </>
   );
 };
 
