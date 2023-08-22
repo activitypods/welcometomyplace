@@ -5,6 +5,7 @@ import {
   Switch,
   ListItemAvatar,
   ListItemText,
+  ListItem,
 } from "@material-ui/core";
 import { useTranslate } from "react-admin";
 import GroupIcon from "@material-ui/icons/Group";
@@ -40,7 +41,6 @@ const useStyles = makeStyles((theme) => ({
  * @param {Record<string, InvitationState} props.invitations
  * @param {(invitations: Record<string, InvitationState>) => void} props.onChange
  * @param {boolean} props.isOrganizer
- * @param {Record<string, any>} props.contactData
  */
 const GroupContactsItem = ({ group, onChange, invitations, isOrganizer }) => {
   const classes = useStyles();
@@ -113,7 +113,7 @@ const GroupContactsItem = ({ group, onChange, invitations, isOrganizer }) => {
   }, [viewChecked, shareChecked, invitations, onChange, groupMemberIds]);
 
   return (
-    <>
+    <ListItem>
       <ListItemAvatar className={classes.avatarItem}>
         <Avatar src={group?.["vcard:photo"]} className={classes.avatar}>
           <GroupIcon />
@@ -149,7 +149,7 @@ const GroupContactsItem = ({ group, onChange, invitations, isOrganizer }) => {
           }
         />
       )}
-    </>
+    </ListItem>
   );
 };
 

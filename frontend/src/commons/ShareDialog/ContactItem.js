@@ -5,6 +5,7 @@ import {
   Switch,
   ListItemAvatar,
   ListItemText,
+  ListItem,
 } from "@material-ui/core";
 import { formatUsername } from "../../utils";
 import { useTranslate } from "react-admin";
@@ -80,7 +81,7 @@ const ContactItem = ({ record, invitation, onChange, isOrganizer }) => {
   };
 
   return (
-    <>
+    <ListItem>
       <ListItemAvatar className={classes.avatarItem}>
         <Avatar src={record?.["vcard:photo"]} className={classes.avatar}>
           {record["vcard:given-name"]?.[0]}
@@ -119,7 +120,7 @@ const ContactItem = ({ record, invitation, onChange, isOrganizer }) => {
           }
         />
       )}
-    </>
+    </ListItem>
   );
 };
 

@@ -72,6 +72,8 @@ const ShareDialog = ({ close, resourceUri }) => {
   // To keep track of changes...
   /** @type {[Record<string, InvitationState>, (invitations: Record<string, InvitationState>) => void]} */
   const [newInvitations, setNewInvitations] = useState({});
+  /** @type {[Record<string, InvitationState>, (invitations: Record<string, InvitationState>) => void]} */
+  const [savedInvitations, setSavedInvitations] = useState({});
   const [sendingInvitation, setSendingInvitation] = useState(false);
   const xs = useMediaQuery((theme) => theme.breakpoints.down("xs"), {
     noSsr: true,
@@ -99,16 +101,34 @@ const ShareDialog = ({ close, resourceUri }) => {
       {}
     );
     setInvitations(invitations);
+    setSavedInvitations(invitations);
   }, [announces, announcers]);
 
   /** @param {Record<string, InvitationState} changedRights */
   const onChange = (changedRights) => {
-    // TODO: we could compare changedRights to the newInvitations first, to avoid useless updates.
-    setNewInvitations((prevState) => ({
-      ...prevState,
+    // Compare changedRights to invitations, to know where we need to update the collection.
+    const newInvitationsUnfiltered = {
+      ...newInvitations,
       ...changedRights,
-    }));
-    setInvitations((prevState) => ({ ...prevState, ...changedRights }));
+    };
+    const changedInvitations = Object.fromEntries(
+      Object.entries(newInvitationsUnfiltered).filter(
+        ([actorUri, newInvitation]) => {
+          const oldInvitation = savedInvitations[actorUri];
+          return (
+            !!newInvitation.canView !==
+              (!!oldInvitation?.canView || !!oldInvitation?.canShare) ||
+            !!newInvitation.canShare !== !!oldInvitation?.canShare
+          );
+        }
+      )
+    );
+    setNewInvitations(changedInvitations);
+
+    setInvitations({
+      ...savedInvitations,
+      ...changedInvitations,
+    });
   };
 
   const sendInvitations = useCallback(async () => {

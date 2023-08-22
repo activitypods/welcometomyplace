@@ -1,20 +1,16 @@
-import React from "react";
+import React, { useMemo, useState } from "react";
 import {
   List,
   makeStyles,
   Box,
   CircularProgress,
   TextField,
-  Grid,
-  styled,
-  ListItem,
 } from "@material-ui/core";
 import ContactItem from "./ContactItem";
-import AllContactsItem from "./AllContactsItem";
-import { useListContext, useTranslate } from "react-admin";
+import { useGetList, useListContext, useTranslate } from "react-admin";
 import Alert from "@material-ui/lab/Alert";
-import { ResourceSelectWithTags } from "@semapps/tag-components";
 import GroupContactsItem from "./GroupContactsItem";
+import { formatUsername } from "../../utils";
 
 /**
  * @typedef {import('./ShareDialog').InvitationState} InvitationState
@@ -38,77 +34,82 @@ const useStyles = makeStyles((theme) => ({
 const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
   const classes = useStyles();
   const translate = useTranslate();
+  const [searchText, setSearchText] = useState("");
+
   const {
-    ids: contactIds,
-    data: contactData,
-    loading,
-    ...rest
+    ids: profileIds,
+    data: profileData,
+    loading: loadingProfiles,
   } = useListContext();
+
+  const { data: groupData, isLoading: loadingGroups } = useGetList("Group");
+
+  const groupsSorted = useMemo(() => {
+    return Object.values(groupData).sort((g1, g2) =>
+      (g1["vcard:label"] || "").localeCompare(g2["vcard:label"])
+    );
+  }, [groupData]);
+  const groupsFiltered = useMemo(
+    () =>
+      groupsSorted.filter((group) =>
+        (group["vcard:label"] || "")
+          .toLocaleLowerCase()
+          .includes(searchText.toLocaleLowerCase())
+      ),
+    [groupsSorted, searchText]
+  );
+
+  const profilesSorted = useMemo(() => {
+    return Object.values(profileData).sort((p1, p2) =>
+      (p1["vcard:given-name"] || "").localeCompare(p2["vcard:given-name"])
+    );
+  }, [profileData]);
+  const profilesFiltered = useMemo(
+    () =>
+      profilesSorted.filter(
+        (profile) =>
+          (profile["vcard:given-name"] || "")
+            .toLocaleLowerCase()
+            .includes(searchText.toLocaleLowerCase()) ||
+          formatUsername(profile.describes)
+            .toLocaleLowerCase()
+            .includes(searchText.toLocaleLowerCase())
+      ),
+    [profilesSorted, searchText]
+  );
 
   return (
     <List dense className={classes.list}>
-      {
-        // @sebastien, this condition is from the original PR, is this necessary?
-        isOrganizer && (
-          <ListItem>
-            <AllContactsItem
-              contactData={contactData}
-              invitations={invitations}
-              onChange={onChange}
-              isOrganizer={isOrganizer}
-            />
-          </ListItem>
-        )
-      }
-      <ResourceSelectWithTags
-        labelResourcePredicate="vcard:given-name"
-        labelTagPredicate="vcard:label"
-        relationshipPredicate="vcard:hasMember"
-        entityResource="Profile"
-        tagResource="Group"
-        // Selection is handled and rendered by invitation (render*Option), not by the component.
-        // The tags (groups) are rendered in the always-open list, do don't render them in the text area.
-        renderTags={() => null}
-        // Don't show the option list as popup. Wrap in a grid and adjust style, to avoid two scrollbars.
-        PopperComponent={styled(Grid)({
-          "& .MuiAutocomplete-listbox": { maxHeight: "unset" },
-        })}
-        open
-        tagName={translate("app.group.group")}
-        resourceName={translate("app.group.profile")}
-        loading={loading}
-        onChange={() => {}}
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            variant="outlined"
-            label={translate("app.action.search")}
-            fullWidth
-          />
-        )}
-        renderTagOption={(option) => {
-          return (
-            <GroupContactsItem
-              key={option.id}
-              group={option}
-              onChange={onChange}
-              invitations={invitations}
-              isOrganizer={isOrganizer}
-            />
-          );
-        }}
-        renderResourceOption={(option) => (
-          <ContactItem
-            key={option.id}
-            record={option}
-            invitation={invitations[option.describes]}
-            onChange={onChange}
-            isOrganizer={isOrganizer}
-            {...rest}
-          />
-        )}
+      <TextField
+        type="search"
+        value={searchText}
+        onChange={(event) => setSearchText(event.target.value)}
+        label={translate("app.action.search")}
+        fullWidth
+        margin="normal"
       />
-      {loading && (
+
+      {groupsFiltered.map((group) => (
+        <GroupContactsItem
+          key={group.id}
+          group={group}
+          invitations={invitations}
+          onChange={onChange}
+          isOrganizer={isOrganizer}
+        />
+      ))}
+
+      {profilesFiltered.map((profile) => (
+        <ContactItem
+          key={profile.id}
+          record={profile}
+          invitation={invitations[profile.describes]}
+          onChange={onChange}
+          isOrganizer={isOrganizer}
+        />
+      ))}
+
+      {(loadingProfiles || loadingGroups) && (
         <Box
           display="flex"
           alignItems="center"
@@ -118,7 +119,7 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
           <CircularProgress size={60} thickness={6} />
         </Box>
       )}
-      {!loading && contactIds.length === 0 && (
+      {!loadingProfiles && profileIds.length === 0 && (
         <Alert severity="warning">{translate("app.helper.no_contact")}</Alert>
       )}
     </List>
