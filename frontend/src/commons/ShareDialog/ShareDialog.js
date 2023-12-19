@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     padding: 24,
+    paddingBottom: 8,
     [theme.breakpoints.down("sm")]: {
       padding: 16,
       paddingBottom: 4,

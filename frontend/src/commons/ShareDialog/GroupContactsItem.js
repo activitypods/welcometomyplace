@@ -14,6 +14,10 @@ import { arrayFromLdField } from "../../utils";
 /** @typedef {import("./ShareDialog").InvitationState} InvitationState */
 
 const useStyles = makeStyles((theme) => ({
+  listItem: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
   primaryText: {
     width: "30%",
     whiteSpace: "nowrap",
@@ -113,7 +117,7 @@ const GroupContactsItem = ({ group, onChange, invitations, isOrganizer }) => {
   }, [viewChecked, shareChecked, invitations, onChange, groupMemberIds]);
 
   return (
-    <ListItem>
+    <ListItem className={classes.listItem}>
       <ListItemAvatar className={classes.avatarItem}>
         <Avatar src={group?.["vcard:photo"]} className={classes.avatar}>
           <GroupIcon />

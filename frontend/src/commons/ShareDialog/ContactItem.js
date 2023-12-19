@@ -15,6 +15,10 @@ import { useTranslate } from "react-admin";
  */
 
 const useStyles = makeStyles((theme) => ({
+  listItem: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
   primaryText: {
     width: "30%",
     whiteSpace: "nowrap",
@@ -81,7 +85,7 @@ const ContactItem = ({ record, invitation, onChange, isOrganizer }) => {
   };
 
   return (
-    <ListItem>
+    <ListItem className={classes.listItem}>
       <ListItemAvatar className={classes.avatarItem}>
         <Avatar src={record?.["vcard:photo"]} className={classes.avatar}>
           {record["vcard:given-name"]?.[0]}

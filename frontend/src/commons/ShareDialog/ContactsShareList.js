@@ -86,7 +86,8 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
         onChange={(event) => setSearchText(event.target.value)}
         label={translate("app.action.search")}
         fullWidth
-        margin="normal"
+        variant="filled"
+        margin="dense"
       />
 
       {groupsFiltered.map((group) => (
