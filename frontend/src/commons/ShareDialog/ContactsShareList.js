@@ -18,8 +18,8 @@ import { formatUsername } from "../../utils";
 
 const useStyles = makeStyles((theme) => ({
   list: {
-    width: "100%",
-    maxWidth: "100%",
+    width: "98%",
+    maxWidth: "98%",
     backgroundColor: theme.palette.background.paper,
     padding: 0,
   },
@@ -89,7 +89,6 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
         variant="filled"
         margin="dense"
       />
-
       {groupsFiltered.map((group) => (
         <GroupContactsItem
           key={group.id}
@@ -99,7 +98,6 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
           isOrganizer={isOrganizer}
         />
       ))}
-
       {profilesFiltered.map((profile) => (
         <ContactItem
           key={profile.id}
@@ -109,7 +107,6 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
           isOrganizer={isOrganizer}
         />
       ))}
-
       {(loadingProfiles || loadingGroups) && (
         <Box
           display="flex"

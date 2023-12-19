@@ -52,10 +52,11 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: 0,
     paddingRight: 0,
     marginRight: 24,
-    height: 300,
+    height: 400,
     [theme.breakpoints.down("sm")]: {
       padding: "0px 16px",
       margin: 0,
+      height: 'unset', // Full screen height for mobile
     },
   },
 }));
