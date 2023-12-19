@@ -23,6 +23,7 @@ module.exports = {
       reject: 'Refuser',
       reject_contact_request: 'Rejeter la demande',
       remove_contact: 'Retirer de mes contacts',
+      search: 'Rechercher',
       send: 'Envoyer',
       send_invitation: "Envoyer l'invitation |||| Envoyer %{smart_count} invitations",
       send_message: 'Envoyer un message',
@@ -139,5 +140,10 @@ module.exports = {
       email: "Doit être un email valide",
       confirmNewPassword: "Doit être le même que le nouveau champ de mot de passe"
     },
+    share: {
+      all_contacts: 'Tous mes contacts',
+      allow_view: 'Autoriser la vue',
+      allow_share: 'Autoriser le partage',
+    }
   },
 };

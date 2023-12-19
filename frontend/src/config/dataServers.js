@@ -7,23 +7,24 @@ const dataServers = {
     sparqlEndpoint: null, // Calculated from the token
     containers: {
       pod: {
-        'as:Event': ['/events'],
-        'vcard:Location': ['/locations'],
-        'vcard:Individual': ['/profiles'],
-        'apods:FrontAppRegistration': ['/front-apps'],
+        "as:Event": ["/events"],
+        "vcard:Location": ["/locations"],
+        "vcard:Individual": ["/profiles"],
+        "apods:FrontAppRegistration": ["/front-apps"],
+        "vcard:Group": ["/groups"],
       },
     },
-    uploadsContainer: '/files',
+    uploadsContainer: "/files",
   },
   common: {
-    name: 'Common data',
+    name: "Common data",
     baseUrl: process.env.REACT_APP_COMMON_DATA_URL,
-    sparqlEndpoint: process.env.REACT_APP_COMMON_DATA_URL + 'sparql',
+    sparqlEndpoint: process.env.REACT_APP_COMMON_DATA_URL + "sparql",
     default: true,
     noProxy: true,
     containers: {
       common: {
-        'apods:EventFormat': ['/formats']
+        "apods:EventFormat": ["/formats"],
       },
     },
   },
