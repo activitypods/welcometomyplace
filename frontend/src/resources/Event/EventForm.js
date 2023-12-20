@@ -40,12 +40,14 @@ const EventForm = ({ className, ...rest }) => {
 
   return (
     <>
+      {process.env.REACT_APP_LANG === 'fr' &&
       <Box mb={1}>
         <Alert severity="info">
-          {translate('app.helper.first_event')}
-          <a href={`mailto:${process.env.REACT_APP_CONTACT_EMAIL}`}>{process.env.REACT_APP_CONTACT_EMAIL}</a>
+          {translate('app.helper.first_event')}&nbsp;
+          <a href={`https://forum.reseauxdevie.org`} target="_blank" rel="noopener noreferrer">{translate('app.forum_name')}</a>
         </Alert>
       </Box>
+      }
       <SimpleForm {...rest} redirect="show">
         <TextInput source="name" fullWidth validate={[required()]} />
         <DateTimeInput

@@ -2,6 +2,7 @@
 
 module.exports = {
   app: {
+    forum_name: 'Forum Réseaux de Vie',
     description_short:
       "Foster living together\nbased on welcome, trust and mutual aid",
     description_long:
@@ -81,7 +82,7 @@ module.exports = {
       event_share_right:
         "The organizer has given you the right to share this event with your contacts (top-right button).",
       first_event:
-        "If you have questions or troubles regarding the creation of events, feel free to contact us at ",
+        "If you have questions or troubles regarding the creation of events, feel free to contact us",
       max_attendees: "Warning: you are counted as an attendee",
       message_profile_show_right:
         "Sending a message to %{username} will give him/her the right to see your profile, in order to be able to respond.",

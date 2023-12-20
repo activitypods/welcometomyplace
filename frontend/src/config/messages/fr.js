@@ -2,6 +2,7 @@
 
 module.exports = {
   app: {
+    forum_name: 'Forum Réseaux de Vie',
     description_short: 'Favoriser un vivre ensemble\nbasé sur l’accueil, la confiance et l’entraide',
     description_long: 'Une application pour favoriser un vivre ensemble basé sur l’accueil, la confiance et l’entraide',
     action: {
@@ -75,7 +76,7 @@ module.exports = {
       event_join_right: "Vous avez été invité à cette rencontre. Pour accepter l'invitation, veuillez cliquer sur le bouton \"Je m'inscris\".",
       event_share_right: "L'organisateur vous a donné le droit de partager cette rencontre avec vos contacts (bouton en haut à droite).",
       first_event:
-        "Si vous avez des questions ou difficultés concernant la création de rencontres, n'hésitez pas à écrire à ",
+        "Si vous avez des questions ou difficultés concernant la création de rencontres, n'hésitez pas à poster un message sur le",
       max_attendees: 'Attention: vous êtes compté comme participant',
       message_profile_show_right: "Envoyer un message à %{username} lui donnera le droit de voir votre profil, pour lui permettre de vous répondre.",
       no_contact: 'Vous devez ajouter des contacts à votre réseau pour pouvoir les inviter',
