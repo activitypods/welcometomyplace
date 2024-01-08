@@ -103,9 +103,7 @@ const ContactItem = ({ record, invitation, onChange, isOrganizer }) => {
           <Switch
             size="small"
             checked={invitationState.canView || invitationState.canShare}
-            disabled={
-              invitationState.viewReadonly || invitationState.shareReadonly
-            }
+            disabled={invitationState.viewReadonly}
             onClick={changeCanView}
           />
         }
