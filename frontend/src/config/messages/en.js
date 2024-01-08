@@ -85,7 +85,7 @@ module.exports = {
         "If you have questions or troubles regarding the creation of events, feel free to contact us",
       max_attendees: "Warning: you are counted as an attendee",
       message_profile_show_right:
-        "Sending a message to %{username} will give him/her the right to see your profile, in order to be able to respond.",
+        "Sending a message to the organizer will give him/her the right to see your profile, in order to be able to respond.",
       no_contact:
         "You must add contacts to your network to be able to invite them",
       no_address:

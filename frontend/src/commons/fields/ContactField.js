@@ -53,7 +53,7 @@ const ContactField = ({ source, context, ...rest }) => {
         <form onSubmit={(event) => handleSubmit(event).then(form.reset)}>
           {!isOwner && contactsLoaded && !contacts.includes(record[source]) &&
             <Box mb={1}>
-              <Alert severity="warning">{translate('app.helper.message_profile_show_right', { username: record?.['vcard:given-name']})}</Alert>
+              <Alert severity="warning">{translate('app.helper.message_profile_show_right')}</Alert>
             </Box>
           }
           <Field
