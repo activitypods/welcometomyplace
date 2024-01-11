@@ -15,6 +15,13 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: 'none',
     zIndex: 900,
   },
+  link: {
+    textDecoration: 'underline',
+    color: 'white',
+    '&:hover': {
+      color: 'white'
+    }
+  },
   mission: {
     backgroundColor: theme.palette.primary.main,
     [theme.breakpoints.up('xs')]: {
@@ -51,6 +58,12 @@ const EventList = (props) => {
             <Box mb={2}>
               <Alert icon={<AppIcon />} variant="filled" className={classes.mission}>
                 {translate('app.description_long')}
+                {" "}
+                {process.env.REACT_APP_ORGANIZATION_NAME &&
+                  <a href={process.env.REACT_APP_ORGANIZATION_URL} target="_blank" rel="noopener noreferrer" className={classes.link}>
+                    {translate('app.backed_by_organization', { organizationName: process.env.REACT_APP_ORGANIZATION_NAME})}
+                  </a>
+                }
               </Alert>
             </Box>
             <ListBase

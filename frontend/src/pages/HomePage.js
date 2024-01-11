@@ -30,6 +30,10 @@ const useStyles = makeStyles(() => ({
     marginTop: 16,
     whiteSpace: 'pre-line',
   },
+  link: {
+    textDecoration: 'underline',
+    color: 'white'
+  },
   text: {
     color: 'white',
   },
@@ -61,7 +65,14 @@ const HomePage = ({ title }) => {
         <Typography align="center" className={classes.description}>
           {translate('app.description_short')}
         </Typography>
-        <Box display="flex" pt={2} pb={3} alignItems="center">
+        {process.env.REACT_APP_ORGANIZATION_NAME &&
+          <a href={process.env.REACT_APP_ORGANIZATION_URL} target="_blank" rel="noopener noreferrer" className={classes.link}>
+            <Typography align="center" className={classes.description}>
+              {translate('app.backed_by_organization', { organizationName: process.env.REACT_APP_ORGANIZATION_NAME})}
+            </Typography>
+          </a>
+        }
+        <Box display="flex" pt={2} pb={1} alignItems="center">
           <Link to="/login?signup">
             <Button variant="contained" color="secondary" className={classes.button}>
               {translate('auth.action.signup')}
