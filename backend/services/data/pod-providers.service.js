@@ -2,7 +2,7 @@ const path = require('path');
 const urlJoin = require('url-join');
 const { ControlledContainerMixin } = require('@semapps/ldp');
 const { ImporterMixin } = require('@semapps/importer');
-const CONFIG = require('../config/config');
+const CONFIG = require('../../config/config');
 
 module.exports = {
   name: 'pod-providers',

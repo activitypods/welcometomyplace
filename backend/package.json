@@ -2,18 +2,25 @@
   "name": "welcometomyplace-backend",
   "private": true,
   "scripts": {
-    "dev": "moleculer-runner --repl --hot services/*.service.js",
-    "start": "moleculer-runner services/*.service.js"
+    "dev": "moleculer-runner --repl --hot services/*.service.js services/**/*.service.js",
+    "start": "moleculer-runner services/*.service.js services/**/*.service.js",
+    "link-packages": "yarn link @activitypods/app @activitypods/ontologies @activitypods/solid-notifications",
+    "unlink-packages": "yarn unlink @activitypods/app @activitypods/ontologies @activitypods/solid-notifications"
   },
   "dependencies": {
-    "@activitypods/app": "1.1.0",
-    "@activitypods/ontologies": "1.1.0",
-    "@activitypods/solid-notifications": "1.1.0",
+    "@activitypods/app": "2.0.0-alpha.0",
+    "@activitypods/ontologies": "2.0.0-alpha.0",
+    "@activitypods/solid-notifications": "2.0.0-alpha.0",
     "@semapps/auth": "0.7.0",
     "@semapps/core": "0.7.0",
+    "@semapps/importer": "0.7.0",
     "@semapps/signature": "0.7.0",
     "dotenv-flow": "^3.2.0",
     "ioredis": "^4.17.3",
+    "moleculer": "^0.14.19",
+    "moleculer-bull": "0.2.8",
+    "moleculer-cron": "^0.0.2",
+    "moleculer-repl": "^0.6.6",
     "url-join": "^4.0.1"
   },
   "engines": {

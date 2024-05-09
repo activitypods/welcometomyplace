@@ -7,7 +7,7 @@ module.exports = {
   mixins: [CoreService],
   settings: {
     baseUrl: CONFIG.HOME_URL,
-    baseDir: path.resolve(__dirname, '..'),
+    baseDir: path.resolve(__dirname, '../..'),
     triplestore: {
       url: CONFIG.SPARQL_ENDPOINT,
       user: CONFIG.JENA_USER,
