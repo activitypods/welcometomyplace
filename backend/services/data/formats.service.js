@@ -1,12 +1,14 @@
 const path = require('path');
 const urlJoin = require('url-join');
+const { ControlledContainerMixin } = require('@semapps/ldp');
 const { ImporterMixin } = require('@semapps/importer');
 const CONFIG = require('../config/config');
 
 module.exports = {
-  name: 'importers.formats',
-  mixins: [ImporterMixin],
+  name: 'formats',
+  mixins: [ControlledContainerMixin, ImporterMixin],
   settings: {
+    path: '/apods/event-format',
     source: {
       getAllFull: path.resolve(__dirname, './files/formats.json'),
       fieldsMapping: {
@@ -14,7 +16,7 @@ module.exports = {
       },
     },
     dest: {
-      containerUri: urlJoin(CONFIG.HOME_URL, 'formats')
+      containerUri: urlJoin(CONFIG.HOME_URL, '/apods/event-format')
     }
   },
   methods: {

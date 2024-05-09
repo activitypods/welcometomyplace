@@ -1,12 +1,14 @@
 const path = require('path');
 const urlJoin = require('url-join');
+const { ControlledContainerMixin } = require('@semapps/ldp');
 const { ImporterMixin } = require('@semapps/importer');
 const CONFIG = require('../config/config');
 
 module.exports = {
-  name: 'importers.pod-providers',
-  mixins: [ImporterMixin],
+  name: 'pod-providers',
+  mixins: [ControlledContainerMixin, ImporterMixin],
   settings: {
+    path: '/apods/pod-provider',
     source: {
       getAllFull: path.resolve(__dirname, './files/pod-providers.json'),
       fieldsMapping: {
@@ -14,7 +16,7 @@ module.exports = {
       },
     },
     dest: {
-      containerUri: urlJoin(CONFIG.HOME_URL, 'pod-providers')
+      containerUri: urlJoin(CONFIG.HOME_URL, '/apods/pod-provider')
     }
   },
   methods: {
