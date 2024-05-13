@@ -1,6 +1,7 @@
 import React from 'react';
-import { useListContext, Loading } from 'react-admin';
-import { Card, List, Divider, makeStyles } from '@material-ui/core';
+import { useListContext, Loading, RecordContextProvider } from 'react-admin';
+import { Card, List, Divider } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   card: {
@@ -13,18 +14,18 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const DividedList = ({ children }) => {
-  const { ids, data, loading, ...rest } = useListContext();
+  const { data, isLoading } = useListContext();
   const classes = useStyles();
-  return loading ? (
+  return isLoading ? (
     <Loading loadingPrimary="ra.page.loading" loadingSecondary="ra.message.loading" style={{ height: '50vh' }} />
   ) : (
     <Card className={classes.card}>
       <List className={classes.list}>
-        {ids.map((id, i) => (
-          <>
+        {data?.map((record, i) => (
+          <RecordContextProvider value={record}>
             {i > 0 && <Divider />}
-            {React.cloneElement(children, { record: data[id], ...rest })}
-          </>
+            {children}
+          </RecordContextProvider>
         ))}
       </List>
     </Card>

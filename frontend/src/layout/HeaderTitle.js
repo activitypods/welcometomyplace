@@ -1,6 +1,7 @@
 import React from 'react';
-import { Link } from 'react-admin';
-import { makeStyles, Typography, Box, Button, Grid, Container, useMediaQuery } from '@material-ui/core';
+import { Link, useRecordContext } from 'react-admin';
+import { Typography, Box, Button, Grid, Container, useMediaQuery } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   background: {
@@ -17,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const HeaderTitle = ({ children, actions, record }) => {
+const HeaderTitle = ({ children, actions }) => {
+  const record = useRecordContext();
   const classes = useStyles();
   const xs = useMediaQuery((theme) => theme.breakpoints.down('xs'), { noSsr: true });
   return (

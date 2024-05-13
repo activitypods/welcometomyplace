@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { useGetIdentity } from "react-admin";
 
 const useOpenExternalApp = () => {
-  const { identity } = useGetIdentity();
+  const { data: identity } = useGetIdentity();
   return useCallback((type, uri, mode) => {
     if (identity?.id) {
       const searchParams = new URLSearchParams();

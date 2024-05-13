@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { cloneElement, Children } from 'react';
-import { linkToRecord, sanitizeListRestProps, useListContext, Link } from 'react-admin';
+import { sanitizeListRestProps, useListContext, useCreatePath, Link } from 'react-admin';
 import classnames from 'classnames';
-import { LinearProgress } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { LinearProgress } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,27 +23,25 @@ const handleClick = () => {};
 
 const BulletPointsField = (props) => {
   const { classes: classesOverride, className, children, linkType = 'edit', ...rest } = props;
-  const { ids, data, loaded, resource, basePath } = useListContext(props);
+  const createPath = useCreatePath();
+  const { data, isLoading, resource } = useListContext(props);
 
   const classes = useStyles(props);
 
-  if (loaded === false) {
+  if (isLoading) {
     return <LinearProgress />;
   }
 
   return (
     <ul className={classnames(classes.root, className)} {...sanitizeListRestProps(rest)}>
-      {ids.map((id, i) => {
-        const resourceLinkPath = !linkType ? false : linkToRecord(basePath, id, linkType);
+      {data?.map((record, i) => {
+        const resourceLinkPath = !linkType ? false : createPath({ resource, type: linkType, id: record.id });
 
         if (resourceLinkPath) {
           return (
-            <span key={id}>
+            <span key={record.id}>
               <Link classes={classes.link} to={resourceLinkPath} onClick={stopPropagation}>
                 {cloneElement(Children.only(children), {
-                  record: data[id],
-                  resource,
-                  basePath,
                   // Workaround to force ChipField to be clickable
                   onClick: handleClick,
                 })}
@@ -53,12 +51,8 @@ const BulletPointsField = (props) => {
         }
 
         return (
-          <li key={id}>
-            {cloneElement(Children.only(children), {
-              record: data[id],
-              resource,
-              basePath,
-            })}
+          <li key={record.id}>
+            {children}
           </li>
         );
       })}

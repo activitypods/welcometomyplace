@@ -1,4 +1,4 @@
-import { createTheme } from '@material-ui/core/styles';
+import { createTheme } from '@mui/material/styles';
 
 const defaultTheme = createTheme();
 
@@ -10,11 +10,11 @@ const theme = createTheme({
     primary: {
       main: '#D2123F',
       light: '#FD7426',
-      contrastText: '#FFF',
+      contrastText: '#FFFFFF',
     },
     secondary: {
       main: '#203142',
-      contrastText: '#FFF',
+      contrastText: '#FFFFFF',
     }
   },
   typography: {
@@ -94,31 +94,29 @@ const theme = createTheme({
       textTransform: 'uppercase',
     },
   },
-  overrides: {
-    RaImageField: {
-      image: {
-        width: '100%',
-        margin: 0,
-        maxHeight: 200,
-        objectFit: 'cover',
-      },
-    },
+  components: {
     MuiButton: {
-      contained: {
-        borderRadius: 8,
-        padding: 12,
-        minWidth: 100
+      styleOverrides: {
+        contained: {
+          borderRadius: 8,
+          padding: 12,
+          minWidth: 100
+        },
       },
     },
     MuiAlert: {
-      message: {
-        paddingTop: 11,
+      styleOverrides: {
+        message: {
+          paddingTop: 11,
+        },
       },
     },
     MuiIconButton: {
-      root: {
-        padding: 8,
-        paddingRight: 0,
+      styleOverrides: {
+        root: {
+          padding: 8,
+          paddingRight: 0,
+        },
       },
     },
   },

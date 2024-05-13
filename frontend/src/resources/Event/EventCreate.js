@@ -3,10 +3,10 @@ import { CreateBase, useTranslate } from 'react-admin';
 import EventForm from './EventForm';
 import CreatePage from '../../layout/CreatePage';
 
-const EventCreate = (props) => {
+const EventCreate = () => {
   const translate = useTranslate();
   return (
-    <CreateBase {...props}>
+    <CreateBase>
       <CreatePage title={translate('app.action.create_event')}>
         <EventForm />
       </CreatePage>

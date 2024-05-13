@@ -1,50 +1,18 @@
 import React from 'react';
-import { useEditContext, Toolbar, SaveButton } from 'react-admin';
-import { Container } from '@material-ui/core';
+import { useEditContext } from 'react-admin';
+import { Container } from '@mui/material';
 import HeaderTitle from './HeaderTitle';
 
-const NoDeleteToolbar = (props) => (
-  <Toolbar {...props}>
-    <SaveButton />
-  </Toolbar>
-);
-
-const EditPage = ({ undoable, mutationMode, title, actions, className, hasDelete = true, children, ...rest }) => {
-  const {
-    basePath,
-    defaultTitle,
-    // hasList,
-    // hasShow,
-    record,
-    redirect,
-    resource,
-    save,
-    saving,
-    version,
-  } = useEditContext(rest);
-
-  if (!record) return null;
-
+const EditPage = ({ title, actions, children }) => {
+  const { defaultTitle } = useEditContext();
   return (
     <>
-      <HeaderTitle actions={actions} record={record}>
+      <HeaderTitle actions={actions}>
         {title || defaultTitle}
       </HeaderTitle>
       <br />
       <Container>
-        {React.cloneElement(React.Children.only(children), {
-          resource,
-          basePath,
-          record,
-          saving,
-          save,
-          undoable,
-          mutationMode,
-          version,
-          redirect,
-          component: 'div',
-          toolbar: hasDelete ? undefined : <NoDeleteToolbar />,
-        })}
+        {children}
       </Container>
     </>
   );

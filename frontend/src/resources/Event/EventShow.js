@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
-import { ShowBase, useRecordContext, useTranslate } from 'react-admin';
-import { ImageField, ReferenceField } from '@semapps/field-components';
+import { ShowBase, ImageField, useRecordContext, useTranslate } from 'react-admin';
+import { ReferenceField } from '@semapps/field-components';
 import { AvatarWithLabelField } from '@semapps/field-components';
 import { GridList } from '@semapps/list-components';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
@@ -60,7 +60,7 @@ const EventShow = (props) => {
             </EventJoinCard>
           }
         >
-          <ImageField source="image" fullWidth />
+          <ImageField source="image" />
           <MarkdownField source="content" />
           <EventConditionsField source="name" />
           <ReferenceCollectionField reference="Actor" source="apods:attendees">

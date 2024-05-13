@@ -1,14 +1,14 @@
 import React, { useCallback } from "react";
 import {
-  makeStyles,
   Avatar,
   Switch,
   ListItemAvatar,
   ListItemText,
   ListItem,
-} from "@material-ui/core";
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useTranslate } from "react-admin";
-import GroupIcon from "@material-ui/icons/Group";
+import GroupIcon from "@mui/icons-material/Group";
 import { arrayFromLdField } from "../../utils";
 
 /** @typedef {import("./ShareDialog").InvitationState} InvitationState */

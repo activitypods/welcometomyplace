@@ -1,14 +1,14 @@
 import React, { useRef } from 'react';
 import {
   Grid,
-  makeStyles,
   Container,
   Box,
   Drawer,
   useMediaQuery,
   useScrollTrigger,
   Typography,
-} from '@material-ui/core';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { TextField, useShowContext, ReferenceField } from 'react-admin';
 import JoinButton from '../commons/buttons/JoinButton';
 

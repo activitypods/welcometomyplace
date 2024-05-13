@@ -1,14 +1,14 @@
 import React, { useMemo, useState } from "react";
 import {
   List,
-  makeStyles,
   Box,
   CircularProgress,
   TextField,
-} from "@material-ui/core";
+  Alert
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import ContactItem from "./ContactItem";
 import { useGetList, useListContext, useTranslate } from "react-admin";
-import Alert from "@material-ui/lab/Alert";
 import GroupContactsItem from "./GroupContactsItem";
 import { formatUsername } from "../../utils";
 

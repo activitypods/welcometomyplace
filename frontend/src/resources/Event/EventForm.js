@@ -1,13 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { SimpleForm, ImageInput, TextInput, required, NumberInput, SelectInput, useTranslate } from 'react-admin';
-import { Box } from '@material-ui/core';
+import { SimpleForm, ImageField, TextInput, required, NumberInput, SelectInput, useTranslate } from 'react-admin';
+import { Box, Alert } from '@mui/material';
 import { MarkdownInput } from '@semapps/markdown-components';
-import { ImageField } from '@semapps/field-components';
-import { ReferenceInput } from '@semapps/input-components';
+import { ReferenceInput, ImageInput } from '@semapps/input-components';
 import { DateTimeInput } from '@semapps/date-components';
 import frLocale from 'date-fns/locale/fr';
 import BodyLabel from '../../commons/lists/BodyList/BodyLabel';
-import Alert from '@material-ui/lab/Alert';
 import QuickCreateLocationInput from "../../commons/inputs/QuickCreateLocationInput/QuickCreateLocationInput";
 
 const futureDate = (value) => {
@@ -28,7 +26,7 @@ const beforeStartTime = (value, allValues) => {
   }
 };
 
-const EventForm = ({ className, ...rest }) => {
+const EventForm = () => {
   const translate = useTranslate();
 
   // Needed to trigger orm change and enable save button :
@@ -48,7 +46,7 @@ const EventForm = ({ className, ...rest }) => {
         </Alert>
       </Box>
       }
-      <SimpleForm {...rest} redirect="show">
+      <SimpleForm redirect="show">
         <TextInput source="name" fullWidth validate={[required()]} />
         <DateTimeInput
           source="startTime"
@@ -78,7 +76,6 @@ const EventForm = ({ className, ...rest }) => {
           key={locationVersion}
           reference="Location"
           source="location"
-          validate={[required()]}
           onChange={handleLocationChange}
         />
         <ImageInput source="image" accept="image/*">
@@ -90,9 +87,8 @@ const EventForm = ({ className, ...rest }) => {
           source="apods:hasFormat"
           filter={{ a: 'apods:EventFormat' }}
           sort={{ field: 'rdfs:label', order: 'ASC' }}
-          validate={[required()]}
         >
-          <SelectInput optionText="rdfs:label" />
+          <SelectInput optionText="rdfs:label" validate={[required()]} fullWidth />
         </ReferenceInput>
         <BodyLabel>{translate('app.input.conditions')}</BodyLabel>
         <DateTimeInput

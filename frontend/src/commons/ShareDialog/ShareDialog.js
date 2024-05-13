@@ -6,9 +6,9 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  makeStyles,
   useMediaQuery,
-} from "@material-ui/core";
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useCheckAuthenticated } from "@semapps/auth-provider";
 import ContactsShareList from "./ContactsShareList";
 import {
@@ -86,6 +86,7 @@ const ShareDialog = ({ close, resourceUri }) => {
   // To begin, populate present invitations.
   // Announcers and announces that are already in the collection are readonly.
   useEffect(() => {
+    
     const invitations = [...announces, ...announcers].reduce(
       (acc, actorUri) => {
         const canView = announces.includes(actorUri);
@@ -209,8 +210,6 @@ const ShareDialog = ({ close, resourceUri }) => {
       </DialogTitle>
       <DialogContent className={classes.listForm}>
         <ListBase
-          resource="Profile"
-          basePath="/Profile"
           perPage={1000}
           sort={{ field: "vcard:given-name", order: "ASC" }}
         >

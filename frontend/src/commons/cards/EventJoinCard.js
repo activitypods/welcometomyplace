@@ -1,6 +1,7 @@
 import React from 'react';
 import { useRecordContext, useTranslate } from 'react-admin';
-import { makeStyles, Box, Card, Typography } from '@material-ui/core';
+import { Box, Card, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import JoinButton from '../buttons/JoinButton';
 
 const useStyles = makeStyles((theme) => ({

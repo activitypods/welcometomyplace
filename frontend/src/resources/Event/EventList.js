@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { ListBase, useTranslate } from 'react-admin';
-import { Container, Grid, Hidden, useMediaQuery, AppBar, Tabs, Tab, makeStyles, Box } from '@material-ui/core';
+import { Container, Grid, Hidden, useMediaQuery, AppBar, Tabs, Tab, Box, Alert } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
 import CardsList from '../../commons/lists/CardsList';
 import EventCard from './EventCard';
 import HeaderTitle from '../../layout/HeaderTitle';
 import ProfileCard from '../../commons/cards/ProfileCard';
-import Alert from "@material-ui/lab/Alert";
 import AppIcon from '../../config/AppIcon';
 
 const useStyles = makeStyles((theme) => ({
@@ -67,7 +67,7 @@ const EventList = (props) => {
               </Alert>
             </Box>
             <ListBase
-              filter={{ 'apods:hasStatus': tab === 0 ? 'http://activitypods.org/ns/core#Coming' : 'http://activitypods.org/ns/core#Finished' }}
+              // filter={{ 'apods:hasStatus': tab === 0 ? 'http://activitypods.org/ns/core#Coming' : 'http://activitypods.org/ns/core#Finished' }}
               perPage={1000}
               sort={{ field: 'startTime', order: tab === 0 ? 'ASC' : 'DESC' }}
               {...props}

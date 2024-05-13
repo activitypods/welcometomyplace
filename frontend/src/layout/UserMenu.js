@@ -1,9 +1,10 @@
 import React, { forwardRef } from 'react';
-import { UserMenu as RaUserMenu, MenuItemLink, useGetIdentity, useTranslate } from 'react-admin';
-import { makeStyles, MenuItem, ListItemIcon } from '@material-ui/core';
-import PersonIcon from '@material-ui/icons/Person';
-import GroupIcon from '@material-ui/icons/Group';
-import HomeIcon from '@material-ui/icons/Home';
+import { UserMenu as RaUserMenu, Logout, MenuItemLink, useGetIdentity, useTranslate } from 'react-admin';
+import { MenuItem, ListItemIcon } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import PersonIcon from '@mui/icons-material/Person';
+import GroupIcon from '@mui/icons-material/Group';
+import HomeIcon from '@mui/icons-material/Home';
 import useOpenExternalApp from "../hooks/useOpenExternalApp";
 
 const useStyles = makeStyles((theme) => ({
@@ -45,12 +46,12 @@ const LoginMenu = forwardRef(({ onClick, label }, ref) => (
 ));
 
 const UserMenu = ({ logout, ...otherProps }) => {
-  const { identity } = useGetIdentity();
+  const { data: identity } = useGetIdentity();
   const openExternalApp = useOpenExternalApp();
   const translate = useTranslate();
   return (
     <RaUserMenu {...otherProps}>
-      {identity && identity.id !== '' ? (
+      {identity?.id !== '' ? (
         [
           <MyProfileMenu
             key="my-profile"
@@ -67,7 +68,7 @@ const UserMenu = ({ logout, ...otherProps }) => {
             label={translate('app.page.network')}
             to={openExternalApp('as:Profile')}
           />,
-          React.cloneElement(logout, { key: 'logout' }),
+          <Logout key="logout" />
         ]
       ) : (
         <LoginMenu label={translate('ra.auth.sign_in')} />

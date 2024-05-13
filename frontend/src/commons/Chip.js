@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Chip as MuiChip, makeStyles } from '@material-ui/core';
+import { Chip as MuiChip } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   root: {

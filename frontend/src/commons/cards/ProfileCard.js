@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles, Box, Card, Typography, Avatar, Button } from '@material-ui/core';
+import { Box, Card, Typography, Avatar, Button } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { useGetIdentity, useTranslate } from 'react-admin';
 import { formatUsername } from '../../utils';
 import useOpenExternalApp from "../../hooks/useOpenExternalApp";
@@ -49,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ProfileCard = () => {
   const classes = useStyles();
-  const { identity } = useGetIdentity();
+  const { data: identity } = useGetIdentity();
   const translate = useTranslate();
   const openExternalApp = useOpenExternalApp();
   if (!identity) return null;

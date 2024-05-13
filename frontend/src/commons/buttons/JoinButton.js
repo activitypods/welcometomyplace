@@ -1,14 +1,14 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { useShowContext, useGetIdentity, useNotify, useRefresh, useTranslate } from 'react-admin';
 import { useCollection, useOutbox, ACTIVITY_TYPES } from '@semapps/activitypub-components';
-import { Button } from '@material-ui/core';
+import { Button } from '@mui/material';
 
 const JoinButton = (props) => {
   const [disabled, setDisabled] = useState(false);
   const [joined, setJoined] = useState(false);
   const outbox = useOutbox();
   const { record } = useShowContext();
-  const { identity } = useGetIdentity();
+  const { data: identity } = useGetIdentity();
   const { items: attendees } = useCollection(record?.['apods:attendees']);
   const notify = useNotify();
   const refresh = useRefresh();

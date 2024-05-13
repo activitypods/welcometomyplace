@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTranslate, getFieldLabelTranslationArgs, useShowContext } from 'react-admin';
-import { Box, Grid, Hidden, makeStyles, Container } from '@material-ui/core';
+import { Box, Grid, Hidden, Container } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import BodyLabel from './BodyLabel';
 import StickyBox from "../../cards/StickyBox";
 
@@ -14,8 +15,8 @@ const useStyles = makeStyles((theme) => ({
 const BodyList = ({ children, aside }) => {
   const translate = useTranslate();
   const classes = useStyles();
-  const { basePath, loaded, record, resource } = useShowContext();
-  if (!loaded) return null;
+  const { isLoading, record, resource } = useShowContext();
+  if (isLoading) return null;
 
   const fields = React.Children.toArray(children).filter(
     (field) => field && record[field.props.source] && React.isValidElement(field)
@@ -39,20 +40,10 @@ const BodyList = ({ children, aside }) => {
                         })
                       )}
                     </BodyLabel>
-                    {React.cloneElement(field, {
-                      record,
-                      resource,
-                      basePath,
-                    })}
+                    {field}
                   </>
-                ) : typeof field.type === 'string' ? (
-                  field
                 ) : (
-                  React.cloneElement(field, {
-                    record,
-                    resource,
-                    basePath,
-                  })
+                  field
                 )}
               </div>
             ))}

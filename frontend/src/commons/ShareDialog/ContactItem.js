@@ -1,12 +1,12 @@
 import React from "react";
 import {
-  makeStyles,
   Avatar,
   Switch,
   ListItemAvatar,
   ListItemText,
   ListItem,
-} from "@material-ui/core";
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { formatUsername } from "../../utils";
 import { useTranslate } from "react-admin";
 

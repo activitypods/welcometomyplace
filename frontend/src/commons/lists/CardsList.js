@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { useListContext, Loading, linkToRecord, Link, DateField } from 'react-admin';
-import { Card, CardMedia, CardContent, makeStyles } from '@material-ui/core';
+import { useListContext, RecordContextProvider, Loading, useCreatePath, Link, DateField } from 'react-admin';
+import { Card, CardMedia, CardContent } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -59,35 +60,37 @@ const useStyles = makeStyles((theme) => ({
 
 const CardsList = ({ CardComponent, link }) => {
   const classes = useStyles();
-  const { ids, data, basePath, loading } = useListContext();
-  return loading ? (
+  const { data, resource, isLoading } = useListContext();
+  const createPath = useCreatePath();
+  return isLoading ? (
     <Loading loadingPrimary="ra.page.loading" loadingSecondary="ra.message.loading" className={classes.loading} />
   ) : (
-    ids.map((id) => {
-      const image = data[id]?.image;
+    data?.map((record) => {
+      const image = record.image;
       return (
-        <Link key={id} to={linkToRecord(basePath, id, link)} className={classes.root}>
-          <Card key={id} className={classes.details}>
-            {data[id]?.image ? (
-              <CardMedia className={classes.image} image={Array.isArray(image) ? image[0] : image} />
-            ) : (
-              <CardContent className={classes.date}>
-                <DateField record={data[id]} variant="subtitle1" source="startTime" options={{ weekday: 'long' }} />
-                <DateField
-                  record={data[id]}
-                  variant="h4"
-                  source="startTime"
-                  options={{ day: 'numeric' }}
-                  className={classes.day}
-                />
-                <DateField record={data[id]} variant="subtitle1" source="startTime" options={{ month: 'long' }} />
+        <RecordContextProvider key={record.id} value={record}>
+          <Link to={createPath({ resource, type: link, id: record.id })} className={classes.root}>
+            <Card key={record.id} className={classes.details}>
+              {record.image ? (
+                <CardMedia className={classes.image} image={Array.isArray(image) ? image[0] : image} />
+              ) : (
+                <CardContent className={classes.date}>
+                  <DateField variant="subtitle1" source="startTime" options={{ weekday: 'long' }} />
+                  <DateField
+                    variant="h4"
+                    source="startTime"
+                    options={{ day: 'numeric' }}
+                    className={classes.day}
+                  />
+                  <DateField variant="subtitle1" source="startTime" options={{ month: 'long' }} />
+                </CardContent>
+              )}
+              <CardContent className={classes.content}>
+                <CardComponent />
               </CardContent>
-            )}
-            <CardContent className={classes.content}>
-              <CardComponent record={data[id]} />
-            </CardContent>
-          </Card>
-        </Link>
+            </Card>
+          </Link>
+        </RecordContextProvider>
       );
     })
   );

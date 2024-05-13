@@ -1,12 +1,11 @@
 import React from 'react';
 import {
-  makeStyles,
   Typography,
   AppBar as MuiAppBar,
   IconButton,
   Toolbar,
-} from '@material-ui/core';
-import { LogoutButton } from '@semapps/auth-provider';
+} from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { Link } from 'react-router-dom';
 import AppIcon from '../config/AppIcon';
 import UserMenu from './UserMenu';
@@ -51,7 +50,7 @@ const AppBar = ({ title }) => {
             {title}
           </Link>
         </Typography>
-        <UserMenu logout={<LogoutButton />} />
+        <UserMenu />
       </Toolbar>
     </MuiAppBar>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
-import { List, ListItem, ListItemAvatar, ListItemText, Divider, makeStyles } from '@material-ui/core';
+import { List, ListItem, ListItemAvatar, ListItemText, Divider } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { getFieldLabelTranslationArgs, useShowContext, useTranslate } from 'react-admin';
 
 const useStyles = makeStyles((theme) => ({
@@ -53,9 +54,9 @@ const IconsList = ({ orientation, children }) => {
   const isVertical = orientation === 'vertical';
   const translate = useTranslate();
   const classes = useStyles({ isVertical });
-  const { basePath, loaded, record, resource } = useShowContext();
+  const { isLoading, record, resource } = useShowContext();
 
-  if (!loaded) return null;
+  if (isLoading) return null;
 
   const fields = React.Children.toArray(children).filter(
     (field) => field && record[field.props.source] && React.isValidElement(field)
@@ -73,11 +74,6 @@ const IconsList = ({ orientation, children }) => {
             source: field.props.source,
           })
         );
-        const value = React.cloneElement(field, {
-          record,
-          resource,
-          basePath,
-        });
         return (
           <React.Fragment key={i}>
             <ListItem className={classes.item} p={2}>
@@ -90,7 +86,7 @@ const IconsList = ({ orientation, children }) => {
               )}
               <ListItemText
                 primary={label}
-                secondary={value}
+                secondary={field}
                 classes={{ primary: classes.primary, secondary: classes.secondary }}
                 primaryTypographyProps={primaryTypographyProps}
                 secondaryTypographyProps={secondaryTypographyProps}

@@ -1,14 +1,15 @@
 import React from 'react';
-import { useShowContext, Link, linkToRecord, Button, usePermissionsOptimized, useTranslate } from 'react-admin';
-import EditIcon from '@material-ui/icons/Edit';
+import { useShowContext, Link, useCreatePath, Button, usePermissions, useTranslate } from 'react-admin';
+import EditIcon from '@mui/icons-material/Edit';
 
 const EditButton = () => {
-  const { basePath, record } = useShowContext();
-  const { permissions } = usePermissionsOptimized(record?.id);
+  const { record, resource } = useShowContext();
+  const createPath = useCreatePath();
+  const { permissions } = usePermissions(record?.id);
   const translate = useTranslate();
 
   return !!permissions && permissions.some((p) => ['acl:Append', 'acl:Write'].includes(p['acl:mode'])) ? (
-    <Link to={linkToRecord(basePath, record?.id)}>
+    <Link to={createPath({ resource, type: 'edit', id: record?.id })}>
       <Button label={translate('ra.action.edit')}>
         <EditIcon />
       </Button>

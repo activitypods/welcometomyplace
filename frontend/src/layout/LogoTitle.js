@@ -1,5 +1,6 @@
 import React from 'react';
-import { makeStyles, /*Typography,*/ Box } from '@material-ui/core';
+import { Box } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { Link } from 'react-router-dom';
 
 const logoHeight = 77;

@@ -1,7 +1,7 @@
 import EventEdit from './EventEdit';
 import EventList from './EventList';
 import EventShow from './EventShow';
-import EventIcon from '@material-ui/icons/Event';
+import EventIcon from '@mui/icons-material/Event';
 import EventCreate from './EventCreate';
 
 export default {

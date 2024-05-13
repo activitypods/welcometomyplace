@@ -1,17 +1,13 @@
 import React from 'react';
-import { useCreateContext } from 'react-admin';
-import { Container } from '@material-ui/core';
+import { Container } from '@mui/material';
 import HeaderTitle from './HeaderTitle';
 
-const CreatePage = ({ title, actions, children, ...rest }) => {
-  const createContext = useCreateContext(rest);
-  return (
-    <>
-      <HeaderTitle actions={actions}>{title}</HeaderTitle>
-      <br />
-      <Container>{React.cloneElement(children, { ...createContext, component: 'div' })}</Container>
-    </>
-  );
-};
+const CreatePage = ({ title, actions, children }) => (
+  <>
+    <HeaderTitle actions={actions}>{title}</HeaderTitle>
+    <br />
+    <Container>{children}</Container>
+  </>
+);
 
 export default CreatePage;
