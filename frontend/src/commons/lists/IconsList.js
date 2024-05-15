@@ -48,6 +48,7 @@ const primaryTypographyProps = {
 const secondaryTypographyProps = {
   variant: 'body2',
   color: 'textPrimary',
+  component: 'div'
 };
 
 const IconsList = ({ orientation, children }) => {

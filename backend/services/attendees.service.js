@@ -17,7 +17,7 @@ module.exports = {
       const { collectionUri, actorUri } = ctx.params;
 
       // Add event creator to attendees list
-      await this.add(
+      await this.actions.add(
         {
           collectionUri,
           itemUri: actorUri,
@@ -31,10 +31,7 @@ module.exports = {
     async giveReadPermissionsToAnnouncesGroup(ctx) {
       const { collectionUri, resourceUri, actorUri } = ctx.params;
 
-      const announcesGroupUri = await ctx.call('events.getAnnouncesGroupUri', {
-        resourceUri,
-        actorUri
-      });
+      const announcesGroupUri = await ctx.call('events.getAnnouncesGroupUri', { resourceUri });
 
       // TODO give control permissions ??
       await ctx.call('pod-permissions.add', {
@@ -52,12 +49,12 @@ module.exports = {
         const { resourceUri, actorUri } = ctx.params;
         const collectionUri = res;
 
-        await this.addCreator(
+        await this.actions.addCreator(
           { collectionUri, actorUri },         
           { parentCtx: ctx }
         );
 
-        await this.giveReadPermissionsToAnnouncesGroup(
+        await this.actions.giveReadPermissionsToAnnouncesGroup(
           { collectionUri, resourceUri, actorUri },         
           { parentCtx: ctx }
         );

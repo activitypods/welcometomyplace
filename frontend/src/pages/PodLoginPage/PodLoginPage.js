@@ -1,12 +1,11 @@
-import React, { useMemo, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useGetIdentity, useRedirect } from 'react-admin';
 import { ThemeProvider } from '@mui/system';
-import { createTheme } from '@mui/material/styles';
 import { StyledEngineProvider } from '@mui/material';
 import PodLoginPageView from './PodLoginPageView';
+import theme from '../../config/theme';
 
 const PodLoginPage = props => {
-  const muiTheme = useMemo(() => createTheme(props.theme), [props.theme]);
   const { identity, isLoading } = useGetIdentity();
   const redirect = useRedirect();
 
@@ -21,7 +20,7 @@ const PodLoginPage = props => {
 
   return (
     <StyledEngineProvider injectFirst>
-      <ThemeProvider theme={muiTheme}>
+      <ThemeProvider theme={theme}>
         <PodLoginPageView {...props} />
       </ThemeProvider>
     </StyledEngineProvider>

@@ -35,23 +35,17 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
   const classes = useStyles();
   const translate = useTranslate();
   const [searchText, setSearchText] = useState("");
-
-  const {
-    ids: profileIds,
-    data: profileData,
-    loading: loadingProfiles,
-  } = useListContext();
-
+  const { data: profileData, loading: loadingProfiles } = useListContext();
   const { data: groupData, isLoading: loadingGroups } = useGetList("Group");
 
   const groupsSorted = useMemo(() => {
-    return Object.values(groupData).sort((g1, g2) =>
+    return groupData && Object.values(groupData).sort((g1, g2) =>
       (g1["vcard:label"] || "").localeCompare(g2["vcard:label"])
     );
   }, [groupData]);
   const groupsFiltered = useMemo(
     () =>
-      groupsSorted.filter((group) =>
+      groupsSorted?.filter((group) =>
         (group["vcard:label"] || "")
           .toLocaleLowerCase()
           .includes(searchText.toLocaleLowerCase())
@@ -60,13 +54,13 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
   );
 
   const profilesSorted = useMemo(() => {
-    return Object.values(profileData).sort((p1, p2) =>
+    return profileData && Object.values(profileData).sort((p1, p2) =>
       (p1["vcard:given-name"] || "").localeCompare(p2["vcard:given-name"])
     );
   }, [profileData]);
   const profilesFiltered = useMemo(
     () =>
-      profilesSorted.filter(
+      profilesSorted?.filter(
         (profile) =>
           (profile["vcard:given-name"] || "")
             .toLocaleLowerCase()
@@ -86,10 +80,10 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
         onChange={(event) => setSearchText(event.target.value)}
         label={translate("app.action.search")}
         fullWidth
-        variant="filled"
+        size="small"
         margin="dense"
       />
-      {groupsFiltered.map((group) => (
+      {groupsFiltered?.map((group) => (
         <GroupContactsItem
           key={group.id}
           group={group}
@@ -98,7 +92,7 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
           isOrganizer={isOrganizer}
         />
       ))}
-      {profilesFiltered.map((profile) => (
+      {profilesFiltered?.map((profile) => (
         <ContactItem
           key={profile.id}
           record={profile}
@@ -117,7 +111,7 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
           <CircularProgress size={60} thickness={6} />
         </Box>
       )}
-      {!loadingProfiles && profileIds.length === 0 && (
+      {!loadingProfiles && (!profileData || profileData.length === 0) && (
         <Alert severity="warning">{translate("app.helper.no_contact")}</Alert>
       )}
     </List>

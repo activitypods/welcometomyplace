@@ -1,3 +1,4 @@
+const urlJoin = require('url-join');
 const { PodResourcesHandlerMixin } = require('@activitypods/app');
 
 module.exports = {
@@ -8,17 +9,10 @@ module.exports = {
   },
   actions: {
     async getAnnouncesGroupUri(ctx) {
-      const { resourceUri, actorUri } = ctx.params;
+      const { resourceUri } = ctx.params;
 
-      const resource = await ctx.call('pod-resources.get', {
-        resourceUri,
-        actorUri
-      });
-
-      const announcesCollectionUri = await ctx.call('pod-collections.getCollectionUriFromResource', { 
-        resource, 
-        attachPredicate: 'apods:announces' 
-      });
+      // Guess the name of the announces collection URI as it may not have been created yet
+      const announcesCollectionUri = urlJoin(resourceUri, 'announces');
 
       return await ctx.call('pod-wac-groups.getUriFromCollectionUri', {
         collectionUri: announcesCollectionUri,

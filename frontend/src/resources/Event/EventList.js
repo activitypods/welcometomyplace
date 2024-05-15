@@ -67,7 +67,7 @@ const EventList = (props) => {
               </Alert>
             </Box>
             <ListBase
-              // filter={{ 'apods:hasStatus': tab === 0 ? 'http://activitypods.org/ns/core#Coming' : 'http://activitypods.org/ns/core#Finished' }}
+              filter={{ 'apods:hasStatus': tab === 0 ? 'http://activitypods.org/ns/core#Coming' : 'http://activitypods.org/ns/core#Finished' }}
               perPage={1000}
               sort={{ field: 'startTime', order: tab === 0 ? 'ASC' : 'DESC' }}
               {...props}

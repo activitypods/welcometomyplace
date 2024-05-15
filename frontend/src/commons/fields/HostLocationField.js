@@ -26,6 +26,7 @@ const HostLocationField = ({ label, source }) => {
         latitude={(record) => record?.['vcard:hasAddress']?.['vcard:hasGeo']?.['vcard:latitude']}
         longitude={(record) => record?.['vcard:hasAddress']?.['vcard:hasGeo']?.['vcard:longitude']}
         height={xs ? 250 : 400}
+        typographyProps={{ component: 'div' }}
       />
     </ReferenceField>
   );
