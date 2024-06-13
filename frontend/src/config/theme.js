@@ -1,4 +1,5 @@
 import { createTheme } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
 
 const defaultTheme = createTheme();
 
@@ -15,7 +16,13 @@ const theme = createTheme({
     secondary: {
       main: '#203142',
       contrastText: '#FFFFFF',
-    }
+    },
+    grey: {
+      main: grey[300],
+      light: grey[200],
+      dark: grey[400],
+      contrastText: '#000000',
+    },
   },
   typography: {
     h1: {

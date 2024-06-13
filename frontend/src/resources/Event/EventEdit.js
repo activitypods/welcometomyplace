@@ -1,12 +1,12 @@
 import React from 'react';
-import { EditBase, useCreatePath, useEditContext, useTranslate } from 'react-admin';
+import { EditBase, useCreatePath, useGetRecordId, useTranslate } from 'react-admin';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
 import EventForm from './EventForm';
 import EditPage from '../../layout/EditPage';
 import EditTitle from './EventTitle';
 
 const EventEdit = () => {
-  const { resource, record } = useEditContext();
+  const recordId = useGetRecordId();
   const { identity } = useCheckAuthenticated();
   const translate = useTranslate();
   const createPath = useCreatePath();
@@ -15,7 +15,7 @@ const EventEdit = () => {
     <EditBase redirect="show">
       <EditPage
         title={<EditTitle />}
-        actions={{ [createPath({ resource, type: 'show', id: record?.id })]: translate('ra.action.show')}}
+        actions={{ [createPath({ resource: 'Event', type: 'show', id: recordId })]: translate('ra.action.show')}}
       >
         <EventForm />
       </EditPage>

@@ -36,8 +36,7 @@ yarn run dev
 Once in [Moleculer REPL](https://moleculer.services/docs/0.14/moleculer-repl.html), you can use these commands to import the formats and POD providers list (you can of course modify it):
 
 ```bash
-call importers.formats.freshImport
-call importers.pod-providers.freshImport
+call formats.freshImport
 ```
 
 ### Launch the frontend

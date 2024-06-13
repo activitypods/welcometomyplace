@@ -27,7 +27,7 @@ const JoinButton = (props) => {
       setJoined(true);
       setTimeout(refresh, 3000);
     } catch (e) {
-      notify(e.message, 'error');
+      notify(e.message, { type: 'error' });
     }
     setDisabled(false);
   }, [setDisabled, record, notify, refresh, outbox]);
@@ -45,7 +45,7 @@ const JoinButton = (props) => {
       setJoined(false);
       setTimeout(refresh, 3000);
     } catch (e) {
-      notify(e.message, 'error');
+      notify(e.message, { type: 'error' });
     }
     setDisabled(false);
   }, [setDisabled, setJoined, record, notify, refresh, outbox]);

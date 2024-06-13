@@ -25,6 +25,7 @@ const dataServers = {
         "apods:EventFormat": ["/apods/event-format"],
       },
     },
+    void: false
   },
 };
 

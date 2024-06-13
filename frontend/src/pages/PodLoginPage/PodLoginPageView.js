@@ -93,7 +93,7 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
           );
           setPodProviders(podProviders);
         } else {
-          notify('auth.message.pod_providers_not_loaded', 'error');
+          notify('auth.message.pod_providers_not_loaded', { type: 'error' });
         }
       }
     })();

@@ -31,11 +31,11 @@ const useStyles = makeStyles((theme) => ({
  * @param {(invitations: Record<string, InvitationState) => void} props.onChange
  * @param {boolean} props.isOrganizer
  */
-const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
+const ContactsShareList = ({ invitations, onChange, organizerUri, isOrganizer }) => {
   const classes = useStyles();
   const translate = useTranslate();
   const [searchText, setSearchText] = useState("");
-  const { data: profileData, loading: loadingProfiles } = useListContext();
+  const { data: profileData, isLoading: loadingProfiles } = useListContext();
   const { data: groupData, isLoading: loadingGroups } = useGetList("Group");
 
   const groupsSorted = useMemo(() => {
@@ -60,7 +60,8 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
   }, [profileData]);
   const profilesFiltered = useMemo(
     () =>
-      profilesSorted?.filter(
+      profilesSorted?.filter(profile => profile.describes !== organizerUri)
+        .filter(
         (profile) =>
           (profile["vcard:given-name"] || "")
             .toLocaleLowerCase()
@@ -69,7 +70,7 @@ const ContactsShareList = ({ invitations, onChange, isOrganizer }) => {
             .toLocaleLowerCase()
             .includes(searchText.toLocaleLowerCase())
       ),
-    [profilesSorted, searchText]
+    [profilesSorted, searchText, organizerUri]
   );
 
   return (

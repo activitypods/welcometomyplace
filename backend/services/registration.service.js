@@ -68,7 +68,7 @@ module.exports = {
                   en: 'View',
                   fr: 'Voir'
                 },
-                link: '/Event/{{activity.object event.id}}/show'
+                link: '/Event/{{encodeUri activity.object.id}}/show'
               }
             ]
           },

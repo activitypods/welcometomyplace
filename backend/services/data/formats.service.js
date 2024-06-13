@@ -24,7 +24,7 @@ module.exports = {
       return({
         '@type': 'apods:EventFormat',
         'rdfs:label': data.label,
-        'skos:broader': data.parent ? urlJoin(CONFIG.HOME_URL, 'formats', data.parent) : undefined
+        'skos:broader': data.parent ? urlJoin(CONFIG.HOME_URL, data.parent) : undefined
       });
     },
   }

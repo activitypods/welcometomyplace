@@ -66,7 +66,8 @@ const ShareDialog = ({ close, resourceUri }) => {
   const { identity } = useCheckAuthenticated();
   const { record } = useShowContext();
   const translate = useTranslate();
-  const isOrganizer = record?.["dc:creator"] === identity?.id;
+  const organizerUri = record?.["dc:creator"];
+  const isOrganizer = organizerUri && organizerUri === identity?.id;
   const { items: announces } = useCollection(record?.["apods:announces"]);
   const { items: announcers } = useCollection(record?.["apods:announcers"]);
   /** @type {[Record<string, InvitationState>, (invitations: Record<string, InvitationState>) => void]} */
@@ -86,26 +87,24 @@ const ShareDialog = ({ close, resourceUri }) => {
   // To begin, populate present invitations.
   // Announcers and announces that are already in the collection are readonly.
   useEffect(() => {
-    if (announces && announcers) {
-      const invitations = [...announces || [], ...announcers || []].reduce(
-        (acc, actorUri) => {
-          const canView = announces.includes(actorUri);
-          const canShare = announcers.includes(actorUri);
-          return {
-            ...acc,
-            [actorUri]: {
-              canView,
-              canShare,
-              viewReadonly: canView,
-              shareReadonly: canShare,
-            },
-          };
-        },
-        {}
-      );
-      setInvitations(invitations);
-      setSavedInvitations(invitations);
-    }
+    const invitations = [...(announces ?? []), ...(announces ?? [])].reduce(
+      (acc, actorUri) => {
+        const canView = announces ? announces.includes(actorUri) : false;
+        const canShare = announcers ? announcers.includes(actorUri) : false;
+        return {
+          ...acc,
+          [actorUri]: {
+            canView,
+            canShare,
+            viewReadonly: canView,
+            shareReadonly: canShare,
+          },
+        };
+      },
+      {}
+    );
+    setInvitations(invitations);
+    setSavedInvitations(invitations);
   }, [announces, announcers]);
 
   /** @param {Record<string, InvitationState} changedRights */
@@ -138,7 +137,7 @@ const ShareDialog = ({ close, resourceUri }) => {
   const sendInvitations = useCallback(async () => {
     setSendingInvitation(true);
     const actorsWithNewViewRight = Object.keys(newInvitations).filter(
-      (actorUri) => newInvitations[actorUri].canView
+      (actorUri) => newInvitations[actorUri].canView && !savedInvitations[actorUri]?.canView
     );
     if (actorsWithNewViewRight.length > 0) {
       if (isOrganizer) {
@@ -182,13 +181,15 @@ const ShareDialog = ({ close, resourceUri }) => {
       });
     }
 
-    notify("app.notification.invitation_sent", "success", {
-      smart_count: Object.keys(newInvitations).length,
+    notify("app.notification.invitation_sent", {
+      type: 'success',
+      messageArgs: { smart_count: Object.keys(newInvitations).length },
     });
     close();
   }, [
     outbox,
     notify,
+    savedInvitations,
     newInvitations,
     isOrganizer,
     close,
@@ -218,6 +219,7 @@ const ShareDialog = ({ close, resourceUri }) => {
           <ContactsShareList
             invitations={invitations}
             onChange={onChange}
+            organizerUri={organizerUri}
             isOrganizer={isOrganizer}
           />
         </ListBase>

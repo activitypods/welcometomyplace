@@ -3,10 +3,10 @@ import { SimpleForm, ImageField, TextInput, required, NumberInput, SelectInput, 
 import { Box, Alert } from '@mui/material';
 import { MarkdownInput } from '@semapps/markdown-components';
 import { ReferenceInput, ImageInput } from '@semapps/input-components';
-import { DateTimeInput } from '@semapps/date-components';
 import frLocale from 'date-fns/locale/fr';
 import BodyLabel from '../../commons/lists/BodyList/BodyLabel';
 import QuickCreateLocationInput from "../../commons/inputs/QuickCreateLocationInput/QuickCreateLocationInput";
+import DateTimeInput from '../../commons/inputs/DateTimeInput';
 
 const futureDate = (value) => {
   if( value && value <= (new Date()) ) {
@@ -50,26 +50,10 @@ const EventForm = () => {
         <TextInput source="name" fullWidth validate={[required()]} />
         <DateTimeInput
           source="startTime"
-          options={{
-            format: 'dd/MM/yyyy à HH:mm',
-            ampm: false,
-          }}
-          providerOptions={{
-            locale: frLocale,
-          }}
-          fullWidth
           validate={[required(), futureDate]}
         />
         <DateTimeInput
           source="endTime"
-          options={{
-            format: 'dd/MM/yyyy à HH:mm',
-            ampm: false,
-          }}
-          providerOptions={{
-            locale: frLocale,
-          }}
-          fullWidth
           validate={[required(), afterStartTime]}
         />
         <QuickCreateLocationInput

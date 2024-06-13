@@ -4,7 +4,7 @@ import { ReferenceField } from '@semapps/field-components';
 import { AvatarWithLabelField } from '@semapps/field-components';
 import { GridList } from '@semapps/list-components';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
-import { ReferenceCollectionField } from '@semapps/activitypub-components';
+import ReferenceCollectionField from '../../commons/fields/ReferenceCollectionField/ReferenceCollectionField';
 import EventAlert from './EventAlert';
 import MarkdownField from '../../commons/fields/MarkdownField';
 import HeaderShow from '../../layout/HeaderShow';
@@ -63,7 +63,7 @@ const EventShow = (props) => {
           <ImageField source="image" />
           <MarkdownField source="content" />
           <EventConditionsField source="name" />
-          <ReferenceCollectionField reference="Actor" source="apods:attendees">
+          <ReferenceCollectionField reference="Actor" source="apods:attendees" addLabel>
             <GridList xs={4} sm={2} linkType={false}>
               <ReferenceField reference="Profile" source="url" link={false}>
                   <LinkToExternalApp type="as:Profile">
@@ -71,7 +71,7 @@ const EventShow = (props) => {
                       label="vcard:given-name"
                       image="vcard:photo"
                       defaultLabel={translate('app.user.unknown')}
-                      labelColor="grey.300"
+                      labelColor="grey"
                     />
                   </LinkToExternalApp>
               </ReferenceField>

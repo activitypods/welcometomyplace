@@ -22,10 +22,18 @@ module.exports = {
       required: [
         {
           registeredClass: 'as:Event',
-          accessMode: ['acl:Read', 'acl:Write']
+          accessMode: ['acl:Read', 'acl:Write', 'acl:Control']
+        },
+        {
+          registeredClass: 'vcard:Location',
+          accessMode: ['acl:Read', 'acl:Write', 'acl:Control']
         },
         {
           registeredClass: 'vcard:Individual',
+          accessMode: 'acl:Read'
+        },
+        {
+          registeredClass: 'vcard:Group',
           accessMode: 'acl:Read'
         },
         'apods:ReadInbox',

@@ -24,9 +24,9 @@ const EventAlert = () => {
     const status = Array.isArray(record?.['apods:hasStatus'])
       ? record?.['apods:hasStatus']
       : [record?.['apods:hasStatus']];
-    if (!attendees.includes(identity?.id) && !status.includes('apods:Closed')) {
+    if (attendees && !attendees.includes(identity?.id) && !status.includes('apods:Closed')) {
       message = translate('app.helper.event_join_right');
-    } else if (announcers.includes(identity?.id)) {
+    } else if (announcers?.includes(identity?.id)) {
       message = translate('app.helper.event_share_right');
     }
   }

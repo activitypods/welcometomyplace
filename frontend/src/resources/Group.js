@@ -4,7 +4,7 @@ export default {
     list: {
       servers: "pod",
       blankNodes: ["vcard:hasMember"],
-      containers: { pod: ["/groups"] },
+      containers: { pod: ["/vcard/group"] },
     },
   },
 };
