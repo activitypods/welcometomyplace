@@ -12,8 +12,6 @@ module.exports = {
     async set(ctx) {
       const { event, statusToAdd, statusToRemove, actorUri } = ctx.params;
 
-      console.log('status.set', ctx.params);
-
       await ctx.call('events.patch', {
         resourceUri: event.id || event['@id'],
         triplesToAdd: [
@@ -97,8 +95,6 @@ module.exports = {
       let maxAttendeesReached = false;
       let closingTimeReached = false;
 
-      console.log('tagUpdatedEvent', ctx.params, this.isPastDate(event.endTime))
-
       // Reset timer in case the end time was changed
       if (!this.isPastDate(event.endTime)) {
         await ctx.call('timer.set', {
@@ -126,8 +122,6 @@ module.exports = {
 
         maxAttendeesReached = arrayOf(attendeesCollection.items).length >= event['apods:maxAttendees'];
       }
-
-      console.log('tagUpdatedEvent2', maxAttendeesReached, closingTimeReached)
 
       if (!this.isClosed(event) && (maxAttendeesReached || closingTimeReached)) {
         await this.actions.tagAsClosed({ event, actorUri });

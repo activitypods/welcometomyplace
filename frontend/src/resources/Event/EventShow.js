@@ -4,7 +4,7 @@ import { ReferenceField } from '@semapps/field-components';
 import { AvatarWithLabelField } from '@semapps/field-components';
 import { GridList } from '@semapps/list-components';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
-import ReferenceCollectionField from '../../commons/fields/ReferenceCollectionField/ReferenceCollectionField';
+import { ReferenceCollectionField } from '@semapps/activitypub-components';
 import EventAlert from './EventAlert';
 import MarkdownField from '../../commons/fields/MarkdownField';
 import HeaderShow from '../../layout/HeaderShow';

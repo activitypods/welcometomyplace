@@ -28,5 +28,13 @@ module.exports = {
       formatter: 'short',
       level: 'info'
     }
+  },
+  retryPolicy: {
+    enabled: true,
+    retries: 0, // No retries by default. To retry, set the `retries` option in broker.call
+    delay: 100,
+    maxDelay: 30000,
+    factor: 2,
+    check: err => err && !!err.retryable // Only MoleculerRetryableError are retried
   }
 };

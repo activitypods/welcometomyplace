@@ -23,7 +23,7 @@ module.exports = {
         });
 
         // Ensure the organizer is in the contacts WebACL group of the emitter so he can see his profile (and write to him)
-        await ctx.call('webacl.group.addMember', {
+        await ctx.call('pod-wac-groups.addMember', {
           groupUri: contactsGroupUri,
           memberUri: organizerUri,
           actorUri
