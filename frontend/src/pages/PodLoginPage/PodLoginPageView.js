@@ -74,6 +74,7 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
   const logout = useLogout();
   const translate = useTranslate();
   const [podProviders, setPodProviders] = useState(customPodProviders || []);
+  const isSignup = searchParams.has('signup');
 
   useEffect(() => {
     (async () => {
@@ -132,7 +133,8 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
                     // TODO include HTTP scheme in Pod providers list
                     issuer: `${podProvider['apods:domainName'].includes('localhost') ? 'http' : 'https'}://${
                       podProvider['apods:domainName']
-                    }`
+                    }`,
+                    isSignup
                   })
                 }
               />
