@@ -75,6 +75,7 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
   const translate = useTranslate();
   const [podProviders, setPodProviders] = useState(customPodProviders || []);
   const isSignup = searchParams.has('signup');
+  const redirect = searchParams.get('redirect') || '/';
 
   useEffect(() => {
     (async () => {
@@ -134,6 +135,7 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
                     issuer: `${podProvider['apods:domainName'].includes('localhost') ? 'http' : 'https'}://${
                       podProvider['apods:domainName']
                     }`,
+                    redirect,
                     isSignup
                   })
                 }

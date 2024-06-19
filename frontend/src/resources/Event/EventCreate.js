@@ -1,10 +1,12 @@
 import React from 'react';
 import { CreateBase, useTranslate, useNotify, useRedirect } from 'react-admin';
+import { useCheckAuthenticated } from '@semapps/auth-provider';
 import EventForm from './EventForm';
 import CreatePage from '../../layout/CreatePage';
 import useWaitForPredicates from '../../hooks/useWaitForPredicates';
 
 const EventCreate = () => {
+  useCheckAuthenticated();
   const translate = useTranslate();
   const notify = useNotify();
   const redirect = useRedirect();
