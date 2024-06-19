@@ -23,6 +23,12 @@ const theme = createTheme({
       dark: grey[400],
       contrastText: '#000000',
     },
+    black: {
+      main: '#000000',
+      light: '#000000',
+      dark: '#000000',
+      contrastText: '#FFFFFF',
+    },
   },
   typography: {
     h1: {

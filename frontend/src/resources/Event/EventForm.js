@@ -39,7 +39,7 @@ const EventForm = () => {
   return (
     <>
       {process.env.REACT_APP_LANG === 'fr' &&
-      <Box mb={1}>
+      <Box m={2} mb={1}>
         <Alert severity="info">
           {translate('app.helper.first_event')}&nbsp;
           <a href={`https://forum.reseauxdevie.org`} target="_blank" rel="noopener noreferrer">{translate('app.forum_name')}</a>

@@ -1,8 +1,8 @@
 import React from 'react';
-import { CreateBase, useTranslate, useNotify, useRedirect } from 'react-admin';
+import { useTranslate, useNotify, useRedirect } from 'react-admin';
 import { useCheckAuthenticated } from '@semapps/auth-provider';
 import EventForm from './EventForm';
-import CreatePage from '../../layout/CreatePage';
+import Create from '../../layout/Create';
 import useWaitForPredicates from '../../hooks/useWaitForPredicates';
 
 const EventCreate = () => {
@@ -19,11 +19,9 @@ const EventCreate = () => {
   };
 
   return (
-    <CreateBase redirect="show" mutationOptions={{ onSuccess }}>
-      <CreatePage title={translate('app.action.create_event')}>
-        <EventForm />
-      </CreatePage>
-    </CreateBase>
+    <Create redirect="show" mutationOptions={{ onSuccess }} title={translate('app.action.create_event')}>
+      <EventForm />
+    </Create>
   );
 };
 
