@@ -32,11 +32,11 @@ module.exports = {
       async onReceive(ctx, activity, actorUri) {
         const event = activity.object;
 
-        // if (await ctx.call('events.status.isFinished', { event })) {
-        //   throw new MoleculerError('This event is finished', 403, 'FORBIDDEN');
-        // } else if (await ctx.call('events.status.isClosed', { event })) {
-        //   throw new MoleculerError('Registrations for this event are closed', 403, 'FORBIDDEN');
-        // }
+        if (await ctx.call('status.isFinished', { event })) {
+          throw new MoleculerError('This event is finished', 403, 'FORBIDDEN');
+        } else if (await ctx.call('status.isClosed', { event })) {
+          throw new MoleculerError('Registrations for this event are closed', 403, 'FORBIDDEN');
+        }
 
         const announces = await ctx.call('pod-collections.getItems', {
           collectionUri: event['apods:announces'],

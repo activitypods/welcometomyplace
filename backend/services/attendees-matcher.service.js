@@ -5,7 +5,7 @@ module.exports = {
   events: {
     async 'event.finished'(ctx) {
       const { event, actorUri } = ctx.params;
-      let contacts = {}, attendees = {};
+      let contacts = {}, profiles = {}, attendees = {};
 
       const attendeesUris = await ctx.call('pod-collections.getItems', {
         collectionUri: event['apods:attendees'],
@@ -64,6 +64,7 @@ module.exports = {
                 },
                 summary,
                 content,
+                context: event.id,
                 target: otherAttendeeUri,
                 to: otherAttendeeUri
               },

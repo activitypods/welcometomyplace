@@ -3,7 +3,6 @@ import { SimpleForm, ImageField, TextInput, required, NumberInput, SelectInput, 
 import { Box, Alert } from '@mui/material';
 import { MarkdownInput } from '@semapps/markdown-components';
 import { ReferenceInput, ImageInput } from '@semapps/input-components';
-import frLocale from 'date-fns/locale/fr';
 import BodyLabel from '../../commons/lists/BodyList/BodyLabel';
 import QuickCreateLocationInput from "../../commons/inputs/QuickCreateLocationInput/QuickCreateLocationInput";
 import DateTimeInput from '../../commons/inputs/DateTimeInput';
@@ -46,7 +45,7 @@ const EventForm = () => {
         </Alert>
       </Box>
       }
-      <SimpleForm redirect="show">
+      <SimpleForm>
         <TextInput source="name" fullWidth validate={[required()]} />
         <DateTimeInput
           source="startTime"
@@ -77,14 +76,6 @@ const EventForm = () => {
         <BodyLabel>{translate('app.input.conditions')}</BodyLabel>
         <DateTimeInput
           source="apods:closingTime"
-          options={{
-            format: 'dd/MM/yyyy à HH:mm',
-            ampm: false,
-          }}
-          providerOptions={{
-            locale: frLocale,
-          }}
-          fullWidth
           validate={[beforeStartTime]}
         />
         <NumberInput source="apods:maxAttendees" fullWidth helperText={translate('app.helper.max_attendees')} />

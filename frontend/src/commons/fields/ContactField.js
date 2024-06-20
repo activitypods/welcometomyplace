@@ -31,6 +31,7 @@ const ContactField = ({ source, context }) => {
       await outbox.post({
         type: OBJECT_TYPES.NOTE,
         attributedTo: outbox.owner,
+        summary: translate('app.message.event_message_title', { username: identity?.profileData?.['vcard:given-name'], event: record.name }),
         content: values.content,
         context: context ? record[context] : undefined,
         to:

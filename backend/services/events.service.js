@@ -27,6 +27,9 @@ module.exports = {
     },
     async onUpdate(ctx, resource, actorUri) {
       await ctx.call('status.tagUpdatedEvent', { event: resource, actorUri });
+
+      // TODO use PATCH method to be able to know the previous location and remove its rights
+      await ctx.call('locations.giveReadPermissionsToAnnouncesGroup', { event: resource, actorUri });
     }
   }
 };

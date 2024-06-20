@@ -123,9 +123,10 @@ module.exports = {
         maxAttendeesReached = arrayOf(attendeesCollection.items).length >= event['apods:maxAttendees'];
       }
 
-      if (!this.isClosed(event) && (maxAttendeesReached || closingTimeReached)) {
+      const isClosed = await this.actions.isClosed({ event }, { parentCtx: ctx });
+      if (!isClosed && (maxAttendeesReached || closingTimeReached)) {
         await this.actions.tagAsClosed({ event, actorUri });
-      } else if (this.isClosed(event) && !maxAttendeesReached && !closingTimeReached) {
+      } else if (isClosed && !maxAttendeesReached && !closingTimeReached) {
         await this.actions.tagAsOpen({ event, actorUri });
         if (event['apods:closingTime']) {
           await ctx.call('timer.set', {
@@ -137,19 +138,21 @@ module.exports = {
         }
       }
     },
+    isFinished(ctx) {
+      const { event } = ctx.params;
+      const status = arrayOf(event['apods:hasStatus']);
+      return status.includes('apods:Finished') || status.includes(STATUS_FINISHED);
+    },
+    isClosed(ctx) {
+      const { event } = ctx.params;
+      const status = arrayOf(event['apods:hasStatus']);
+      return status.includes('apods:Closed') || status.includes(STATUS_CLOSED);
+    },
   },
   methods: {
     isPastDate(date) {
       const diff = (new Date()).getTime() - (new Date(date)).getTime();
       return diff > 0;
-    },
-    isFinished(event) {
-      const status = arrayOf(event['apods:hasStatus']);
-      return status.includes('apods:Finished'); // We must not use full URI
-    },
-    isClosed(event) {
-      const status = arrayOf(event['apods:hasStatus']);
-      return status.includes('apods:Closed'); // We must not use full URI
-    },
+    }
   }
 };

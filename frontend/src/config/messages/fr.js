@@ -97,6 +97,7 @@ module.exports = {
       event_finished: 'Cette rencontre est terminé',
       no_condition: 'Aucune',
       you_participated_to_same_event: 'Vous avez participé à la même rencontre',
+      event_message_title: `%{username} vous écrit au sujet de "%{event}"`
     },
     notification: {
       contact_request_accepted: 'Demande de contact acceptée',

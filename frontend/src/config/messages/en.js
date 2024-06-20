@@ -110,6 +110,7 @@ module.exports = {
       event_finished: "This event is finished",
       no_condition: "None",
       you_participated_to_same_event: "You participated to the same event",
+      event_message_title: `%{username} writes you about "%{event}"`
     },
     notification: {
       contact_request_accepted: "Contact request accepted",
