@@ -26,3 +26,6 @@ yalc.lock
 .idea
 
 /data
+/logs
+
+.env.production

@@ -77,3 +77,44 @@ yarn run link-semapps-packages
 
 Additionally, frontend packages need to be rebuilt, or your changes will not be taken into account.
 You can use `yarn run build` to build a package once, or `yarn run dev` to rebuild a package on every change.
+
+
+## Deploy to production
+
+The `docker-compose-prod.yml` includes everything you need to deploy this app to production:
+
+- Frontend
+- Backend
+- [Traefik](https://traefik.io) to orchestrate domain names and certificates
+- [Apache Jena Fuseki](https://jena.apache.org/documentation/fuseki2/) triplestore to store semantic data
+- [Redis](https://redis.io) to cache data and improve performances
+
+### Minimum requirements
+
+- 4Gb of RAM
+- Docker with the "Compose" plugin
+
+### Clone this repository
+
+```bash
+git clone https://github.com/assemblee-virtuelle/welcometomyplace.git
+```
+
+### Setup .env variables
+
+Edit the `.env.production` file and enter your server-specific informations. [Click here](https://docs.mapbox.com/help/getting-started/access-tokens/) to find how to generate a MapBox access token, which is necessary to search accross addresses.
+
+```env
+DOMAIN_NAME=welcometomyplace.org
+BACKEND_PATH=/api
+LETSENCRYPT_EMAIL=
+FUSEKI_PASSWORD=
+MAPBOX_ACCESS_TOKEN=
+```
+
+### Build and launch
+
+```
+make build-prod
+make start-prod
+```

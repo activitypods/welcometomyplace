@@ -1,0 +1,110 @@
+services:
+  traefik:
+    image: traefik:v2.3
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=${LETSENCRYPT_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - ./data/letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  fuseki:
+    image: semapps/jena-fuseki-webacl
+    container_name: fuseki
+    volumes:
+      - ./data/fuseki:/fuseki
+    ports:
+      - "3030:3030"
+    expose:
+      - "3030"
+    environment:
+      ADMIN_PASSWORD: ${FUSEKI_PASSWORD}
+
+  frontend:
+    build: frontend
+    container_name: frontend
+    restart: always
+    expose:
+      - "4000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`${DOMAIN_NAME}`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+    environment:
+      REACT_APP_BACKEND_URL: https://${DOMAIN_NAME}/api
+      REACT_APP_BACKEND_CLIENT_ID: https://${DOMAIN_NAME}/api/app
+      REACT_APP_NAME: Welcome to my place
+      REACT_APP_LANG: en
+      REACT_APP_ORGANIZATION_NAME: 
+      REACT_APP_ORGANIZATION_URL: 
+      REACT_APP_POD_PROVIDER_DOMAIN_NAME: 
+      REACT_APP_MAPBOX_ACCESS_TOKEN: ${MAPBOX_ACCESS_TOKEN}
+
+  backend:
+    build: ./backend
+    container_name: backend
+    depends_on:
+      - fuseki
+      - redis
+    volumes:
+      - ./logs:/app/backend/logs
+    expose:
+      - "3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=(Host(`${DOMAIN_NAME}`) && Path(`${BACKEND_PATH}`)"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls.certresolver=myresolver"
+    environment:
+      SEMAPPS_HOME_URL: https://${DOMAIN_NAME}${BACKEND_PATH}/
+      SEMAPPS_FRONT_URL: https://${DOMAIN_NAME}/
+      SEMAPPS_PORT: 3000
+      SEMAPPS_SPARQL_ENDPOINT: http://fuseki:3030/
+      SEMAPPS_JENA_USER: admin
+      SEMAPPS_JENA_PASSWORD: ${FUSEKI_PASSWORD}
+      SEMAPPS_MAIN_DATASET: welcometomyplace
+      SEMAPPS_AUTH_ACCOUNTS_DATASET_NAME: settings-wtmp
+      SEMAPPS_REDIS_CACHE_URL: redis://redis:6379/7
+      SEMAPPS_QUEUE_SERVICE_URL: redis://redis:6379/8
+
+  redis:
+    image: redis
+    container_name: redis
+    expose:
+      - "6379"
+    volumes:
+      - ./data/redis:/data:z
+    command: ["redis-server", "--appendonly", "yes"]
+
+  arena:
+    build: ./arena
+    container_name: arena
+    restart: always
+    volumes:
+      - ./arena.json:/opt/arena/src/server/config/index.json
+    depends_on:
+      - redis
+    expose:
+      - "4567"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.arena.rule=(Host(`${DOMAIN_NAME}`) && Path(`/jobs`)"
+      - "traefik.http.routers.arena.entrypoints=websecure"
+      - "traefik.http.routers.arena.tls.certresolver=myresolver"
+    environment:
+      REDIS_HOST: "redis"
