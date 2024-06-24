@@ -71,7 +71,7 @@ services:
       - "3000"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=(Host(`${DOMAIN_NAME}`) && (Path(`${BACKEND_PATH}`) || Path(`/.well-known`)))"
+      - "traefik.http.routers.backend.rule=(Host(`${DOMAIN_NAME}`) && (PathPrefix(`${BACKEND_PATH}`) || PathPrefix(`/.well-known`)))"
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.routers.backend.tls.certresolver=myresolver"
     environment:
