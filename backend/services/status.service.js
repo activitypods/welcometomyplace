@@ -95,8 +95,12 @@ module.exports = {
       let maxAttendeesReached = false;
       let closingTimeReached = false;
 
+      const isClosed = await this.actions.isClosed({ event }, { parentCtx: ctx });
+      const isFinished = await this.actions.isFinished({ event }, { parentCtx: ctx });
+
       // Reset timer in case the end time was changed
       if (!this.isPastDate(event.endTime)) {
+        if (isFinished) await this.actions.tagAsComing({ event, actorUri });
         await ctx.call('timer.set', {
           key: [event.id, 'finished'],
           time: event.endTime,
@@ -107,6 +111,8 @@ module.exports = {
 
       if (event['apods:closingTime']) {
         closingTimeReached = this.isPastDate(event['apods:closingTime']);
+      } else {
+        await ctx.call('timer.delete', { key: [event.id, 'closed'] });
       }
 
       if (event['apods:maxAttendees']) {
@@ -123,19 +129,18 @@ module.exports = {
         maxAttendeesReached = arrayOf(attendeesCollection.items).length >= event['apods:maxAttendees'];
       }
 
-      const isClosed = await this.actions.isClosed({ event }, { parentCtx: ctx });
-      if (!isClosed && (maxAttendeesReached || closingTimeReached)) {
-        await this.actions.tagAsClosed({ event, actorUri });
-      } else if (isClosed && !maxAttendeesReached && !closingTimeReached) {
-        await this.actions.tagAsOpen({ event, actorUri });
-        if (event['apods:closingTime']) {
+      if (maxAttendeesReached || closingTimeReached) {
+        if (!isClosed) await this.actions.tagAsClosed({ event, actorUri });
+      } else {
+        if (isClosed) await this.actions.tagAsOpen({ event, actorUri });
+        if (event['apods:closingTime'] && !closingTimeReached) {
           await ctx.call('timer.set', {
             key: [event.id, 'closed'],
             time: event['apods:closingTime'],
             actionName: 'status.tagAsClosed',
             params: { event, actorUri }
           });
-        }
+        }    
       }
     },
     isFinished(ctx) {

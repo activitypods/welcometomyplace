@@ -53,7 +53,6 @@ module.exports = {
               actorUri: otherAttendeeUri
             });
 
-            // TODO adapt ProfileService to take into account summary and content
             await ctx.call('pod-outbox.post', {
               activity: {
                 type: ACTIVITY_TYPES.OFFER,
