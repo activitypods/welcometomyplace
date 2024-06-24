@@ -35,7 +35,9 @@ services:
       ADMIN_PASSWORD: ${FUSEKI_PASSWORD}
 
   frontend:
-    build: frontend
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
     container_name: frontend
     restart: always
     expose:
@@ -56,7 +58,9 @@ services:
       REACT_APP_MAPBOX_ACCESS_TOKEN: ${MAPBOX_ACCESS_TOKEN}
 
   backend:
-    build: ./backend
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
     container_name: backend
     depends_on:
       - fuseki
@@ -92,7 +96,9 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
 
   arena:
-    build: ./arena
+    build:
+      context: .
+      dockerfile: Dockerfile.arena
     container_name: arena
     restart: always
     volumes:

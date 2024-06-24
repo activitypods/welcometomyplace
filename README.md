@@ -92,7 +92,7 @@ The `docker-compose-prod.yml` includes everything you need to deploy this app to
 ### Minimum requirements
 
 - 4Gb of RAM
-- Docker with the "Compose" plugin
+- Make
 
 ### Clone this repository
 
@@ -100,9 +100,16 @@ The `docker-compose-prod.yml` includes everything you need to deploy this app to
 git clone https://github.com/assemblee-virtuelle/welcometomyplace.git
 ```
 
+### Install Docker and Docker compose
+
+```bash
+chmod +x ./install-docker.sh
+./install-docker.sh
+```
+
 ### Setup .env variables
 
-Edit the `.env.production` file and enter your server-specific informations. [Click here](https://docs.mapbox.com/help/getting-started/access-tokens/) to find how to generate a MapBox access token, which is necessary to search accross addresses.
+Copy the `.env` file to a `.env.production` file (`cp .env .env.production`) and enter your server-specific informations. [Click here](https://docs.mapbox.com/help/getting-started/access-tokens/) to find how to generate a MapBox access token, which is necessary to search accross addresses.
 
 ```env
 DOMAIN_NAME=welcometomyplace.org
