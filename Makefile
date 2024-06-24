@@ -42,3 +42,6 @@ stop-prod: docker-stop-prod
 build-dev:docker-build-dev
 
 build-prod: docker-build-prod
+
+attach-backend:
+	$(DOCKER_COMPOSE_PROD) exec pm2 attach 0

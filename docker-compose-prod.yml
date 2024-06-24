@@ -71,7 +71,7 @@ services:
       - "3000"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=(Host(`${DOMAIN_NAME}`) && Path(`${BACKEND_PATH}`)"
+      - "traefik.http.routers.backend.rule=(Host(`${DOMAIN_NAME}`) && Path(`${BACKEND_PATH}`))"
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.routers.backend.tls.certresolver=myresolver"
     environment:
@@ -109,7 +109,7 @@ services:
       - "4567"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.arena.rule=(Host(`${DOMAIN_NAME}`) && Path(`/jobs`)"
+      - "traefik.http.routers.arena.rule=(Host(`${DOMAIN_NAME}`) && Path(`/jobs`))"
       - "traefik.http.routers.arena.entrypoints=websecure"
       - "traefik.http.routers.arena.tls.certresolver=myresolver"
     environment:
