@@ -3,7 +3,7 @@ FROM node:20-alpine
 RUN node -v
 RUN npm -v
 
-RUN apk add --update --no-cache autoconf bash libtool automake python alpine-sdk openssh-keygen yarn nano
+RUN apk add --update --no-cache autoconf bash libtool automake python3 py3-pip alpine-sdk openssh-keygen yarn nano
 
 RUN yarn global add pm2
 
