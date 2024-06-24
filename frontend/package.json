@@ -57,8 +57,8 @@
     "yalc": "1.0.0-pre.53"
   },
   "scripts": {
-    "start": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
+    "start": "export NODE_OPTIONS=\"--openssl-legacy-provider --max-old-space-size=8192\" && react-scripts start",
+    "build": "export NODE_OPTIONS=\"--openssl-legacy-provider --max-old-space-size=8192\" && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "bootstrap": "lerna bootstrap",
