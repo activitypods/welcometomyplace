@@ -47,15 +47,11 @@ services:
       - "traefik.http.routers.frontend.rule=Host(`${DOMAIN_NAME}`)"
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls.certresolver=myresolver"
-    environment:
-      REACT_APP_BACKEND_URL: https://${DOMAIN_NAME}/api
-      REACT_APP_BACKEND_CLIENT_ID: https://${DOMAIN_NAME}/api/app
-      REACT_APP_NAME: Welcome to my place
-      REACT_APP_LANG: en
-      REACT_APP_ORGANIZATION_NAME: 
-      REACT_APP_ORGANIZATION_URL: 
-      REACT_APP_POD_PROVIDER_DOMAIN_NAME: 
-      REACT_APP_MAPBOX_ACCESS_TOKEN: ${MAPBOX_ACCESS_TOKEN}
+    env_file:
+      - ./frontend/.env
+      - ./frontend/.env.production
+      - path: ./frontend/.env.production.local
+        required: false
 
   backend:
     build:
@@ -76,17 +72,11 @@ services:
       - "traefik.http.routers.backend.rule=(Host(`${DOMAIN_NAME}`) && (PathPrefix(`${BACKEND_PATH}`) || PathPrefix(`/.well-known`)))"
       - "traefik.http.routers.backend.entrypoints=websecure"
       - "traefik.http.routers.backend.tls.certresolver=myresolver"
-    environment:
-      SEMAPPS_HOME_URL: https://${DOMAIN_NAME}${BACKEND_PATH}/
-      SEMAPPS_FRONT_URL: https://${DOMAIN_NAME}/
-      SEMAPPS_PORT: 3000
-      SEMAPPS_SPARQL_ENDPOINT: http://fuseki:3030/
-      SEMAPPS_JENA_USER: admin
-      SEMAPPS_JENA_PASSWORD: ${FUSEKI_PASSWORD}
-      SEMAPPS_MAIN_DATASET: welcometomyplace
-      SEMAPPS_AUTH_ACCOUNTS_DATASET_NAME: settings-wtmp
-      SEMAPPS_REDIS_CACHE_URL: redis://redis:6379/7
-      SEMAPPS_QUEUE_SERVICE_URL: redis://redis:6379/8
+    env_file:
+      - ./backend/.env
+      - ./backend/.env.production
+      - path: ./backend/.env.production.local
+        required: false
 
   redis:
     image: redis

@@ -2,7 +2,7 @@
 .PHONY: docker-build docker-up build start log stop restart
 
 DOCKER_COMPOSE_DEV=docker compose -f docker-compose.yml
-DOCKER_COMPOSE_PROD=docker compose -f docker-compose-prod.yml --env-file .env.production
+DOCKER_COMPOSE_PROD=docker compose -f docker-compose-prod.yml --env-file .env.local
 
 # Docker
 docker-build-dev:
@@ -45,3 +45,6 @@ build-prod: docker-build-prod
 
 attach-backend:
 	$(DOCKER_COMPOSE_PROD) exec backend pm2 attach 0
+
+show-config:
+	$(DOCKER_COMPOSE_PROD) config

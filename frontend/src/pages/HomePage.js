@@ -68,7 +68,7 @@ const HomePage = ({ title }) => {
           {title}
         </Typography>
         <Typography align="center" className={classes.description}>
-          {translate('app.description_short')}
+          {process.env.REACT_APP_DESCRIPTION}
         </Typography>
         {process.env.REACT_APP_ORGANIZATION_NAME &&
           <a href={process.env.REACT_APP_ORGANIZATION_URL} target="_blank" rel="noopener noreferrer" className={classes.link}>

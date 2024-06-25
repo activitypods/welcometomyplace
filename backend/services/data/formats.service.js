@@ -10,7 +10,7 @@ module.exports = {
   settings: {
     path: '/apods/event-format',
     source: {
-      getAllFull: path.resolve(__dirname, './files/formats.json'),
+      getAllFull: path.resolve(__dirname, `./files/formats-${CONFIG.LOCALE}.json`),
       fieldsMapping: {
         slug: 'label'
       },

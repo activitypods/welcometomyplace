@@ -29,4 +29,5 @@ yalc.lock
 /data
 /logs
 
-.env.production
+.env.local
+.env.*.local
