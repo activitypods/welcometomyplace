@@ -1,6 +1,6 @@
 // Model https://github.com/marmelab/react-admin/blob/master/packages/ra-language-french/src/index.ts
 
-module.exports = {
+export default {
   app: {
     forum_name: 'Forum Réseaux de Vie',
     backed_by_organization: 'Backed by %{organizationName}',

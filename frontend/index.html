@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no"
-    />
+    <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no" />
     <meta name="theme-color" content="#000000" />
     <link rel="manifest" href="./manifest.json" />
     <link rel="shortcut icon" href="./favicon.ico" />
@@ -15,9 +12,27 @@
         margin: 0;
         padding: 0;
         font-family: sans-serif;
+        background-color: #eaeaea;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
       }
 
-      .loader-container {
+      code {
+        font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+      }
+
+      a,
+      a:hover,
+      a:active {
+        color: #d2123f;
+        text-decoration: none;
+      }
+
+      .MuiScopedCssBaseline-root {
+        background-color: unset;
+      }
+
+      /* .loader-container {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -29,8 +44,6 @@
         right: 0;
         background-color: #fafafa;
       }
-
-      /* CSS Spinner from https://projects.lukehaas.me/css-loaders/ */
 
       .loader,
       .loader:before,
@@ -104,22 +117,21 @@
           -webkit-transform: rotate(360deg);
           transform: rotate(360deg);
         }
-      }
+      } */
     </style>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" crossorigin="" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
       rel="stylesheet"
+      href="https://unpkg.com/leaflet-defaulticon-compatibility@0.1.2/dist/leaflet-defaulticon-compatibility.css"
     />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="https://unpkg.com/react-mde@11.5.0/lib/styles/css/react-mde-all.css" />
   </head>
 
   <body>
     <noscript> You need to enable JavaScript to run this app. </noscript>
-    <div id="root">
-      <div class="loader-container">
-        <div class="loader">Loading...</div>
-      </div>
-    </div>
+    <div id="root"></div>
   </body>
-  <script type="module" src="/src/index.js"></script>
+  <script type="module" src="/src/index.jsx"></script>
 </html>

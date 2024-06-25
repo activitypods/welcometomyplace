@@ -94,7 +94,7 @@ const AddLocationButton = ({ reference, source, onChange }) => {
               <TextInput source="vcard:given-name" fullWidth />
               <LocationInput
                 mapboxConfig={{
-                  access_token: process.env.REACT_APP_MAPBOX_ACCESS_TOKEN,
+                  access_token: import.meta.env.VITE_MAPBOX_ACCESS_TOKEN,
                   types: ['place', 'address'],
                   country: ['fr', 'be', 'ch']
                 }}

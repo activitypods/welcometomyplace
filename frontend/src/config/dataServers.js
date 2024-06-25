@@ -17,7 +17,7 @@ const dataServers = {
   },
   common: {
     name: "Common data",
-    baseUrl: process.env.REACT_APP_BACKEND_URL,
+    baseUrl: import.meta.env.VITE_BACKEND_URL,
     default: true,
     noProxy: true,
     containers: {
@@ -25,7 +25,7 @@ const dataServers = {
         "apods:EventFormat": ["/apods/event-format"],
       },
     },
-    void: false
+    void: false,
   },
 };
 

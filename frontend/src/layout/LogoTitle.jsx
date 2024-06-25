@@ -1,7 +1,7 @@
-import React from 'react';
-import { Box } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
-import { Link } from 'react-router-dom';
+import React from "react";
+import { Box } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
+import { Link } from "react-router-dom";
 
 const logoHeight = 77;
 // const logoWidth = 94;
@@ -13,7 +13,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     // width: logoWidth,
     height: logoHeight,
-    verticalAlign: 'middle',
+    verticalAlign: "middle",
     [theme.breakpoints.down(breakPointlimit)]: {
       // width: logoWidthSmall,
       height: logoHeightSmall,
@@ -33,9 +33,9 @@ const LogoTitle = ({ title, classes, ...other }) => {
   const classesLogo = useStyles();
   return (
     <Box className={classesLogo.logoBox} flexShrink={0} {...other}>
-      <Link to="/" className={classes ? classes.menuLink : ''}>
+      <Link to="/" className={classes ? classes.menuLink : ""}>
         <Box display="flex" alignItems="center">
-          <img src={process.env.PUBLIC_URL + '/logoCut512.png'} alt="logo" className={classesLogo.logo} />
+          <img src="/logoCut512.png" alt="logo" className={classesLogo.logo} />
         </Box>
       </Link>
     </Box>
