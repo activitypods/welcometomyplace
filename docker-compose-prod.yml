@@ -66,7 +66,9 @@ services:
       - fuseki
       - redis
     volumes:
-      - ./logs:/app/backend/logs
+      - ./data/backend/logs:/app/backend/logs
+      - ./data/backend/jwt:/app/backend/jwt
+      - ./data/backend/uploads:/app/backend/uploads
     expose:
       - "3000"
     labels:
