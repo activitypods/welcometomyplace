@@ -88,13 +88,11 @@ services:
     command: ["redis-server", "--appendonly", "yes"]
 
   arena:
-    build:
-      context: .
-      dockerfile: Dockerfile.arena
+    image: activitypods/arena
     container_name: arena
     restart: always
     volumes:
-      - ./arena.json:/opt/arena/src/server/config/index.json
+      - ./arena-prod.json:/opt/arena/src/server/config/index.json
     depends_on:
       - redis
     expose:

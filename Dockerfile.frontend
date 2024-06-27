@@ -11,7 +11,9 @@ ADD frontend /app/frontend
 
 WORKDIR /app/frontend
 
-RUN yarn install
+# Install packages and immediately remove cache to reduce layer size
+# See https://making.close.com/posts/reduce-docker-image-size
+RUN yarn install && yarn cache clean
 
 RUN yarn run build
 

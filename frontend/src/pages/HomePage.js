@@ -28,6 +28,7 @@ const useStyles = makeStyles(() => ({
     color: 'white',
     fontStyle: 'italic',
     marginTop: 16,
+    maxWidth: 250,
     whiteSpace: 'pre-line',
   },
   link: {

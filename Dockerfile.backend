@@ -12,7 +12,9 @@ ADD ecosystem.config.js /app/backend
 
 WORKDIR /app/backend
 
-RUN yarn install
+# Install packages and immediately remove cache to reduce layer size
+# See https://making.close.com/posts/reduce-docker-image-size
+RUN yarn install && yarn cache clean
 
 EXPOSE 3000
 
