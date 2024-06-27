@@ -9,9 +9,6 @@ DOCKER_COMPOSE_PROD=docker compose -f docker-compose-prod.yml --env-file .env.pr
 start:
 	$(DOCKER_COMPOSE_DEV) up -d
 
-start-front:
-	$(DOCKER_COMPOSE_DEV) up activitypods-frontend --force-recreate
-
 stop:
 	$(DOCKER_COMPOSE_DEV) kill
 	$(DOCKER_COMPOSE_DEV) rm -fv
