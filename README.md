@@ -77,3 +77,55 @@ yarn run link-semapps-packages
 
 Additionally, frontend packages need to be rebuilt, or your changes will not be taken into account.
 You can use `yarn run build` to build a package once, or `yarn run dev` to rebuild a package on every change.
+
+
+## Deploy to production
+
+The `docker-compose-prod.yml` includes everything you need to deploy this app to production:
+
+- Frontend
+- Backend
+- [Traefik](https://traefik.io) to orchestrate domain names and certificates
+- [Apache Jena Fuseki](https://jena.apache.org/documentation/fuseki2/) triplestore to store semantic data
+- [Redis](https://redis.io) to cache data and improve performances
+
+### Minimum requirements
+
+- 4Gb of RAM
+- Make
+
+### Clone this repository
+
+```bash
+git clone https://github.com/assemblee-virtuelle/welcometomyplace.git
+```
+
+### Install Docker with the Compose plugin
+
+We have prepared a script for this:
+
+```bash
+chmod +x ./install-docker.sh
+./install-docker.sh
+```
+
+### Setup .env variables
+
+Copy the `.env` file to a `.env.local` file (`cp .env .env.local`) and enter your server-specific informations. [Click here](https://docs.mapbox.com/help/getting-started/access-tokens/) to find how to generate a MapBox access token, which is necessary to search accross addresses.
+
+```env
+DOMAIN_NAME=welcometomyplace.org
+BACKEND_PATH=/api
+LETSENCRYPT_EMAIL=
+FUSEKI_PASSWORD=
+MAPBOX_ACCESS_TOKEN=
+```
+
+If you want to customize more thoroughly the app, you can do the same with the `.env.production` files in the /backend and /frontend directories (copy them to a `.env.production.local` file). Note all env files ending with `.local` are not commited.
+
+### Build and launch
+
+```
+make build-prod
+make start-prod
+```
