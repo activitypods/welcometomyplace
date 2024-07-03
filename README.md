@@ -6,67 +6,96 @@
 
 This application is about events which are private by default: you only see those you have been invited to. Anyone is free to create an event and share it with its network. After an event, all participants can add the contact of all other participants. But at the beginning, you must know the contact link (or the ID of type `@bob@podprovider.com`) to start your personal network.
 
-All data are stored directly in users PODs. See the [ActivityPods](https://github.com/assemblee-virtuelle/activitypods) project for more information.
+All data are stored directly in users Pods. See the [ActivityPods](https://github.com/activitypods/activitypods) project for more information.
 
-## Getting started
+## Launch locally
 
-Requirements:
-- Node (v14 recommended)
-- Yarn
-- Docker and docker-compose (if you wish to run a local middleware)
+### Requirements
 
-### Launch the triple store
+- Git
+- Makefile
+- [Docker](https://docs.docker.com/engine/install/) (make sure you have the `docker-compose-plugin` installed)
+- [NodeJS](https://nodejs.org) 20.0 or above
+- [Yarn](https://yarnpkg.com/)
 
-> This is needed only if you wish to run a local middleware (see below).
+### Setup environment variables
+
+A single environment variable is required: the MapBox access token to autocomplete the location field on the Pod provider and app frontends.
+
+Fortunately MapBox has a generous free tier with 100,000 requests per month, so you should not need to pay anything. But you still need to get the token. [See this page](https://docs.mapbox.com/help/getting-started/access-tokens/) for more information.
+
+Once you have your access token, create a `.env.local` file in the `/frontend` directory and set it there.
 
 ```bash
-docker-compose up -d fuseki
+REACT_APP_MAPBOX_ACCESS_TOKEN=
 ```
 
-### Launch the middleware
+### Run the Pod provider
 
-> The middleware is only used to store the events' formats and PODs' providers. All other data are added directly into the user's POD. If you don't want to use a local middleware, you may use https://data.welcometomyplace.org (change the `REACT_APP_COMMON_DATA_URL` env variable in the frontend, as explained below).
+In order to locally run the boilerplate, you need a local Pod provider, because a remote Pod provider will not be able to interact with a local application backend.
+
+Fortunately, we provide [Docker images](https://hub.docker.com/orgs/activitypods/repositories) to launch a local Pod provider in a single command:
 
 ```bash
-cd middleware
+make start
+```
+
+This will also launch Jena Fuseki (the triplestore used to store semantic data) and Redis, which are needed by the Pod provider and will also be used by the application.
+
+### Launch the backend
+
+Although Docker could also be used to launch the application backend, we recommend to launch it outside of Docker to avoid the usual problems we encounter in containerized environments.
+
+On the other hand, we will use the same Fuseki and Redis server as used for the ActivityPods backend.
+
+```bash
+cd backend
 yarn install
 yarn run dev
 ```
 
-Once in [Moleculer REPL](https://moleculer.services/docs/0.14/moleculer-repl.html), you can use these commands to import the formats and POD providers list (you can of course modify it):
+This will bootstrap the server and, if there are no errors, finish with a message telling you that Moleculer's ServiceBroker has started.
 
-```bash
+You can see the application details at http://localhost:3001/app
+
+You now have access to Moleculer CLI. Enter this command to insert all the available event formats:
+
+```
 call formats.freshImport
 ```
 
 ### Launch the frontend
 
-Create a `.env.local` file in the `/frontend` directory. This file is ignored by Git. Check the `.env` file and copy the env variables that you wish to change.
-
-You will need to enter at least the `REACT_APP_MAPBOX_ACCESS_TOKEN` variable.
-
-Then you can do:
+Now you can launch the app frontend.
 
 ```bash
 cd frontend
 yarn install
-yarn start
+yarn run dev
 ```
+
+A browser window should automatically be launched. If not, you can access the app frontend at http://localhost:4000
 
 ## Linking to SemApps packages (optional)
 
-If you wish to modify packages on the [SemApps repository](https://github.com/assemblee-virtuelle/semapps) and see the changes before they are published, we recommend to use [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link/).
+If you wish to modify packages on the [SemApps repository](https://github.com/assemblee-virtuelle/semapps) and the [ActivityPods repository](https://github.com/activitypods/activitypods) and see the changes before they are published, see the following instructions.
 
-### Linking middleware packages
+### Linking backend packages
+
+To link backend packages, you can use [`yarn link`](https://classic.yarnpkg.com/en/docs/cli/link/).
 
 ```bash
 cd /SEMAPPS_REPO/src/middleware
 yarn run link-all
-cd /THIS_REPO/middleware
-yarn run link-semapps-packages
+cd /ACTIVITYPODS_REPO
+yarn run link-all
+cd /THIS_REPO/backend
+yarn run link-packages
 ```
 
 ### Linking frontend packages
+
+Linking frontend packages with `yarn link` doesn't work because it causes version mismatch errors for React and MUI (see [this PR](https://github.com/assemblee-virtuelle/semapps/pull/1180) for explainations). So you should use [Yalc](https://github.com/wclr/yalc) instead. Fortunately, we make it easy for you.
 
 ```bash
 cd /SEMAPPS_REPO/src/frontend
@@ -75,9 +104,9 @@ cd /THIS_REPO/frontend
 yarn run link-semapps-packages
 ```
 
-Additionally, frontend packages need to be rebuilt, or your changes will not be taken into account.
-You can use `yarn run build` to build a package once, or `yarn run dev` to rebuild a package on every change.
+Additionally, frontend packages need to be rebuilt on every changes, or they will not be taken into account by ActivityPods. You can use `yarn run build` to build a package once, or `yarn run watch` to rebuild a package on every change. On every build, the new package will be published to Yalc.
 
+Thanks to Git hooks, the frontend packages will also be published to Yalc whenever git branches are changed.
 
 ## Deploy to production
 
@@ -90,7 +119,7 @@ The `docker-compose-prod.yml` includes everything you need to deploy this app to
 - [Redis](https://redis.io) used for cache and jobs queue
 - [Arena](https://github.com/bee-queue/arena) to watch the jobs queue
 
-## Requirements
+### Requirements
 
 A Linux server with 4Gb of RAM is required for Fuseki to work properly, otherwise there is a high risk that it runs out of memory and gets killed. For large Pod providers, we recommend 8Gb of RAM.
 
