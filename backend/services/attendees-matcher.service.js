@@ -15,10 +15,10 @@ module.exports = {
       // First get all contacts from all attendees
       for (let attendeeUri of attendeesUris) {
         try {
-          attendees[attendeeUri] = await ctx.call('pod-resources.get', { resourceUri: attendeeUri, actorUri: attendeeUri });
+          ({ body: attendees[attendeeUri] } = await ctx.call('pod-resources.get', { resourceUri: attendeeUri, actorUri: attendeeUri }));
 
           // Get the attendee's profile (fetch as the attendee to prevent permissions issues)
-          profiles[attendeeUri] = await ctx.call('pod-resources.get', { resourceUri: attendees[attendeeUri].url, actorUri: attendeeUri });
+          ({ body: profiles[attendeeUri] } = await ctx.call('pod-resources.get', { resourceUri: attendees[attendeeUri].url, actorUri: attendeeUri }));
 
           // Get the attendee's contacts list (fetch as the attendee to prevent permissions issues)
           contacts[attendeeUri] = await ctx.call('pod-collections.getItems', {

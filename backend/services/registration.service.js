@@ -16,7 +16,7 @@ module.exports = {
         const event = activity.object;
         const organizerUri = event['dc:creator'];
 
-        const actor = await ctx.call('pod-resources.get', { resourceUri: actorUri, actorUri });
+        const { body: actor } = await ctx.call('pod-resources.get', { resourceUri: actorUri, actorUri });
 
         const contactsGroupUri = await ctx.call('pod-wac-groups.getUriFromCollectionUri', {
           collectionUri: actor['apods:contacts'],

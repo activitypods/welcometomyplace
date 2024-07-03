@@ -121,7 +121,7 @@ module.exports = {
           actorUri 
         });
 
-        const attendeesCollection = await ctx.call('pod-resources.get', {
+        const { body: attendeesCollection } = await ctx.call('pod-resources.get', {
           resourceUri: attendeesCollectionUri,
           actorUri
         });
