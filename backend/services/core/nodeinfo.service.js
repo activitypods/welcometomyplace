@@ -25,9 +25,9 @@ module.exports = {
     async getUsersCount(ctx) {
       const appRegistrations = await ctx.call('app-registrations.list');
       return {
-        total: appRegistrations['ldp:contains'].length,
-        activeHalfYear: appRegistrations['ldp:contains'].length,
-        activeMonth: appRegistrations['ldp:contains'].length
+        total: appRegistrations['ldp:contains']?.length || 0,
+        activeHalfYear: appRegistrations['ldp:contains']?.length || 0,
+        activeMonth: appRegistrations['ldp:contains']?.length || 0
       };
     }
   }
