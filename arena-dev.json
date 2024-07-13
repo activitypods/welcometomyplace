@@ -15,7 +15,14 @@
       "db": 1
     },
     {
-      "name": "localPost",
+      "name": "processOutbox",
+      "hostId": "activitypods",
+      "host": "redis",
+      "port": 6379,
+      "db": 1
+    },
+    {
+      "name": "processInbox",
       "hostId": "activitypods",
       "host": "redis",
       "port": 6379,
@@ -27,6 +34,27 @@
       "host": "redis",
       "port": 6379,
       "db": 1
+    },
+    {
+      "name": "remotePost",
+      "hostId": "welcometomyplace",
+      "host": "redis",
+      "port": 6379,
+      "db": 8
+    },
+    {
+      "name": "processOutbox",
+      "hostId": "welcometomyplace",
+      "host": "redis",
+      "port": 6379,
+      "db": 8
+    },
+    {
+      "name": "processInbox",
+      "hostId": "welcometomyplace",
+      "host": "redis",
+      "port": 6379,
+      "db": 8
     },
     {
       "name": "registerListener",

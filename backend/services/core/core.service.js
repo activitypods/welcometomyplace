@@ -15,6 +15,9 @@ module.exports = {
       mainDataset: CONFIG.MAIN_DATASET
     },
     ontologies: [apods, notify, interop, oidc],
+    activitypub: {
+      queueServiceUrl: CONFIG.QUEUE_SERVICE_URL
+    },
     api: {
       port: CONFIG.PORT
     },
