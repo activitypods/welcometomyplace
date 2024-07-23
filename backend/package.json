@@ -8,9 +8,9 @@
     "unlink-packages": "yarn unlink @activitypods/app @activitypods/ontologies @activitypods/solid-notifications @semapps/activitypub @semapps/auth @semapps/backup @semapps/core @semapps/crypto @semapps/importer @semapps/inference @semapps/jsonld @semapps/ldp @semapps/middlewares @semapps/migration @semapps/mime-types @semapps/ontologies @semapps/sync @semapps/nodeinfo @semapps/notifications @semapps/pod @semapps/sparql-endpoint @semapps/triplestore @semapps/void @semapps/webacl @semapps/webfinger @semapps/webhooks @semapps/webid"
   },
   "dependencies": {
-    "@activitypods/app": "2.0.0-alpha.7",
-    "@activitypods/ontologies": "2.0.0-alpha.7",
-    "@activitypods/solid-notifications": "2.0.0-alpha.7",
+    "@activitypods/app": "2.0.0-alpha.8",
+    "@activitypods/ontologies": "2.0.0-alpha.8",
+    "@activitypods/solid-notifications": "2.0.0-alpha.8",
     "@semapps/activitypub": "0.8.8",
     "@semapps/auth": "0.8.8",
     "@semapps/crypto": "0.8.8",
