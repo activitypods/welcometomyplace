@@ -38,13 +38,13 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.frontend
-      args: 
+      args:
         REACT_APP_NAME: $APP_NAME
         REACT_APP_DESCRIPTION: $APP_DESCRIPTION
         REACT_APP_LANG: $APP_LANG
         REACT_APP_BACKEND_URL: https://${DOMAIN_NAME}${BACKEND_PATH}
         REACT_APP_BACKEND_CLIENT_ID: https://${DOMAIN_NAME}${BACKEND_PATH}/app
-        REACT_APP_POD_PROVIDER_DOMAIN_NAME: $POD_PROVIDER_DOMAIN_NAME
+        REACT_APP_POD_PROVIDER_BASE_URL: $POD_PROVIDER_BASE_URL
         REACT_APP_MAPBOX_ACCESS_TOKEN: $MAPBOX_ACCESS_TOKEN
     container_name: frontend
     restart: always
@@ -88,7 +88,7 @@ services:
       - "6379"
     volumes:
       - ./data/redis:/data:z
-    command: ["redis-server", "--appendonly", "yes"]
+    command: [ "redis-server", "--appendonly", "yes" ]
 
   arena:
     image: activitypods/arena

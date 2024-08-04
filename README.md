@@ -144,6 +144,7 @@ We have prepared a script for this:
 ```bash
 ./install-docker.sh
 ```
+
 If that doesn't work with your server config, you can follow [Docker installation instructions](https://docs.docker.com/engine/install/).
 
 ### Setup .env variables
@@ -159,7 +160,7 @@ APP_LANG=en
 LETSENCRYPT_EMAIL=
 FUSEKI_PASSWORD=
 MAPBOX_ACCESS_TOKEN=
-POD_PROVIDER_DOMAIN_NAME=  # If you want to enforce a Pod provider for this app
+POD_PROVIDER_BASE_URL=  # If you want to enforce a Pod provider for this app
 ```
 
 If you want to customize more thoroughly the app, you can do the same with the `.env.production` files in the /backend and /frontend directories (copy them to a `.env.production.local` file). Note all env files ending with `.local` are not commited.
@@ -173,7 +174,7 @@ make build-prod
 make start-prod
 ```
 
-If there is a problem, you can call `make attach-backend-prod`, which will give you access to ActivityPods' Moleculer CLI ([Moleculer](https://moleculer.services/) is the microservice framework that all ActivityPods services run on.) Errors will be displayed here. 
+If there is a problem, you can call `make attach-backend-prod`, which will give you access to ActivityPods' Moleculer CLI ([Moleculer](https://moleculer.services/) is the microservice framework that all ActivityPods services run on.) Errors will be displayed here.
 
 ### Explore your server
 

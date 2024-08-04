@@ -12,13 +12,14 @@ import Layout from './layout/Layout';
 import theme from './config/theme';
 
 import HomePage from './pages/HomePage';
-import RedirectPage from "./pages/RedirectPage";
+import RedirectPage from './pages/RedirectPage';
 import PodLoginPage from './pages/PodLoginPage/PodLoginPage';
 
-const customPodProviders = process.env.REACT_APP_POD_PROVIDER_DOMAIN_NAME
-  && [{ 'apods:domainName': process.env.REACT_APP_POD_PROVIDER_DOMAIN_NAME, 'apods:area': 'Local' }];
+const customPodProviders = process.env.REACT_APP_POD_PROVIDER_BASE_URL && [
+  { 'apods:baseUrl': process.env.REACT_APP_POD_PROVIDER_BASE_URL, 'apods:area': 'Local server' }
+];
 
-const LoginPage = props => <PodLoginPage customPodProviders={customPodProviders} {...props} />
+const LoginPage = props => <PodLoginPage customPodProviders={customPodProviders} {...props} />;
 
 const App = () => (
   <StyledEngineProvider injectFirst>

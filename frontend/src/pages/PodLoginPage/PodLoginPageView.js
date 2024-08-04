@@ -59,7 +59,7 @@ const PodProvider = ({ podProvider, onSelect }) => (
             <StorageIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary={podProvider['apods:domainName']} secondary={podProvider['apods:area']} />
+        <ListItemText primary={podProvider['apods:baseUrl']} secondary={podProvider['apods:area']} />
       </ListItemButton>
     </ListItem>
   </>
@@ -79,8 +79,8 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
 
   useEffect(() => {
     (async () => {
-      if (podProviders.length === 0) {
-        const results = await fetch('https://data.activitypods.org/pod-providers', {
+      if (!customPodProviders) {
+        const results = await fetch('https://activitypods.org/data/pod-providers', {
           headers: {
             Accept: 'application/ld+json'
           }
@@ -99,7 +99,7 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
         }
       }
     })();
-  }, [podProviders, setPodProviders, notify, locale]);
+  }, [customPodProviders, setPodProviders, notify, locale]);
 
   useEffect(() => {
     if (searchParams.has('iss')) {
@@ -131,10 +131,7 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
                 podProvider={podProvider}
                 onSelect={() =>
                   login({
-                    // TODO include HTTP scheme in Pod providers list
-                    issuer: `${podProvider['apods:domainName'].includes('localhost') ? 'http' : 'https'}://${
-                      podProvider['apods:domainName']
-                    }`,
+                    issuer: podProvider['apods:baseUrl'],
                     redirect,
                     isSignup
                   })
