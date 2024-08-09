@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNotify, useLocaleState, useTranslate, useLogin, useLogout } from 'react-admin';
+import { useNotify, useLocaleState, useTranslate, useLogin, useLogout, useRedirect, useGetIdentity } from 'react-admin';
 import { useSearchParams } from 'react-router-dom';
 import {
   Box,
@@ -59,7 +59,7 @@ const PodProvider = ({ podProvider, onSelect }) => (
             <StorageIcon />
           </Avatar>
         </ListItemAvatar>
-        <ListItemText primary={podProvider['apods:baseUrl']} secondary={podProvider['apods:area']} />
+        <ListItemText primary={new URL(podProvider['apods:baseUrl']).host} secondary={podProvider['apods:area']} />
       </ListItemButton>
     </ListItem>
   </>
@@ -73,9 +73,11 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
   const login = useLogin();
   const logout = useLogout();
   const translate = useTranslate();
+  const redirect = useRedirect();
+  const { data: identity, isLoading: isIdentityLoading } = useGetIdentity();
   const [podProviders, setPodProviders] = useState(customPodProviders || []);
   const isSignup = searchParams.has('signup');
-  const redirect = searchParams.get('redirect') || '/';
+  const redirectUrl = searchParams.get('redirect') || '/';
 
   useEffect(() => {
     (async () => {
@@ -106,9 +108,13 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
       // Automatically login if Pod provider is known
       login({ issuer: searchParams.get('iss') });
     } else if (searchParams.has('logout')) {
-      logout();
+      logout(redirectUrl);
+    } else if (!isIdentityLoading && identity?.id) {
+      redirect('/');
     }
-  }, [searchParams, login, logout]);
+  }, [searchParams, login, logout, identity, isIdentityLoading, redirect, redirectUrl]);
+
+  if (isIdentityLoading) return null;
 
   return (
     <Box display="flex" flexDirection="column" alignItems="center">
@@ -132,7 +138,7 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
                 onSelect={() =>
                   login({
                     issuer: podProvider['apods:baseUrl'],
-                    redirect,
+                    redirect: redirectUrl,
                     isSignup
                   })
                 }
