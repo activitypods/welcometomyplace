@@ -108,7 +108,7 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
       // Automatically login if Pod provider is known
       login({ issuer: searchParams.get('iss') });
     } else if (searchParams.has('logout')) {
-      logout(redirectUrl);
+      logout({ redirectUrl });
     } else if (!isIdentityLoading && identity?.id) {
       redirect('/');
     }
@@ -138,7 +138,7 @@ const PodLoginPageView = ({ text, customPodProviders }) => {
                 onSelect={() =>
                   login({
                     issuer: podProvider['apods:baseUrl'],
-                    redirect: redirectUrl,
+                    redirect: redirectUrl || undefined,
                     isSignup
                   })
                 }
