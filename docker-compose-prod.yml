@@ -46,7 +46,7 @@ services:
         REACT_APP_BACKEND_CLIENT_ID: https://${DOMAIN_NAME}${BACKEND_PATH}/app
         REACT_APP_POD_PROVIDER_BASE_URL: $POD_PROVIDER_BASE_URL
         REACT_APP_MAPBOX_ACCESS_TOKEN: $MAPBOX_ACCESS_TOKEN
-    image: activitypods/welcometomyplace-frontend:${TAG:-latest}
+    image: $FRONTEND_DOCKER_IMAGE
     container_name: frontend
     restart: always
     expose:
@@ -61,7 +61,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/backend.dockerfile
-    image: activitypods/welcometomyplace-backend:${TAG:-latest}
+    image: $BACKEND_DOCKER_IMAGE
     container_name: backend
     depends_on:
       - fuseki
