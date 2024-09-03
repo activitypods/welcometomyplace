@@ -2,6 +2,15 @@
 # yarn lockfile v1
 
 
+"@activitypods/react@2.0.0-alpha.14":
+  version "2.0.0-alpha.14"
+  resolved "https://registry.yarnpkg.com/@activitypods/react/-/react-2.0.0-alpha.14.tgz#ff4c593a9911f1dedfe9f9e544021f876e1dcce6"
+  integrity sha512-p7cc6JEmgLqkb+SJFFdaYJC+mb9EeIpf18dw1Fd9/lZGDW+NdE/WArWBWoyxJlaoSan7f2kQ7cywKO8/x+aGjw==
+  dependencies:
+    "@semapps/activitypub-components" "0.8.0"
+    "@semapps/semantic-data-provider" "0.8.0"
+    url-join "^4.0.1"
+
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"
@@ -1879,14 +1888,14 @@
   resolved "https://registry.yarnpkg.com/@remix-run/router/-/router-1.16.1.tgz#73db3c48b975eeb06d0006481bde4f5f2d17d1cd"
   integrity sha512-es2g3dq6Nb07iFxGk5GuHN20RwBZOsuDQN7izWIisUcv9r+d2C5jQxqmgkdebXgReWfiyUabcki6Fg77mSNrig==
 
-"@semapps/activitypub-components@0.6.7":
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/@semapps/activitypub-components/-/activitypub-components-0.6.7.tgz#b3a5f0ab9cf1bc25e1ac967bddfdf1293e8a66b7"
-  integrity sha512-xJaHdelbASSqpSMuDBd+18H3qazkrke+mEyvDoBycbwNvUr7KldqTTSoGAiFKIewwiPFh7poa38mTOm4nMyN1g==
+"@semapps/activitypub-components@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@semapps/activitypub-components/-/activitypub-components-0.8.0.tgz#8afee3d0a9667685155c7fb2ff7747fd9726a626"
+  integrity sha512-niTIud3FL277Q+ggJIUme49ltzj3i4UU1kGVl4rHD3JAJZAOc9AiN1OAcnJfCsVZhVTxk955c1TiS2Gq9hm3gw==
   dependencies:
-    "@semapps/auth-provider" "0.6.7"
-    "@semapps/field-components" "0.6.7"
-    "@semapps/semantic-data-provider" "0.6.7"
+    "@semapps/auth-provider" "0.8.0"
+    "@semapps/field-components" "0.8.0"
+    "@semapps/semantic-data-provider" "0.8.0"
     "@tiptap/core" "^2.0.0-beta.95"
     "@tiptap/extension-mention" "^2.0.0-beta.95"
     "@tiptap/extension-placeholder" "^2.0.0-beta.95"
@@ -1895,12 +1904,12 @@
     ra-input-rich-text "^4.11.0"
     tippy.js "^6.3.7"
 
-"@semapps/auth-provider@0.6.7":
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/@semapps/auth-provider/-/auth-provider-0.6.7.tgz#c43bb6babe3e6fab495c32a7fe56d481ea739afe"
-  integrity sha512-SmsxtAHovx4PmYp+JSDivg3T0SWvSAvRwV5ltNRqViNT6FVNYQAFJhDuDk15WXSc3AKZRzhKiBSjLPyHiSh6lQ==
+"@semapps/auth-provider@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@semapps/auth-provider/-/auth-provider-0.8.0.tgz#cee97a3ee02b5335f914541e6c173ae42c03e180"
+  integrity sha512-8nENyWNUrEK9773SP1E15lkmNZXEUSZ4OLFqkCLEkMRayvcM3y+eTfha9pH3/+yaJuIwyefJ2EzDKg1KyFDfZg==
   dependencies:
-    "@semapps/semantic-data-provider" "0.6.7"
+    "@semapps/semantic-data-provider" "0.8.0"
     classnames "^2.3.2"
     jwt-decode "^3.0.0"
     lodash "^4.17.21"
@@ -1908,10 +1917,10 @@
     speakingurl "^14.0.1"
     url-join "^4.0.1"
 
-"@semapps/date-components@0.6.7":
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/@semapps/date-components/-/date-components-0.6.7.tgz#4291fe9221d2452a82feec54b52dad94212d4930"
-  integrity sha512-YPC/43lgGx4S8s4NlI+uybggZmiX8WqVXoMRFYLnyfdnDkB1wGT9nB1vFvZb0DuxOhlLnli0jv2UbCQi/taMfw==
+"@semapps/date-components@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@semapps/date-components/-/date-components-0.8.0.tgz#ce288c0de6ad5763ca7cac0723703951b796fb69"
+  integrity sha512-eKqEEUtmon9sEeQCf12PytjF1gtkej5RWWc6LAd9SWw+ebMbRBFVYZnbD6SpLZAfYvCRq4ouSQcezOMCEiROUg==
   dependencies:
     "@fullcalendar/core" "^5.7.2"
     "@fullcalendar/daygrid" "^5.7.2"
@@ -1920,53 +1929,53 @@
     "@mui/x-date-pickers" "^6.6.0"
     date-fns "~2.8.1"
 
-"@semapps/field-components@0.6.7":
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/@semapps/field-components/-/field-components-0.6.7.tgz#52603c093093d3273f98cabdb112f6ecc59ca348"
-  integrity sha512-uhrE2S7kABR5V1QkDoOSuHRvylVhVlHTSQItAAINDiyHM1/lRNkyFmDwl2JV0nyjq5PRZRahVHbwQrAalChxRA==
+"@semapps/field-components@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@semapps/field-components/-/field-components-0.8.0.tgz#399443fa2de4e48112d306f1b7c82e7562e49271"
+  integrity sha512-OVZMcKyOFWyQGk5iYsV/CanOcE5YT3RIE3TwEVQahAvId/paW+Y2CGYMsHYXCLKvdl8PGQsKZl0S+qvPbrXvvQ==
   dependencies:
-    "@semapps/semantic-data-provider" "0.6.7"
+    "@semapps/semantic-data-provider" "0.8.0"
     lodash.debounce "^4.0.8"
     react-icons "^4.4.0"
 
-"@semapps/geo-components@0.6.7":
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/@semapps/geo-components/-/geo-components-0.6.7.tgz#fc98474f242462d09535ee1d620253e4f1c5cd12"
-  integrity sha512-shVI9GX67zystv/nhBzH+kKX56ufRshBEys37xCjCE/2ztonJ0ji8bd1BHPZ7HtKI/SnkR2gJJzWqQ0mNt3hJw==
+"@semapps/geo-components@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@semapps/geo-components/-/geo-components-0.8.0.tgz#6636552b5bd88b91d255b1ce937bf7b4889a3583"
+  integrity sha512-d6w7CasKkbezdUXmnTDlU8/QFQr6JT+u5Fv3L72CVQuH3TPMDqqbbZERFQl3sqhc/Oqkx0NlRb9PWFTSOQ31bg==
   dependencies:
     "@react-leaflet/core" "^2.1.0"
     autosuggest-highlight "^3.1.1"
     lodash.throttle "^4.1.1"
     react-leaflet "4.0.2"
 
-"@semapps/input-components@0.6.7":
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/@semapps/input-components/-/input-components-0.6.7.tgz#aac2e237bb5ecb08ac31a2c4184bd8dcb8482e4f"
-  integrity sha512-GLRAMfHSObQDyjk+bFqXR66LOx9OAnATc/gyhzd5SbxyR4vNgpJ/BVJ44xT4BhOG/8LQrzD9gBhcc/24g2AxEw==
+"@semapps/input-components@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@semapps/input-components/-/input-components-0.8.0.tgz#7a8387606d779848c015b1e7346b594875e464e9"
+  integrity sha512-U3S8lXiZ16ZuuQaGDfuPqYhy6/9Fk50JW3Gbka5E/KYsVjs2p4DFzDauaM05sag0I6dFTfoA/KBqhkRk/ZTemg==
   dependencies:
-    "@semapps/semantic-data-provider" "0.6.7"
+    "@semapps/semantic-data-provider" "0.8.0"
 
-"@semapps/list-components@0.6.7":
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/@semapps/list-components/-/list-components-0.6.7.tgz#4c5eed9e3c6209a0ab1236894810890c420c386b"
-  integrity sha512-yeLXbwlgqVuq61JgYiDBIIjlJxuAODHUukByWW1m4a1TC+AmbQb4ix3B100Oo0DBuAXFK4wdX+y5l0IoX+K5Yg==
+"@semapps/list-components@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@semapps/list-components/-/list-components-0.8.0.tgz#0a9d21c66ce5f01f76b53fb2744ab5a1def356b8"
+  integrity sha512-N7afTKvl36YtjOrJNMRAo/aKj0jmRshOnuE/tmxUGL1WmQM5Gbfb6pFB/eCfU+6hZ6ARtLcnVyTJ1rIibx6oPg==
   dependencies:
-    "@semapps/semantic-data-provider" "0.6.7"
+    "@semapps/semantic-data-provider" "0.8.0"
     react-masonry-css "^1.0.14"
 
-"@semapps/markdown-components@0.6.7":
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/@semapps/markdown-components/-/markdown-components-0.6.7.tgz#84e1a43db40b53a0b6df929262dd30f1047764e4"
-  integrity sha512-4L3XGaLHiT3aFfMrOFTqKT9PS1YB2goOy2bKZB1aRwJLxnDqFHZUIFyfGd1aShjyKGLgdEWHWF10d34u5gpnBQ==
+"@semapps/markdown-components@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@semapps/markdown-components/-/markdown-components-0.8.0.tgz#1eb1c72df33fdcc55e056dbdcc24743d8b505222"
+  integrity sha512-KjO9uHzvj+GsrJEtk8HDcOSKQ+VnE6pQrUYirLKduehpzPlY5GvuA1iHXE6o4pqkDk4Fms7KdQ9uOHLhHzJVTQ==
   dependencies:
     lodash "^4.17.21"
     markdown-to-jsx "^7.1.3"
     react-mde "^11.5.0"
 
-"@semapps/semantic-data-provider@0.6.7":
-  version "0.6.7"
-  resolved "https://registry.yarnpkg.com/@semapps/semantic-data-provider/-/semantic-data-provider-0.6.7.tgz#8efceadf8c2209f55b18b118eac74e12adde4e4a"
-  integrity sha512-YRXQcJHDWfGLPK3KIB8FKPr/vezZXYXj1kVkj7jTT8XTZ9UPQehYnHIVpRek9xUsYq0xjPhPnqjzXsddRuqp9g==
+"@semapps/semantic-data-provider@0.8.0":
+  version "0.8.0"
+  resolved "https://registry.yarnpkg.com/@semapps/semantic-data-provider/-/semantic-data-provider-0.8.0.tgz#48a2200b3bbee9841889be5919f390812348d853"
+  integrity sha512-dGIYv85PordSKYaalHHz1wYygjiyu/6f1+543trhbhviYlxnDe/SdksVrjgc1cgm++RBgL6ruCdifSvnmILn+g==
   dependencies:
     "@rdfjs/data-model" "^1.3.4"
     crypto-js "^4.1.1"
@@ -1974,81 +1983,6 @@
     jwt-decode "^3.0.0"
     sparqljs "^3.5.1"
     url-join "^4.0.1"
-
-"@sentry/browser@6.19.7":
-  version "6.19.7"
-  resolved "https://registry.yarnpkg.com/@sentry/browser/-/browser-6.19.7.tgz#a40b6b72d911b5f1ed70ed3b4e7d4d4e625c0b5f"
-  integrity sha512-oDbklp4O3MtAM4mtuwyZLrgO1qDVYIujzNJQzXmi9YzymJCuzMLSRDvhY83NNDCRxf0pds4DShgYeZdbSyKraA==
-  dependencies:
-    "@sentry/core" "6.19.7"
-    "@sentry/types" "6.19.7"
-    "@sentry/utils" "6.19.7"
-    tslib "^1.9.3"
-
-"@sentry/core@6.19.7":
-  version "6.19.7"
-  resolved "https://registry.yarnpkg.com/@sentry/core/-/core-6.19.7.tgz#156aaa56dd7fad8c89c145be6ad7a4f7209f9785"
-  integrity sha512-tOfZ/umqB2AcHPGbIrsFLcvApdTm9ggpi/kQZFkej7kMphjT+SGBiQfYtjyg9jcRW+ilAR4JXC9BGKsdEQ+8Vw==
-  dependencies:
-    "@sentry/hub" "6.19.7"
-    "@sentry/minimal" "6.19.7"
-    "@sentry/types" "6.19.7"
-    "@sentry/utils" "6.19.7"
-    tslib "^1.9.3"
-
-"@sentry/hub@6.19.7":
-  version "6.19.7"
-  resolved "https://registry.yarnpkg.com/@sentry/hub/-/hub-6.19.7.tgz#58ad7776bbd31e9596a8ec46365b45cd8b9cfd11"
-  integrity sha512-y3OtbYFAqKHCWezF0EGGr5lcyI2KbaXW2Ik7Xp8Mu9TxbSTuwTe4rTntwg8ngPjUQU3SUHzgjqVB8qjiGqFXCA==
-  dependencies:
-    "@sentry/types" "6.19.7"
-    "@sentry/utils" "6.19.7"
-    tslib "^1.9.3"
-
-"@sentry/minimal@6.19.7":
-  version "6.19.7"
-  resolved "https://registry.yarnpkg.com/@sentry/minimal/-/minimal-6.19.7.tgz#b3ee46d6abef9ef3dd4837ebcb6bdfd01b9aa7b4"
-  integrity sha512-wcYmSJOdvk6VAPx8IcmZgN08XTXRwRtB1aOLZm+MVHjIZIhHoBGZJYTVQS/BWjldsamj2cX3YGbGXNunaCfYJQ==
-  dependencies:
-    "@sentry/hub" "6.19.7"
-    "@sentry/types" "6.19.7"
-    tslib "^1.9.3"
-
-"@sentry/react@^6.13.3":
-  version "6.19.7"
-  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-6.19.7.tgz#58cc2d6da20f7d3b0df40638dfbbbc86c9c85caf"
-  integrity sha512-VzJeBg/v41jfxUYPkH2WYrKjWc4YiMLzDX0f4Zf6WkJ4v3IlDDSkX6DfmWekjTKBho6wiMkSNy2hJ1dHfGZ9jA==
-  dependencies:
-    "@sentry/browser" "6.19.7"
-    "@sentry/minimal" "6.19.7"
-    "@sentry/types" "6.19.7"
-    "@sentry/utils" "6.19.7"
-    hoist-non-react-statics "^3.3.2"
-    tslib "^1.9.3"
-
-"@sentry/tracing@^6.13.3":
-  version "6.19.7"
-  resolved "https://registry.yarnpkg.com/@sentry/tracing/-/tracing-6.19.7.tgz#54bb99ed5705931cd33caf71da347af769f02a4c"
-  integrity sha512-ol4TupNnv9Zd+bZei7B6Ygnr9N3Gp1PUrNI761QSlHtPC25xXC5ssSD3GMhBgyQrcvpuRcCFHVNNM97tN5cZiA==
-  dependencies:
-    "@sentry/hub" "6.19.7"
-    "@sentry/minimal" "6.19.7"
-    "@sentry/types" "6.19.7"
-    "@sentry/utils" "6.19.7"
-    tslib "^1.9.3"
-
-"@sentry/types@6.19.7":
-  version "6.19.7"
-  resolved "https://registry.yarnpkg.com/@sentry/types/-/types-6.19.7.tgz#c6b337912e588083fc2896eb012526cf7cfec7c7"
-  integrity sha512-jH84pDYE+hHIbVnab3Hr+ZXr1v8QABfhx39KknxqKWr2l0oEItzepV0URvbEhB446lk/S/59230dlUUIBGsXbg==
-
-"@sentry/utils@6.19.7":
-  version "6.19.7"
-  resolved "https://registry.yarnpkg.com/@sentry/utils/-/utils-6.19.7.tgz#6edd739f8185fd71afe49cbe351c1bbf5e7b7c79"
-  integrity sha512-z95ECmE3i9pbWoXQrD/7PgkBAzJYR+iXtPuTkpBjDKs86O3mT+PXOT3BAn79w2wkn7/i3vOGD2xVr1uiMl26dA==
-  dependencies:
-    "@sentry/types" "6.19.7"
-    tslib "^1.9.3"
 
 "@sheerun/mutationobserver-shim@^0.3.2":
   version "0.3.3"
@@ -10937,13 +10871,13 @@ react-dev-utils@^10.2.0:
     strip-ansi "6.0.0"
     text-table "0.2.0"
 
-react-dom@^18.1.0:
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.2.0.tgz#22aaf38708db2674ed9ada224ca4aa708d821e3d"
-  integrity sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==
+react-dom@^18.2.0:
+  version "18.3.1"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-18.3.1.tgz#c2265d79511b57d479b3dd3fdfa51536494c5cb4"
+  integrity sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==
   dependencies:
     loose-envify "^1.1.0"
-    scheduler "^0.23.0"
+    scheduler "^0.23.2"
 
 react-dropzone@^12.0.4:
   version "12.1.0"
@@ -11119,10 +11053,10 @@ react-transition-group@^4.4.1, react-transition-group@^4.4.5:
     loose-envify "^1.4.0"
     prop-types "^15.6.2"
 
-react@^18.1.0:
-  version "18.2.0"
-  resolved "https://registry.yarnpkg.com/react/-/react-18.2.0.tgz#555bd98592883255fa00de14f1151a917b5d77d5"
-  integrity sha512-/3IjMdb2L9QbBdWiW5e3P2/npwMBaU9mHCSCUzNln0ZCYbcfTsGbTJrU/kGemdH2IWmB2ioZ+zkxtmq6g09fGQ==
+react@^18.2.0:
+  version "18.3.1"
+  resolved "https://registry.yarnpkg.com/react/-/react-18.3.1.tgz#49ab892009c53933625bd16b2533fc754cab2891"
+  integrity sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==
   dependencies:
     loose-envify "^1.1.0"
 
@@ -11666,10 +11600,10 @@ saxes@^3.1.9:
   dependencies:
     xmlchars "^2.1.1"
 
-scheduler@^0.23.0:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.23.0.tgz#ba8041afc3d30eb206a487b6b384002e4e61fdfe"
-  integrity sha512-CtuThmgHNg7zIZWAXi3AsyIzA3n4xx7aNyjwC2VJldO2LMVDhFK+63xGqq6CsJH4rTAt6/M+N4GhZiDYPx9eUw==
+scheduler@^0.23.2:
+  version "0.23.2"
+  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.23.2.tgz#414ba64a3b282892e944cf2108ecc078d115cdc3"
+  integrity sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==
   dependencies:
     loose-envify "^1.1.0"
 
@@ -12685,7 +12619,7 @@ ts-pnp@^1.1.2:
   resolved "https://registry.yarnpkg.com/ts-pnp/-/ts-pnp-1.2.0.tgz#a500ad084b0798f1c3071af391e65912c86bca92"
   integrity sha512-csd+vJOb/gkzvcCHgTGSChYpy5f1/XKNsmvBGO4JXS+z1v2HobugDz4s1IeFXM3wZB44uczs+eazB5Q/ccdhQw==
 
-tslib@^1.8.1, tslib@^1.9.0, tslib@^1.9.3:
+tslib@^1.8.1, tslib@^1.9.0:
   version "1.14.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.14.1.tgz#cf2d38bdc34a134bcaf1091c41f6619e2f672d00"
   integrity sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==

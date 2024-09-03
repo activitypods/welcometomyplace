@@ -71,12 +71,12 @@ Now you can launch the app frontend.
 ```bash
 cd frontend
 yarn install
-yarn run dev
+yarn start
 ```
 
 A browser window should automatically be launched. If not, you can access the app frontend at http://localhost:4000
 
-## Linking to SemApps packages (optional)
+## Linking to SemApps/ActivityPods packages (optional)
 
 If you wish to modify packages on the [SemApps repository](https://github.com/assemblee-virtuelle/semapps) and the [ActivityPods repository](https://github.com/activitypods/activitypods) and see the changes before they are published, see the following instructions.
 
@@ -87,7 +87,7 @@ To link backend packages, you can use [`yarn link`](https://classic.yarnpkg.com/
 ```bash
 cd /SEMAPPS_REPO/src/middleware
 yarn run link-all
-cd /ACTIVITYPODS_REPO
+cd /ACTIVITYPODS_REPO/app-framework
 yarn run link-all
 cd /THIS_REPO/backend
 yarn run link-packages
@@ -100,8 +100,10 @@ Linking frontend packages with `yarn link` doesn't work because it causes versio
 ```bash
 cd /SEMAPPS_REPO/src/frontend
 yarn run link-all
+cd /ACTIVITYPODS_REPO/app-framework
+yarn run link-all
 cd /THIS_REPO/frontend
-yarn run link-semapps-packages
+yarn run link-packages
 ```
 
 Additionally, frontend packages need to be rebuilt on every changes, or they will not be taken into account by ActivityPods. You can use `yarn run build` to build a package once, or `yarn run watch` to rebuild a package on every change. On every build, the new package will be published to Yalc.

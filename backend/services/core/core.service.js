@@ -1,6 +1,6 @@
 const path = require('path');
 const { CoreService } = require('@semapps/core');
-const { apods, notify, interop, oidc } = require('@activitypods/ontologies');
+const { apods, notify, interop, oidc } = require('@semapps/ontologies');
 const CONFIG = require('../../config/config');
 
 module.exports = {

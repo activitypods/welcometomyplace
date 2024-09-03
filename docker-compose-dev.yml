@@ -69,7 +69,7 @@ services:
     container_name: arena
     restart: always
     volumes:
-      - ./arena-dev.json:/opt/arena/src/server/config/index.json
+      - ./docker/arena-dev.json:/opt/arena/src/server/config/index.json
     depends_on:
       - redis
     expose:

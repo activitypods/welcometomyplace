@@ -3,18 +3,21 @@ FROM node:20-alpine
 RUN node -v
 RUN npm -v
 
+WORKDIR /app/backend
+
 RUN apk add --update --no-cache autoconf bash libtool automake python3 py3-pip alpine-sdk openssh-keygen yarn nano
 
 RUN yarn global add pm2
 
-ADD backend /app/backend
-ADD ecosystem.config.js /app/backend
+ADD docker/ecosystem.config.js /app/backend
 
-WORKDIR /app/backend
-
-# Install packages and immediately remove cache to reduce layer size
+# Install packages first so that Docker doesn't run `yarn install` if the packages haven't changed
 # See https://making.close.com/posts/reduce-docker-image-size
+ADD backend/package.json /app/backend
+ADD backend/yarn.lock /app/backend
 RUN yarn install && yarn cache clean
+
+ADD backend /app/backend
 
 EXPOSE 3000
 
