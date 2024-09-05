@@ -1,0 +1,90 @@
+services:
+  zrok:
+    image: openziti/zrok
+    restart: unless-stopped
+    user: "KmP.9jc-Sq"
+    volumes:
+      - ./data/zrok:/.zrok
+    environment:
+      PFXLOG_NO_JSON: "true"
+    command: share reserved "activitypods" --headless
+
+  fuseki:
+    image: semapps/jena-fuseki-webacl
+    container_name: fuseki
+    volumes:
+      - ./data/fuseki:/fuseki
+    ports:
+      - "3030:3030"
+    expose:
+      - "3030"
+    environment:
+      ADMIN_PASSWORD: admin
+
+  activitypods-backend:
+    image: activitypods/backend
+    container_name: activitypods-backend
+    depends_on:
+      - fuseki
+      - redis
+    restart: always
+    expose:
+      - '3000'
+    volumes:
+      - ./data/backend/logs:/app/backend/logs
+      - ./data/backend/jwt:/app/backend/jwt
+      - ./data/backend/uploads:/app/backend/uploads
+    environment:
+      SEMAPPS_JENA_PASSWORD: admin
+      SEMAPPS_DEFAULT_LOCALE: en
+      SEMAPPS_MAPBOX_ACCESS_TOKEN: ${REACT_APP_MAPBOX_ACCESS_TOKEN:?You must set it in the frontend/.env.local file}
+    # Allow the Pod backend to access the app backend
+    # See https://docs.docker.com/network/drivers/host/
+    network_mode: "host" 
+
+  activitypods-frontend:
+    image: activitypods/frontend
+    container_name: activitypods-frontend
+    depends_on:
+      - activitypods-backend
+    restart: always
+    ports:
+      - "5000:5000"
+    expose:
+      - '5000'
+    environment:
+      REACT_APP_CONFIG_URL: "http://localhost:3000/.well-known/config.js"
+
+  mailcatcher:
+    image: dockage/mailcatcher:0.7.1
+    container_name: mailcatcher
+    ports:
+      - '1080:1080'
+      - '1025:1025'
+    restart: on-failure
+
+  redis:
+    image: redis
+    container_name: redis
+    expose:
+      - "6379"
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./data/redis:/data:z
+    command: ["redis-server", "--appendonly", "yes"]
+
+  arena:
+    image: activitypods/arena
+    container_name: arena
+    restart: always
+    volumes:
+      - ./arena-dev.json:/opt/arena/src/server/config/index.json
+    depends_on:
+      - redis
+    expose:
+      - "4567"
+    ports:
+      - "4567:4567"
+    environment:
+      REDIS_HOST: "redis"
