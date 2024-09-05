@@ -15,7 +15,7 @@ module.exports = {
       const announcesCollectionUri = urlJoin(resourceUri, 'announces');
 
       return await ctx.call('pod-wac-groups.getUriFromCollectionUri', {
-        collectionUri: announcesCollectionUri,
+        collectionUri: announcesCollectionUri
       });
     }
   },

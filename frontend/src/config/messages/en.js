@@ -34,11 +34,7 @@ module.exports = {
       set_new_password: 'Set new password'
     },
     page: {
-      events: 'My events',
-      network: 'My network',
-      apps: 'My applications',
-      data: 'My data',
-      settings: 'Settings'
+      events: 'My events'
     },
     tab: {
       next_events: 'Coming events',
@@ -85,10 +81,7 @@ module.exports = {
       other_conditions: 'You can enter several additional conditions (one by line)',
       profile_visibility: 'Your profile is visible only by users you have accepted in your network',
       share_contact: 'To connect with someone you know, you can send him the link below.',
-      location_comment: 'Additional information to help attendees to find this place',
-      g1_tipjar_field:
-        'To send G1 money to this user, copy his public key below and use it inside the Cesium software.',
-      g1_tipjar_input: 'The public key of your Ğ1 account. This will allow other members to easily send you money.'
+      location_comment: 'Additional information to help attendees to find this place'
     },
     message: {
       copied_to_clipboard: 'Copied !',
