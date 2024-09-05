@@ -46,6 +46,7 @@ services:
         REACT_APP_BACKEND_CLIENT_ID: https://${DOMAIN_NAME}${BACKEND_PATH}/app
         REACT_APP_POD_PROVIDER_BASE_URL: $POD_PROVIDER_BASE_URL
         REACT_APP_MAPBOX_ACCESS_TOKEN: $MAPBOX_ACCESS_TOKEN
+        PORT: 4000
     image: $FRONTEND_DOCKER_IMAGE
     container_name: frontend
     restart: always
