@@ -34,7 +34,7 @@ services:
     environment:
       ADMIN_PASSWORD: ${FUSEKI_PASSWORD}
 
-  frontend:
+  app-frontend:
     build:
       context: .
       dockerfile: ./docker/frontend.dockerfile
@@ -58,7 +58,7 @@ services:
       - "traefik.http.routers.frontend.entrypoints=websecure"
       - "traefik.http.routers.frontend.tls.certresolver=myresolver"
 
-  backend:
+  app-backend:
     build:
       context: .
       dockerfile: ./docker/backend.dockerfile
