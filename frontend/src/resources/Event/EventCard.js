@@ -8,25 +8,25 @@ import EventIcon from '@mui/icons-material/Event';
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import FaceIcon from '@mui/icons-material/Face';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   title: {
     fontSize: 20,
     fontWeight: 500,
-    lineHeight: 1.8,
+    lineHeight: 1.8
     // color: theme.palette.primary.main,
   },
   description: {
     marginTop: 10,
     fontSize: '14px',
     '& span': {
-      fontSize: '14px',
+      fontSize: '14px'
     },
     display: 'block',
     textOverflow: 'ellipsis',
     wordWrap: 'break-word',
     overflow: 'hidden',
-    maxHeight: '3.6em',
-  },
+    maxHeight: '3.6em'
+  }
 }));
 
 const EventCard = () => {
@@ -58,10 +58,6 @@ const EventCard = () => {
       <TextField source="content" className={classes.description} />
     </>
   );
-};
-
-EventCard.defaultProps = {
-  variant: 'full',
 };
 
 export default EventCard;

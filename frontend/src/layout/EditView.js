@@ -2,7 +2,7 @@ import React from 'react';
 import { ListButton, ShowButton, useEditContext } from 'react-admin';
 import { Box, Typography, Container, Grid, Card, useMediaQuery } from '@mui/material';
 
-const EditView = ({ title, actions, children }) => {
+const EditView = ({ title, actions = [<ListButton />, <ShowButton />], children }) => {
   const { defaultTitle } = useEditContext();
   const xs = useMediaQuery(theme => theme.breakpoints.down('sm'), { noSsr: true });
   return (
@@ -24,10 +24,6 @@ const EditView = ({ title, actions, children }) => {
       </Box>
     </Container>
   );
-};
-
-EditView.defaultProps = {
-  actions: [<ListButton />, <ShowButton />]
 };
 
 export default EditView;

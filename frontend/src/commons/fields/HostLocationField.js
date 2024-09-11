@@ -6,12 +6,12 @@ import { useRecordContext, useTranslate } from 'react-admin';
 
 const HostLocationField = ({ label, source }) => {
   const record = useRecordContext();
-  const xs = useMediaQuery((theme) => theme.breakpoints.down('xs'), { noSsr: true });
+  const xs = useMediaQuery(theme => theme.breakpoints.down('xs'), { noSsr: true });
   const translate = useTranslate();
   return (
     <ReferenceField reference="Location" record={record} source={source} link={false}>
       <MapField
-        address={(record) => (
+        address={record => (
           <>
             {record?.['vcard:given-name'] + ', ' + record?.['vcard:hasAddress']?.['vcard:given-name']}
             {record?.['vcard:note'] && (
@@ -23,8 +23,8 @@ const HostLocationField = ({ label, source }) => {
             )}
           </>
         )}
-        latitude={(record) => record?.['vcard:hasAddress']?.['vcard:hasGeo']?.['vcard:latitude']}
-        longitude={(record) => record?.['vcard:hasAddress']?.['vcard:hasGeo']?.['vcard:longitude']}
+        latitude={record => record?.['vcard:hasAddress']?.['vcard:hasGeo']?.['vcard:latitude']}
+        longitude={record => record?.['vcard:hasAddress']?.['vcard:hasGeo']?.['vcard:longitude']}
         height={xs ? 250 : 400}
         typographyProps={{ component: 'div' }}
       />
@@ -35,7 +35,7 @@ const HostLocationField = ({ label, source }) => {
 HostLocationField.defaultProps = {
   addLabel: true,
   label: 'Localisation',
-  source: 'location',
+  source: 'location'
 };
 
 export default HostLocationField;

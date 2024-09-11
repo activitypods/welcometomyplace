@@ -2,7 +2,7 @@ import React from 'react';
 import { ListButton, useCreateContext } from 'react-admin';
 import { Box, Typography, Container, Grid, Card, useMediaQuery } from '@mui/material';
 
-const CreateView = ({ actions, title, children }) => {
+const CreateView = ({ actions = [<ListButton />], title, children }) => {
   const { defaultTitle } = useCreateContext();
   const xs = useMediaQuery(theme => theme.breakpoints.down('sm'), { noSsr: true });
   return (
@@ -24,10 +24,6 @@ const CreateView = ({ actions, title, children }) => {
       </Box>
     </Container>
   );
-};
-
-CreateView.defaultProps = {
-  actions: [<ListButton />]
 };
 
 export default CreateView;
