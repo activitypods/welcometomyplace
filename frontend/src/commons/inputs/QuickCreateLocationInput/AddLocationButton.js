@@ -102,7 +102,8 @@ const AddLocationButton = ({ reference, source, onChange }) => {
                 parse={value => ({
                   type: 'vcard:Address',
                   'vcard:given-name': value.place_name,
-                  'vcard:locality': value.place_type[0] === 'place' ? value.text : extractContext(value.context, 'place'),
+                  'vcard:locality':
+                    value.place_type[0] === 'place' ? value.text : extractContext(value.context, 'place'),
                   'vcard:street-address':
                     value.place_type[0] === 'address' ? [value.address, value.text].join(' ') : undefined,
                   'vcard:postal-code': extractContext(value.context, 'postcode'),
@@ -116,11 +117,7 @@ const AddLocationButton = ({ reference, source, onChange }) => {
                 validate={[required()]}
                 fullWidth
               />
-              <TextInput
-                source="vcard:note"
-                fullWidth
-                helperText={translate('app.helper.location_comment')}
-              />
+              <TextInput source="vcard:note" fullWidth helperText={translate('app.helper.location_comment')} />
             </DialogContent>
             <DialogActions>
               <Button onClick={() => setShowDialog(false)} disabled={isLoading} startIcon={<IconCancel />}>

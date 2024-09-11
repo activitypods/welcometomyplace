@@ -14,7 +14,7 @@ const getDiff = (startDate, endDate) => {
   return {
     days: Math.floor(days),
     hours: Math.floor(hours),
-    minutes: Math.floor(minutes),
+    minutes: Math.floor(minutes)
   };
 };
 

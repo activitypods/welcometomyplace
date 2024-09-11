@@ -1,5 +1,13 @@
 import React from 'react';
-import { Form, TextInput, useNotify, useRecordContext, useTranslate, useGetIdentity, RecordContextProvider } from 'react-admin';
+import {
+  Form,
+  TextInput,
+  useNotify,
+  useRecordContext,
+  useTranslate,
+  useGetIdentity,
+  RecordContextProvider
+} from 'react-admin';
 import { Box, Button, Alert } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import { useOutbox, useCollection, OBJECT_TYPES } from '@semapps/activitypub-components';
@@ -31,7 +39,10 @@ const ContactField = ({ source, context }) => {
       await outbox.post({
         type: OBJECT_TYPES.NOTE,
         attributedTo: outbox.owner,
-        summary: translate('app.message.event_message_title', { username: identity?.profileData?.['vcard:given-name'], event: record.name }),
+        summary: translate('app.message.event_message_title', {
+          username: identity?.profileData?.['vcard:given-name'],
+          event: record.name
+        }),
         content: values.content,
         context: context ? record[context] : undefined,
         to:

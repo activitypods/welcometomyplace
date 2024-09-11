@@ -7,26 +7,26 @@ const dataServers = {
     sparqlEndpoint: null, // Calculated from the token
     containers: {
       pod: {
-        "as:Event": ["/as/event"],
-        "vcard:Location": ["/vcard/location"],
-        "vcard:Individual": ["/vcard/individual"],
-        "vcard:Group": ["/vcard/group"],
-      },
+        'as:Event': ['/as/event'],
+        'vcard:Location': ['/vcard/location'],
+        'vcard:Individual': ['/vcard/individual'],
+        'vcard:Group': ['/vcard/group']
+      }
     },
-    uploadsContainer: "/semapps/file",
+    uploadsContainer: '/semapps/file'
   },
   common: {
-    name: "Common data",
+    name: 'Common data',
     baseUrl: process.env.REACT_APP_BACKEND_URL,
     default: true,
     noProxy: true,
     containers: {
       common: {
-        "apods:EventFormat": ["/apods/event-format"],
-      },
+        'apods:EventFormat': ['/apods/event-format']
+      }
     },
     void: false
-  },
+  }
 };
 
 export default dataServers;

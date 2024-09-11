@@ -9,24 +9,24 @@ const logoHeightSmall = 40;
 // const logoWidthSmall = 65;
 // const breakPointlimit = 'xs';
 const breakPointlimit = 720;
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   logo: {
     // width: logoWidth,
     height: logoHeight,
     verticalAlign: 'middle',
     [theme.breakpoints.down(breakPointlimit)]: {
       // width: logoWidthSmall,
-      height: logoHeightSmall,
-    },
+      height: logoHeightSmall
+    }
   },
   logoBox: {
     // width: 240,
     height: logoHeight,
     [theme.breakpoints.down(breakPointlimit)]: {
       // width: 180,
-      height: logoHeightSmall,
-    },
-  },
+      height: logoHeightSmall
+    }
+  }
 }));
 
 const LogoTitle = ({ title, classes, ...other }) => {

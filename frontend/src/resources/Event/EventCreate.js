@@ -13,7 +13,13 @@ const EventCreate = () => {
   const waitForPredicates = useWaitForPredicates();
 
   const onSuccess = async data => {
-    data = await waitForPredicates('Event', data, ['apods:attendees', 'apods:hasStatus', 'dc:created', 'dc:creator', 'dc:modified']);
+    data = await waitForPredicates('Event', data, [
+      'apods:attendees',
+      'apods:hasStatus',
+      'dc:created',
+      'dc:creator',
+      'dc:modified'
+    ]);
     notify('ra.notification.created', { messageArgs: { smart_count: 1 } });
     redirect('show', 'Event', data.id, data);
   };

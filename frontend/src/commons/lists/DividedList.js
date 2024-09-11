@@ -3,14 +3,14 @@ import { useListContext, Loading, RecordContextProvider } from 'react-admin';
 import { Card, List, Divider } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   card: {
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 20
   },
   list: {
-    padding: 0,
-  },
+    padding: 0
+  }
 }));
 
 const DividedList = ({ children }) => {

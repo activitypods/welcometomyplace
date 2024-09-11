@@ -15,36 +15,36 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
+    backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`
   },
   title: {
     lineHeight: 1,
     color: 'white',
     [theme.breakpoints.down('xs')]: {
       fontSize: '1.8em'
-    },
+    }
   },
   description: {
     color: 'white',
     fontStyle: 'italic',
     marginTop: 16,
     maxWidth: 250,
-    whiteSpace: 'pre-line',
+    whiteSpace: 'pre-line'
   },
   link: {
     textDecoration: 'underline',
     color: 'white'
   },
   text: {
-    color: 'white',
+    color: 'white'
   },
   logo: {
     fontSize: 100,
-    color: 'white',
+    color: 'white'
   },
   button: {
-    margin: 5,
-  },
+    margin: 5
+  }
 }));
 
 const HomePage = () => {
@@ -57,7 +57,7 @@ const HomePage = () => {
     if (!isLoading && identity?.id) {
       redirect('list', 'Event');
     }
-  }, [identity, isLoading, redirect])
+  }, [identity, isLoading, redirect]);
 
   if (isLoading) return null;
 
@@ -71,13 +71,18 @@ const HomePage = () => {
         <Typography align="center" className={classes.description}>
           {process.env.REACT_APP_DESCRIPTION}
         </Typography>
-        {process.env.REACT_APP_ORGANIZATION_NAME &&
-          <a href={process.env.REACT_APP_ORGANIZATION_URL} target="_blank" rel="noopener noreferrer" className={classes.link}>
+        {process.env.REACT_APP_ORGANIZATION_NAME && (
+          <a
+            href={process.env.REACT_APP_ORGANIZATION_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classes.link}
+          >
             <Typography align="center" className={classes.description}>
-              {translate('app.backed_by_organization', { organizationName: process.env.REACT_APP_ORGANIZATION_NAME})}
+              {translate('app.backed_by_organization', { organizationName: process.env.REACT_APP_ORGANIZATION_NAME })}
             </Typography>
           </a>
-        }
+        )}
         <Box display="flex" pt={2} pb={1} alignItems="center">
           <Link to="/login?signup">
             <Button variant="contained" color="secondary" className={classes.button}>

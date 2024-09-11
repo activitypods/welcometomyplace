@@ -1,18 +1,10 @@
 import React, { useRef } from 'react';
-import {
-  Grid,
-  Container,
-  Box,
-  Drawer,
-  useMediaQuery,
-  useScrollTrigger,
-  Typography,
-} from '@mui/material';
+import { Grid, Container, Box, Drawer, useMediaQuery, useScrollTrigger, Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { TextField, useShowContext, ReferenceField } from 'react-admin';
 import JoinButton from '../commons/buttons/JoinButton';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     backgroundColor: 'white',
     paddingTop: 25,
@@ -20,22 +12,22 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('xs')]: {
       paddingTop: 10,
       paddingBottom: 0,
-      marginBottom: 0,
-    },
+      marginBottom: 0
+    }
   },
   breadcrumbs: {
     paddingTop: 15,
-    paddingBottom: 10,
+    paddingBottom: 10
   },
   type: {
     paddingTop: 15,
-    paddingBottom: 10,
+    paddingBottom: 10
   },
   title: {
-    lineHeight: 1.15,
+    lineHeight: 1.15
   },
   chevronIcon: {
-    color: 'white',
+    color: 'white'
   },
   images: {
     marginBottom: 15,
@@ -51,22 +43,22 @@ const useStyles = makeStyles((theme) => ({
       height: '100%',
       maxHeight: '15rem',
       [theme.breakpoints.down('xs')]: {
-        maxHeight: '8rem',
-      },
-    },
+        maxHeight: '8rem'
+      }
+    }
   },
   drawer: {
     backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
-  },
+    justifyContent: 'center'
+  }
 }));
 
 const HeaderShow = ({ type, details, actions }) => {
   const classes = useStyles();
   const { record } = useShowContext();
-  const xs = useMediaQuery((theme) => theme.breakpoints.down('xs'), { noSsr: true });
+  const xs = useMediaQuery(theme => theme.breakpoints.down('xs'), { noSsr: true });
 
   // Calculate header height
   const headerRef = useRef(null);

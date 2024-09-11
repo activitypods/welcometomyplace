@@ -4,15 +4,15 @@ import makeStyles from '@mui/styles/makeStyles';
 import { useRecordContext } from 'react-admin';
 import { useCollection } from '@semapps/activitypub-components';
 import { formatUsername } from '../../utils';
-import RemoveContactButton from "../buttons/RemoveContactButton";
-import AcceptContactRequestButton from "../buttons/AcceptContactRequestButton";
-import RejectContactRequestButton from "../buttons/RejectContactRequestButton";
-import IgnoreContactRequestButton from "../buttons/IgnoreContactRequestButton";
+import RemoveContactButton from '../buttons/RemoveContactButton';
+import AcceptContactRequestButton from '../buttons/AcceptContactRequestButton';
+import RejectContactRequestButton from '../buttons/RejectContactRequestButton';
+import IgnoreContactRequestButton from '../buttons/IgnoreContactRequestButton';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     marginTop: 5,
-    marginBottom: 24,
+    marginBottom: 24
   },
   title: {
     backgroundRepeat: 'no-repeat',
@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
     color: theme.palette.primary.contrastText,
     height: 85,
-    position: 'relative',
+    position: 'relative'
   },
   avatarWrapper: {
     position: 'absolute',
@@ -28,16 +28,16 @@ const useStyles = makeStyles((theme) => ({
     top: 0,
     left: 0,
     right: 0,
-    textAlign: 'center',
+    textAlign: 'center'
   },
   avatar: {
     width: 150,
-    height: 150,
+    height: 150
   },
   block: {
     backgroundColor: 'white',
     paddingTop: 80,
-    paddingBottom: 20,
+    paddingBottom: 20
   },
   button: {
     backgroundColor: 'white',
@@ -63,7 +63,7 @@ const ContactCard = () => {
   const contactRequest = useMemo(
     () => contactRequests?.find(activity => activity.actor === record.describes),
     [contactRequests, record]
-  )
+  );
 
   const refetchAll = useCallback(async () => {
     await refetchContacts();
@@ -85,22 +85,41 @@ const ContactCard = () => {
         </Typography>
         <Typography align="center">{formatUsername(record.describes)}</Typography>
       </Box>
-      {(contacts?.includes(record.describes) || contactRequest) &&
+      {(contacts?.includes(record.describes) || contactRequest) && (
         <Box className={classes.button} pb={3} pr={3} pl={3}>
           {contacts?.includes(record.describes) && (
             <RemoveContactButton refetch={refetchContacts} variant="contained" color="primary" fullWidth />
           )}
-          {contactRequest &&
+          {contactRequest && (
             <>
-              <AcceptContactRequestButton activity={contactRequest} refetch={refetchAll} variant="contained" color="primary" fullWidth />
-              {contactRequest.context
-                ? <IgnoreContactRequestButton activity={contactRequest} refetch={refetchAll} variant="contained" color="grey" fullWidth />
-                : <RejectContactRequestButton activity={contactRequest} refetch={refetchAll} variant="contained" color="grey" fullWidth />
-              }
+              <AcceptContactRequestButton
+                activity={contactRequest}
+                refetch={refetchAll}
+                variant="contained"
+                color="primary"
+                fullWidth
+              />
+              {contactRequest.context ? (
+                <IgnoreContactRequestButton
+                  activity={contactRequest}
+                  refetch={refetchAll}
+                  variant="contained"
+                  color="grey"
+                  fullWidth
+                />
+              ) : (
+                <RejectContactRequestButton
+                  activity={contactRequest}
+                  refetch={refetchAll}
+                  variant="contained"
+                  color="grey"
+                  fullWidth
+                />
+              )}
             </>
-          }
+          )}
         </Box>
-      }
+      )}
     </Card>
   );
 };

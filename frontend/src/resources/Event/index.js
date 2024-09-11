@@ -12,11 +12,11 @@ export default {
     edit: EventEdit,
     icon: EventIcon,
     options: {
-      label: 'Événements',
-    },
+      label: 'Événements'
+    }
   },
   dataModel: {
-    types: ['as:Event'],
+    types: ['as:Event']
   },
   translations: {
     en: {
@@ -29,13 +29,13 @@ export default {
         content: 'About',
         location: 'Location',
         'dc:creator': 'Organizer',
-        'apods:hasFormat': "Event type",
+        'apods:hasFormat': 'Event type',
         'apods:hasStatus': 'Status',
         'apods:attendees': 'Attendees',
         'apods:maxAttendees': 'Max attendees',
         'apods:closingTime': 'Closing time',
-        'apods:otherConditions': 'Other conditions',
-      },
+        'apods:otherConditions': 'Other conditions'
+      }
     },
     fr: {
       name: 'Evénement |||| Evénements',
@@ -52,8 +52,8 @@ export default {
         'apods:attendees': 'Participants',
         'apods:maxAttendees': 'Participants maximum',
         'apods:closingTime': 'Fin des inscriptions',
-        'apods:otherConditions': 'Autres conditions',
-      },
-    },
-  },
+        'apods:otherConditions': 'Autres conditions'
+      }
+    }
+  }
 };

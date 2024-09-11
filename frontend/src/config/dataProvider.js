@@ -10,6 +10,6 @@ export default dataProvider({
   dataServers,
   resources: Object.fromEntries(Object.entries(resources).map(([k, v]) => [k, v.dataModel])),
   ontologies,
-  jsonContext: ["https://www.w3.org/ns/activitystreams", urlJoin(backendOrigin, '.well-known/context.jsonld') ],
-  returnFailedResources: true,
+  jsonContext: ['https://www.w3.org/ns/activitystreams', urlJoin(backendOrigin, '.well-known/context.jsonld')],
+  returnFailedResources: true
 });

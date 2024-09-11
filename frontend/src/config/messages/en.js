@@ -47,7 +47,6 @@ module.exports = {
     },
     block: {
       contact_requests: 'New contact requests',
-      g1_account: 'G1 account',
       organized_events: 'Organized events'
     },
     input: {

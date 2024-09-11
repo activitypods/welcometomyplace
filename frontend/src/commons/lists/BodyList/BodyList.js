@@ -3,13 +3,13 @@ import { useTranslate, getFieldLabelTranslationArgs, useShowContext } from 'reac
 import { Box, Grid, Hidden, Container } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import BodyLabel from './BodyLabel';
-import StickyBox from "../../cards/StickyBox";
+import StickyBox from '../../cards/StickyBox';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   divider: {
     paddingTop: 5,
-    paddingBottom: 5,
-  },
+    paddingBottom: 5
+  }
 }));
 
 const BodyList = ({ children, aside }) => {
@@ -19,7 +19,7 @@ const BodyList = ({ children, aside }) => {
   if (isLoading) return null;
 
   const fields = React.Children.toArray(children).filter(
-    (field) => field && record[field.props.source] && React.isValidElement(field)
+    field => field && record[field.props.source] && React.isValidElement(field)
   );
 
   return (
@@ -34,9 +34,10 @@ const BodyList = ({ children, aside }) => {
                     <BodyLabel first={i === 0}>
                       {translate(
                         ...getFieldLabelTranslationArgs({
-                          label: typeof field.props.label === 'function' ? field.props.label(record) : field.props.label,
+                          label:
+                            typeof field.props.label === 'function' ? field.props.label(record) : field.props.label,
                           resource,
-                          source: field.props.source,
+                          source: field.props.source
                         })
                       )}
                     </BodyLabel>
@@ -48,15 +49,13 @@ const BodyList = ({ children, aside }) => {
               </div>
             ))}
           </Grid>
-          {aside &&
+          {aside && (
             <Hidden smDown>
               <Grid item md={4} lg={3}>
-                <StickyBox>
-                  {aside}
-                </StickyBox>
+                <StickyBox>{aside}</StickyBox>
               </Grid>
             </Hidden>
-          }
+          )}
         </Grid>
       </Container>
     </Box>

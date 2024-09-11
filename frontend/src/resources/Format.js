@@ -4,5 +4,5 @@ export default {
     list: {
       fetchContainer: true
     }
-  },
+  }
 };

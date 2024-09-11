@@ -3,13 +3,13 @@ import { DateField, TextField, useRecordContext, useTranslate } from 'react-admi
 import { Typography } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: 10,
     '& li': {
-      marginBottom: 7,
-    },
-  },
+      marginBottom: 7
+    }
+  }
 }));
 
 const EventConditionsField = () => {
@@ -56,7 +56,7 @@ const EventConditionsField = () => {
 
 EventConditionsField.defaultProps = {
   label: 'Conditions',
-  addLabel: true,
+  addLabel: true
 };
 
 export default EventConditionsField;

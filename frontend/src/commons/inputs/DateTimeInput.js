@@ -1,7 +1,7 @@
-import React from "react";
-import frLocale from "date-fns/locale/fr";
+import React from 'react';
+import frLocale from 'date-fns/locale/fr';
 import { DateTimeInput as SemAppsDateTimeInput } from '@semapps/date-components';
-import { frFR, enUS } from "@mui/x-date-pickers/locales";
+import { frFR, enUS } from '@mui/x-date-pickers/locales';
 
 const localeMapping = {
   en: {
@@ -12,17 +12,11 @@ const localeMapping = {
     locale: frLocale,
     translations: frFR
   }
-}
+};
 
 const DateTimeInput = props => {
-  const { locale, translations } = localeMapping[process.env.REACT_APP_LANG] || localeMapping.en; 
-  return (
-    <SemAppsDateTimeInput
-      locale={locale}
-      translations={translations}
-      {...props}
-    />
-  );
+  const { locale, translations } = localeMapping[process.env.REACT_APP_LANG] || localeMapping.en;
+  return <SemAppsDateTimeInput locale={locale} translations={translations} {...props} />;
 };
 
 export default DateTimeInput;
