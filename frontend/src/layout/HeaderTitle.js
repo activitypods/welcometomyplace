@@ -1,25 +1,27 @@
 import React from 'react';
-import { Link } from 'react-admin';
-import { makeStyles, Typography, Box, Button, Grid, Container, useMediaQuery } from '@material-ui/core';
+import { Link, useRecordContext } from 'react-admin';
+import { Typography, Box, Button, Grid, Container, useMediaQuery } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   background: {
     backgroundColor: 'white',
     display: 'flex',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   title: {
     marginTop: 5,
-    lineHeight: 1,
+    lineHeight: 1
   },
   button: {
-    marginRight: 10,
-  },
+    marginRight: 10
+  }
 }));
 
-const HeaderTitle = ({ children, actions, record }) => {
+const HeaderTitle = ({ children, actions }) => {
+  const record = useRecordContext();
   const classes = useStyles();
-  const xs = useMediaQuery((theme) => theme.breakpoints.down('xs'), { noSsr: true });
+  const xs = useMediaQuery(theme => theme.breakpoints.down('xs'), { noSsr: true });
   return (
     <Box width={1} className={classes.background}>
       <Container>

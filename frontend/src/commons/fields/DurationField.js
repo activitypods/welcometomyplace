@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRecordContext, useTranslate } from 'react-admin';
-import { Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
 
 const getDiff = (startDate, endDate) => {
   let seconds = Math.floor((endDate - startDate) / 1000);
@@ -14,12 +14,12 @@ const getDiff = (startDate, endDate) => {
   return {
     days: Math.floor(days),
     hours: Math.floor(hours),
-    minutes: Math.floor(minutes),
+    minutes: Math.floor(minutes)
   };
 };
 
-const DurationField = ({ startDate, endDate, ...rest }) => {
-  const record = useRecordContext(rest);
+const DurationField = ({ startDate, endDate }) => {
+  const record = useRecordContext();
   const translate = useTranslate();
 
   let dateElements = [];

@@ -1,14 +1,15 @@
 import React from 'react';
 import { DateField, TextField, useRecordContext, useTranslate } from 'react-admin';
-import { makeStyles, Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     marginBottom: 10,
     '& li': {
-      marginBottom: 7,
-    },
-  },
+      marginBottom: 7
+    }
+  }
 }));
 
 const EventConditionsField = () => {
@@ -18,8 +19,8 @@ const EventConditionsField = () => {
   return (
     <ul className={classes.root}>
       {record['apods:otherConditions'] &&
-        record['apods:otherConditions'].split('\n').map((condition) => (
-          <li>
+        record['apods:otherConditions'].split('\n').map((condition, i) => (
+          <li key={i}>
             <Typography>{condition}</Typography>
           </li>
         ))}
@@ -55,7 +56,7 @@ const EventConditionsField = () => {
 
 EventConditionsField.defaultProps = {
   label: 'Conditions',
-  addLabel: true,
+  addLabel: true
 };
 
 export default EventConditionsField;

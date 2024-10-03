@@ -17,3 +17,7 @@ a, a:hover, a:active {
   color: #D2123F;
   text-decoration: none;
 }
+
+.MuiScopedCssBaseline-root {
+  background-color: unset;
+}

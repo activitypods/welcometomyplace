@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import { SelectInput } from 'react-admin';
+import { SelectInput, required } from 'react-admin';
 import { ReferenceInput } from '@semapps/input-components';
-import AddLocationButton from "./AddLocationButton";
+import AddLocationButton from './AddLocationButton';
 
 const QuickCreateLocationInput = ({ reference, source, onChange, ...rest }) => {
   // Needed to trigger orm change and enable save button :
@@ -15,7 +15,7 @@ const QuickCreateLocationInput = ({ reference, source, onChange, ...rest }) => {
   return (
     <div>
       <ReferenceInput key={version} reference={reference} source={source} {...rest}>
-        <SelectInput optionText="vcard:given-name" />
+        <SelectInput optionText="vcard:given-name" validate={[required()]} />
       </ReferenceInput>
       <AddLocationButton reference={reference} source={source} onChange={handleChange} />
     </div>

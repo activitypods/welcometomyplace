@@ -1,10 +1,10 @@
 export default {
   dataModel: {
-    types: ["vcard:Group"],
+    types: ['vcard:Group'],
     list: {
-      servers: "pod",
-      blankNodes: ["vcard:hasMember"],
-      containers: { pod: ["/groups"] },
-    },
-  },
+      servers: 'pod',
+      blankNodes: ['vcard:hasMember'],
+      containers: { pod: ['/vcard/group'] }
+    }
+  }
 };

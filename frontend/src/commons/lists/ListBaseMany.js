@@ -8,12 +8,12 @@ const SelectedContactsList = ({ resource, ids, children }) => {
   useEffect(() => {
     dataProvider.getMany(resource, { ids }).then(({ data }) => {
       setListContext({
-        data: Object.fromEntries(data.map((record) => [record.id, record])),
-        ids: data.map((record) => record.id),
+        data: Object.fromEntries(data.map(record => [record.id, record])),
+        ids: data.map(record => record.id),
         total: data.length,
         loading: false,
         loaded: true,
-        resource,
+        resource
       });
     });
   }, [resource, ids, setListContext, dataProvider]);

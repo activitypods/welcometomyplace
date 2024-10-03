@@ -1,4 +1,5 @@
-import { createTheme } from '@material-ui/core/styles';
+import { createTheme } from '@mui/material/styles';
+import { grey } from '@mui/material/colors';
 
 const defaultTheme = createTheme();
 
@@ -10,11 +11,23 @@ const theme = createTheme({
     primary: {
       main: '#D2123F',
       light: '#FD7426',
-      contrastText: '#FFF',
+      contrastText: '#FFFFFF'
     },
     secondary: {
       main: '#203142',
-      contrastText: '#FFF',
+      contrastText: '#FFFFFF'
+    },
+    grey: {
+      main: grey[300],
+      light: grey[200],
+      dark: grey[400],
+      contrastText: '#000000'
+    },
+    black: {
+      main: '#000000',
+      light: '#000000',
+      dark: '#000000',
+      contrastText: '#FFFFFF'
     }
   },
   typography: {
@@ -26,8 +39,8 @@ const theme = createTheme({
       lineHeight: '70px',
       [defaultTheme.breakpoints.down('xs')]: {
         fontSize: 32,
-        lineHeight: '46px',
-      },
+        lineHeight: '46px'
+      }
     },
     h2: {
       fontFamily: font2,
@@ -37,8 +50,8 @@ const theme = createTheme({
       lineHeight: '58px',
       [defaultTheme.breakpoints.down('xs')]: {
         fontSize: 28,
-        lineHeight: '41px',
-      },
+        lineHeight: '41px'
+      }
     },
     h4: {
       fontFamily: font1,
@@ -48,20 +61,20 @@ const theme = createTheme({
       lineHeight: '44px',
       [defaultTheme.breakpoints.down('xs')]: {
         fontSize: 18,
-        lineHeight: '26px',
-      },
+        lineHeight: '26px'
+      }
     },
     h6: {
       fontFamily: font1,
       fontSize: 24,
       fontStyle: 'normal',
       fontWeight: 'normal',
-      lineHeight: 1.15,
+      lineHeight: 1.15
     },
     subtitle1: {
       fontFamily: font2,
       fontSize: 12,
-      lineHeight: '14px',
+      lineHeight: '14px'
     },
     subtitle2: {
       fontFamily: font2,
@@ -69,21 +82,21 @@ const theme = createTheme({
       fontStyle: 'normal',
       fontWeight: 'normal',
       lineHeight: '14px',
-      textTransform: 'uppercase',
+      textTransform: 'uppercase'
     },
     body1: {
       fontFamily: font2,
       fontSize: 16,
       fontStyle: 'normal',
       fontWeight: 'normal',
-      lineHeight: '19px',
+      lineHeight: '19px'
     },
     body2: {
       fontFamily: font2,
       fontSize: 14,
       fontStyle: 'normal',
       fontWeight: 'normal',
-      lineHeight: '16px',
+      lineHeight: '16px'
     },
     button: {
       fontFamily: font2,
@@ -91,37 +104,35 @@ const theme = createTheme({
       fontStyle: 'normal',
       fontWeight: 'normal',
       lineHeight: '14px',
-      textTransform: 'uppercase',
-    },
+      textTransform: 'uppercase'
+    }
   },
-  overrides: {
-    RaImageField: {
-      image: {
-        width: '100%',
-        margin: 0,
-        maxHeight: 200,
-        objectFit: 'cover',
-      },
-    },
+  components: {
     MuiButton: {
-      contained: {
-        borderRadius: 8,
-        padding: 12,
-        minWidth: 100
-      },
+      styleOverrides: {
+        contained: {
+          borderRadius: 8,
+          padding: 12,
+          minWidth: 100
+        }
+      }
     },
     MuiAlert: {
-      message: {
-        paddingTop: 11,
-      },
+      styleOverrides: {
+        message: {
+          paddingTop: 11
+        }
+      }
     },
     MuiIconButton: {
-      root: {
-        padding: 8,
-        paddingRight: 0,
-      },
-    },
-  },
+      styleOverrides: {
+        root: {
+          padding: 8,
+          paddingRight: 0
+        }
+      }
+    }
+  }
 });
 
 export default theme;

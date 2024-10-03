@@ -20,6 +20,14 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+/frontend/.yalc
+/frontend/build
+yalc.lock
+
 .idea
 
 /data
+/logs
+
+.env.local
+.env.*.local

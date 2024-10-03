@@ -1,34 +1,31 @@
 import React, { useState, useCallback } from 'react';
-import { SimpleForm, ImageInput, TextInput, required, NumberInput, SelectInput, useTranslate } from 'react-admin';
-import { Box } from '@material-ui/core';
+import { SimpleForm, ImageField, TextInput, required, NumberInput, SelectInput, useTranslate } from 'react-admin';
+import { Box, Alert } from '@mui/material';
 import { MarkdownInput } from '@semapps/markdown-components';
-import { ImageField } from '@semapps/field-components';
-import { ReferenceInput } from '@semapps/input-components';
-import { DateTimeInput } from '@semapps/date-components';
-import frLocale from 'date-fns/locale/fr';
+import { ReferenceInput, ImageInput } from '@semapps/input-components';
 import BodyLabel from '../../commons/lists/BodyList/BodyLabel';
-import Alert from '@material-ui/lab/Alert';
-import QuickCreateLocationInput from "../../commons/inputs/QuickCreateLocationInput/QuickCreateLocationInput";
+import QuickCreateLocationInput from '../../commons/inputs/QuickCreateLocationInput/QuickCreateLocationInput';
+import DateTimeInput from '../../commons/inputs/DateTimeInput';
 
-const futureDate = (value) => {
-  if( value && value <= (new Date()) ) {
+const futureDate = value => {
+  if (value && value <= new Date()) {
     return 'app.validation.futureDate';
   }
 };
 
 const afterStartTime = (value, allValues) => {
-  if( allValues.startTime && value <= allValues.startTime ) {
+  if (allValues.startTime && value <= allValues.startTime) {
     return 'app.validation.afterStartTime';
   }
 };
 
 const beforeStartTime = (value, allValues) => {
-  if( allValues.startTime && value >= allValues.startTime ) {
+  if (allValues.startTime && value >= allValues.startTime) {
     return 'app.validation.beforeStartTime';
   }
 };
 
-const EventForm = ({ className, ...rest }) => {
+const EventForm = () => {
   const translate = useTranslate();
 
   // Needed to trigger orm change and enable save button :
@@ -40,45 +37,24 @@ const EventForm = ({ className, ...rest }) => {
 
   return (
     <>
-      {process.env.REACT_APP_LANG === 'fr' &&
-      <Box mb={1}>
-        <Alert severity="info">
-          {translate('app.helper.first_event')}&nbsp;
-          <a href={`https://forum.reseauxdevie.org`} target="_blank" rel="noopener noreferrer">{translate('app.forum_name')}</a>
-        </Alert>
-      </Box>
-      }
-      <SimpleForm {...rest} redirect="show">
+      {process.env.REACT_APP_LANG === 'fr' && (
+        <Box m={2} mb={1}>
+          <Alert severity="info">
+            {translate('app.helper.first_event')}&nbsp;
+            <a href={`https://forum.reseauxdevie.org`} target="_blank" rel="noopener noreferrer">
+              {translate('app.forum_name')}
+            </a>
+          </Alert>
+        </Box>
+      )}
+      <SimpleForm>
         <TextInput source="name" fullWidth validate={[required()]} />
-        <DateTimeInput
-          source="startTime"
-          options={{
-            format: 'dd/MM/yyyy à HH:mm',
-            ampm: false,
-          }}
-          providerOptions={{
-            locale: frLocale,
-          }}
-          fullWidth
-          validate={[required(), futureDate]}
-        />
-        <DateTimeInput
-          source="endTime"
-          options={{
-            format: 'dd/MM/yyyy à HH:mm',
-            ampm: false,
-          }}
-          providerOptions={{
-            locale: frLocale,
-          }}
-          fullWidth
-          validate={[required(), afterStartTime]}
-        />
+        <DateTimeInput source="startTime" validate={[required(), futureDate]} />
+        <DateTimeInput source="endTime" validate={[required(), afterStartTime]} />
         <QuickCreateLocationInput
           key={locationVersion}
           reference="Location"
           source="location"
-          validate={[required()]}
           onChange={handleLocationChange}
         />
         <ImageInput source="image" accept="image/*">
@@ -90,23 +66,11 @@ const EventForm = ({ className, ...rest }) => {
           source="apods:hasFormat"
           filter={{ a: 'apods:EventFormat' }}
           sort={{ field: 'rdfs:label', order: 'ASC' }}
-          validate={[required()]}
         >
-          <SelectInput optionText="rdfs:label" />
+          <SelectInput optionText="rdfs:label" validate={[required()]} fullWidth />
         </ReferenceInput>
         <BodyLabel>{translate('app.input.conditions')}</BodyLabel>
-        <DateTimeInput
-          source="apods:closingTime"
-          options={{
-            format: 'dd/MM/yyyy à HH:mm',
-            ampm: false,
-          }}
-          providerOptions={{
-            locale: frLocale,
-          }}
-          fullWidth
-          validate={[beforeStartTime]}
-        />
+        <DateTimeInput source="apods:closingTime" validate={[beforeStartTime]} />
         <NumberInput source="apods:maxAttendees" fullWidth helperText={translate('app.helper.max_attendees')} />
         <TextInput
           source="apods:otherConditions"

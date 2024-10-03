@@ -1,26 +1,27 @@
 import React from 'react';
 import { useRecordContext, useTranslate } from 'react-admin';
-import { makeStyles, Box, Card, Typography } from '@material-ui/core';
+import { Box, Card, Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import JoinButton from '../buttons/JoinButton';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   title: {
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
     backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
-    color: theme.palette.primary.contrastText,
+    color: theme.palette.primary.contrastText
   },
   block: {
-    backgroundColor: 'white',
+    backgroundColor: 'white'
   },
   button: {
     backgroundColor: 'white',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   status: {
     marginTop: 8,
-    color: theme.palette.primary.main,
-  },
+    color: theme.palette.primary.main
+  }
 }));
 
 const EventJoinCard = ({ children }) => {

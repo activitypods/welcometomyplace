@@ -1,84 +1,93 @@
 import React from 'react';
-import { useNotify, useRecordContext, useTranslate, useGetIdentity } from 'react-admin';
-import { Box, TextField, Button } from '@material-ui/core';
-import { Form, Field } from 'react-final-form';
-import SendIcon from '@material-ui/icons/Send';
+import {
+  Form,
+  TextInput,
+  useNotify,
+  useRecordContext,
+  useTranslate,
+  useGetIdentity,
+  RecordContextProvider
+} from 'react-admin';
+import { Box, Button, Alert } from '@mui/material';
+import SendIcon from '@mui/icons-material/Send';
 import { useOutbox, useCollection, OBJECT_TYPES } from '@semapps/activitypub-components';
-import Alert from "@material-ui/lab/Alert";
+import makeStyles from '@mui/styles/makeStyles';
 
-const FinalFormTextField = ({ input: { name, onChange, value, ...restInput }, meta, ...rest }) => (
-  <TextField
-    {...rest}
-    name={name}
-    helperText={meta.touched ? meta.error : undefined}
-    error={meta.error && meta.touched}
-    inputProps={restInput}
-    onChange={onChange}
-    value={value}
-    style={{ marginTop: 0 }}
-  />
-);
+const useStyles = makeStyles(() => ({
+  input: {
+    marginTop: 0,
+    marginBottom: -20
+  }
+}));
 
-const ContactField = ({ source, context, ...rest }) => {
-  const record = useRecordContext(rest);
+const ContactField = ({ source, context }) => {
+  const classes = useStyles();
+  const record = useRecordContext();
   const notify = useNotify();
   const outbox = useOutbox();
   const translate = useTranslate();
-  const { identity } = useGetIdentity();
+  const { data: identity } = useGetIdentity();
   const { items: contacts, loaded: contactsLoaded } = useCollection('apods:contacts');
   const { items: attendees } = useCollection(record?.['apods:attendees']);
+
+  if (!record) return null;
+
   const isOwner = identity?.id === record[source];
 
-  const onSubmit = async (values) => {
+  const onSubmit = async values => {
     try {
       await outbox.post({
         type: OBJECT_TYPES.NOTE,
         attributedTo: outbox.owner,
+        summary: translate('app.message.event_message_title', {
+          username: identity?.profileData?.['vcard:given-name'],
+          event: record.name
+        }),
         content: values.content,
         context: context ? record[context] : undefined,
-        to: isOwner && record.type === OBJECT_TYPES.EVENT
-          ? attendees.filter(userUri => userUri !== record[source])
-          : record[source],
+        to:
+          isOwner && record.type === OBJECT_TYPES.EVENT
+            ? attendees.filter(userUri => userUri !== record[source])
+            : record[source]
       });
-      notify('app.notification.message_sent', 'success');
+      notify('app.notification.message_sent', { type: 'success' });
     } catch (e) {
-      notify('app.notification.message_send_error', 'error', { error: e.message });
+      notify('app.notification.message_send_error', { type: 'error', messageArgs: { error: e.message } });
     }
   };
 
   return (
-    <Form
-      onSubmit={onSubmit}
-      render={({ handleSubmit, form, submitting }) => (
-        <form onSubmit={(event) => handleSubmit(event).then(form.reset)}>
-          {!isOwner && contactsLoaded && !contacts.includes(record[source]) &&
-            <Box mb={1}>
-              <Alert severity="warning">{translate('app.helper.message_profile_show_right')}</Alert>
-            </Box>
-          }
-          <Field
-            name="content"
-            component={FinalFormTextField}
-            label={translate('app.input.message')}
-            variant="filled"
-            margin="dense"
-            fullWidth
-            multiline
-            rows={5}
-          />
-          <Box mt={1}>
-            <Button type="submit" variant="contained" color="primary" endIcon={<SendIcon />} disabled={submitting}>
-              {translate('app.action.send')}
-            </Button>
+    <RecordContextProvider value={{}}>
+      <Form onSubmit={onSubmit}>
+        {!isOwner && contactsLoaded && !contacts.includes(record[source]) && (
+          <Box mb={1}>
+            <Alert severity="warning">
+              {translate('app.helper.message_profile_show_right', { username: record?.['vcard:given-name'] })}
+            </Alert>
           </Box>
-        </form>
-      )}
-    />
+        )}
+        <TextInput
+          source="content"
+          label={translate('app.input.message')}
+          className={classes.input}
+          variant="filled"
+          margin="dense"
+          fullWidth
+          multiline
+          minRows={4}
+        />
+        <Box mt={1}>
+          <Button type="submit" variant="contained" color="secondary" size="medium" endIcon={<SendIcon />}>
+            {translate('app.action.send')}
+          </Button>
+        </Box>
+      </Form>
+    </RecordContextProvider>
   );
 };
 
 ContactField.defaultProps = {
-  addLabel: true,
+  addLabel: true
 };
 
 export default ContactField;

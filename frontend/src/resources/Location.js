@@ -8,16 +8,16 @@ export default {
       fields: {
         'vcard:given-name': 'Name',
         'vcard:hasAddress': 'Address',
-        'vcard:note': 'Comment',
-      },
+        'vcard:note': 'Comment'
+      }
     },
     fr: {
       name: 'Adresse |||| Adresses',
       fields: {
         'vcard:given-name': 'Nom du lieu',
         'vcard:hasAddress': 'Adresse',
-        'vcard:note': 'Indications',
-      },
-    },
-  },
+        'vcard:note': 'Indications'
+      }
+    }
+  }
 };

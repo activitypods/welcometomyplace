@@ -1,0 +1,109 @@
+services:
+  traefik:
+    image: traefik:v2.3
+    container_name: traefik
+    command:
+      - "--api.insecure=true"
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
+      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
+      - "--certificatesresolvers.myresolver.acme.email=${LETSENCRYPT_EMAIL}"
+      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    volumes:
+      - ./data/letsencrypt:/letsencrypt
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+
+  fuseki:
+    image: semapps/jena-fuseki-webacl
+    container_name: fuseki
+    volumes:
+      - ./data/fuseki:/fuseki
+    ports:
+      - "3030:3030"
+    expose:
+      - "3030"
+    environment:
+      ADMIN_PASSWORD: ${FUSEKI_PASSWORD}
+
+  app-frontend:
+    build:
+      context: .
+      dockerfile: ./docker/frontend.dockerfile
+      args:
+        REACT_APP_NAME: $APP_NAME
+        REACT_APP_DESCRIPTION: $APP_DESCRIPTION
+        REACT_APP_LANG: $APP_LANG
+        REACT_APP_BACKEND_URL: https://${DOMAIN_NAME}${BACKEND_PATH}
+        REACT_APP_BACKEND_CLIENT_ID: https://${DOMAIN_NAME}${BACKEND_PATH}/app
+        REACT_APP_POD_PROVIDER_BASE_URL: $POD_PROVIDER_BASE_URL
+        REACT_APP_MAPBOX_ACCESS_TOKEN: $MAPBOX_ACCESS_TOKEN
+        PORT: 4000
+    image: $FRONTEND_DOCKER_IMAGE
+    container_name: frontend
+    restart: always
+    expose:
+      - "4000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.frontend.rule=Host(`${DOMAIN_NAME}`)"
+      - "traefik.http.routers.frontend.entrypoints=websecure"
+      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+
+  app-backend:
+    build:
+      context: .
+      dockerfile: ./docker/backend.dockerfile
+    image: $BACKEND_DOCKER_IMAGE
+    container_name: backend
+    depends_on:
+      - fuseki
+      - redis
+    volumes:
+      - ./data/backend/logs:/app/backend/logs
+      - ./data/backend/jwt:/app/backend/jwt
+      - ./data/backend/uploads:/app/backend/uploads
+    expose:
+      - "3000"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.backend.rule=(Host(`${DOMAIN_NAME}`) && (PathPrefix(`${BACKEND_PATH}`) || PathPrefix(`/.well-known`)))"
+      - "traefik.http.routers.backend.entrypoints=websecure"
+      - "traefik.http.routers.backend.tls.certresolver=myresolver"
+    env_file:
+      - ./backend/.env
+      - ./backend/.env.production
+      - path: ./backend/.env.production.local
+        required: false
+
+  redis:
+    image: redis
+    container_name: redis
+    expose:
+      - "6379"
+    volumes:
+      - ./data/redis:/data:z
+    command: [ "redis-server", "--appendonly", "yes" ]
+
+  arena:
+    image: activitypods/arena
+    container_name: arena
+    restart: always
+    volumes:
+      - ./docker/arena-prod.json:/opt/arena/src/server/config/index.json
+    depends_on:
+      - redis
+    ports:
+      - "4567:4567"
+    expose:
+      - "4567"
+    environment:
+      REDIS_HOST: "redis"

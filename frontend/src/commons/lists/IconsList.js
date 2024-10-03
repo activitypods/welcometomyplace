@@ -1,64 +1,66 @@
 import React from 'react';
-import { List, ListItem, ListItemAvatar, ListItemText, Divider, makeStyles } from '@material-ui/core';
+import { List, ListItem, ListItemAvatar, ListItemText, Divider } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { getFieldLabelTranslationArgs, useShowContext, useTranslate } from 'react-admin';
 
-const useStyles = makeStyles((theme) => ({
-  root: (props) => ({
+const useStyles = makeStyles(theme => ({
+  root: props => ({
     display: 'flex',
     flexDirection: props.isVertical ? 'column' : 'row',
     alignItems: props.isVertical ? undefined : 'flex-start',
-    padding: 0,
+    padding: 0
   }),
-  item: (props) => ({
+  item: props => ({
     flexGrow: 1,
     padding: props.isVertical ? '8px 0 8px 0' : '0 20px 0 16px',
     '&:first-child': {
-      padding: props.isVertical ? '0 0 8px 0' : '0 20px 0 0',
+      padding: props.isVertical ? '0 0 8px 0' : '0 20px 0 0'
     },
     '&:last-child': {
-      padding: props.isVertical ? '8px 0 0 0' : '0 0 0 16px',
-    },
+      padding: props.isVertical ? '8px 0 0 0' : '0 0 0 16px'
+    }
   }),
   avatar: {
-    minWidth: 40,
+    minWidth: 40
   },
   icon: {
-    fontSize: '2rem',
+    fontSize: '2rem'
   },
   divider: {
-    backgroundColor: 'black',
+    backgroundColor: 'black'
   },
-  primary: (props) => ({
-    whiteSpace: props.isVertical ? undefined : 'nowrap',
+  primary: props => ({
+    whiteSpace: props.isVertical ? undefined : 'nowrap'
   }),
-  secondary: (props) => ({
+  secondary: props => ({
     paddingTop: 2,
     fontSize: 14,
     whiteSpace: props.isVertical ? undefined : 'nowrap',
     '& a, & span': {
-      color: 'black',
-    },
-  }),
+      color: 'black'
+    }
+  })
 }));
 
 const primaryTypographyProps = {
-  variant: 'subtitle2',
+  variant: 'subtitle2'
 };
 const secondaryTypographyProps = {
   variant: 'body2',
   color: 'textPrimary',
+  component: 'div'
 };
 
-const IconsList = ({ orientation, children }) => {
+const IconsList = ({ orientation = 'horizontal', children }) => {
   const isVertical = orientation === 'vertical';
   const translate = useTranslate();
   const classes = useStyles({ isVertical });
-  const { basePath, loaded, record, resource } = useShowContext();
+  const { isLoading, record, resource } = useShowContext();
 
-  if (!loaded) return null;
+  if (isLoading) return null;
 
   const fields = React.Children.toArray(children).filter(
-    (field) => field && record[field.props.source] && React.isValidElement(field)
+    field => field && record[field.props.source] && React.isValidElement(field)
   );
 
   const dividerOrientation = isVertical ? 'horizontal' : 'vertical';
@@ -70,27 +72,22 @@ const IconsList = ({ orientation, children }) => {
           ...getFieldLabelTranslationArgs({
             label: field.props.label,
             resource,
-            source: field.props.source,
+            source: field.props.source
           })
         );
-        const value = React.cloneElement(field, {
-          record,
-          resource,
-          basePath,
-        });
         return (
           <React.Fragment key={i}>
             <ListItem className={classes.item} p={2}>
               {field.props.icon && (
                 <ListItemAvatar className={classes.avatar}>
                   {React.cloneElement(field.props.icon, {
-                    className: classes.icon,
+                    className: classes.icon
                   })}
                 </ListItemAvatar>
               )}
               <ListItemText
                 primary={label}
-                secondary={value}
+                secondary={field}
                 classes={{ primary: classes.primary, secondary: classes.secondary }}
                 primaryTypographyProps={primaryTypographyProps}
                 secondaryTypographyProps={secondaryTypographyProps}
@@ -104,10 +101,6 @@ const IconsList = ({ orientation, children }) => {
       })}
     </List>
   );
-};
-
-IconsList.defaultProps = {
-  orientation: 'horizontal',
 };
 
 export default IconsList;

@@ -1,39 +1,33 @@
 import React from 'react';
-import {
-  makeStyles,
-  Typography,
-  AppBar as MuiAppBar,
-  IconButton,
-  Toolbar,
-} from '@material-ui/core';
-import { LogoutButton } from '@semapps/auth-provider';
+import { Typography, AppBar as MuiAppBar, IconButton, Toolbar } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 import { Link } from 'react-router-dom';
+import { UserMenu } from '@activitypods/react';
 import AppIcon from '../config/AppIcon';
-import UserMenu from './UserMenu';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
+    backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`
   },
   menuButton: {
-    color: 'white',
+    color: 'white'
   },
   beta: {
-    top: -2,
+    top: -2
   },
   badge: {
     top: 12,
-    right: -6,
+    right: -6
   },
   title: {
     flexGrow: 1,
     marginLeft: 4,
     '& a': {
       color: 'white',
-      textDecoration: 'none',
-    },
-  },
+      textDecoration: 'none'
+    }
+  }
 }));
 
 const AppBar = ({ title }) => {
@@ -47,11 +41,9 @@ const AppBar = ({ title }) => {
           </IconButton>
         </Link>
         <Typography variant="h4" className={classes.title}>
-          <Link to="/Event">
-            {title}
-          </Link>
+          <Link to="/Event">{title}</Link>
         </Typography>
-        <UserMenu logout={<LogoutButton />} />
+        <UserMenu />
       </Toolbar>
     </MuiAppBar>
   );

@@ -1,3 +1,3 @@
-import AppIcon from '@material-ui/icons/Home';
+import AppIcon from '@mui/icons-material/Home';
 
 export default AppIcon;

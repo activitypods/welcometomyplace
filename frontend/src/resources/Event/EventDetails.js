@@ -3,27 +3,19 @@ import { DateField, TextField, useTranslate } from 'react-admin';
 import { ReferenceField } from '@semapps/field-components';
 import IconsList from '../../commons/lists/IconsList';
 import DurationField from '../../commons/fields/DurationField';
-import FaceIcon from '@material-ui/icons/Face';
-import EventIcon from '@material-ui/icons/Event';
-import ScheduleIcon from '@material-ui/icons/Schedule';
+import FaceIcon from '@mui/icons-material/Face';
+import EventIcon from '@mui/icons-material/Event';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 
-const EventDetails = (props) => {
+const EventDetails = ({ orientation }) => {
   const translate = useTranslate();
   return (
-    <IconsList {...props}>
+    <IconsList orientation={orientation}>
       <ReferenceField reference="Actor" source="dc:creator" icon={<FaceIcon />} link={false}>
         <ReferenceField reference="Profile" source="url">
           <TextField source="vcard:given-name" />
         </ReferenceField>
       </ReferenceField>
-      {/*<ReferenceField*/}
-      {/*  reference="Format"*/}
-      {/*  source="apods:hasFormat"*/}
-      {/*  icon={<StarBorderIcon />}*/}
-      {/*  linkType={false}*/}
-      {/*>*/}
-      {/*  <TextField source="rdfs:label" />*/}
-      {/*</ReferenceField>*/}
       <DateField
         showTime
         label={translate('app.input.date')}

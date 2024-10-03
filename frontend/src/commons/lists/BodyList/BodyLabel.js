@@ -1,25 +1,26 @@
 import React from 'react';
-import { makeStyles, Typography } from '@material-ui/core';
+import { Typography } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(theme => ({
   first: {
     fontSize: 28,
     lineHeight: 1.3,
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   },
   root: {
     fontSize: 28,
     lineHeight: 1.3,
     marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(2)
   },
   span: {
     color: theme.palette.primary.contrastText,
     backgroundImage: `radial-gradient(circle at 50% 4em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
     paddingBottom: theme.spacing(0.25),
     paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(5),
-  },
+    paddingRight: theme.spacing(5)
+  }
 }));
 
 const BodyLabel = ({ first, children }) => {

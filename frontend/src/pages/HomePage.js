@@ -1,7 +1,7 @@
-import React from 'react';
-import { Box, Button, makeStyles, Typography, ThemeProvider } from '@material-ui/core';
-import { Link, useGetIdentity, useTranslate } from 'react-admin';
-import { Redirect } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Box, Button, Typography, ThemeProvider } from '@mui/material';
+import makeStyles from '@mui/styles/makeStyles';
+import { Link, useGetIdentity, useTranslate, useRedirect } from 'react-admin';
 import AppIcon from '../config/AppIcon';
 import theme from '../config/theme';
 
@@ -15,63 +15,74 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     backgroundRepeat: 'no-repeat',
     backgroundSize: 'cover',
-    backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
+    backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`
   },
   title: {
     lineHeight: 1,
     color: 'white',
     [theme.breakpoints.down('xs')]: {
       fontSize: '1.8em'
-    },
+    }
   },
   description: {
     color: 'white',
     fontStyle: 'italic',
     marginTop: 16,
-    whiteSpace: 'pre-line',
+    maxWidth: 250,
+    whiteSpace: 'pre-line'
   },
   link: {
     textDecoration: 'underline',
     color: 'white'
   },
   text: {
-    color: 'white',
+    color: 'white'
   },
   logo: {
     fontSize: 100,
-    color: 'white',
+    color: 'white'
   },
   button: {
-    margin: 5,
-  },
+    margin: 5
+  }
 }));
 
-const HomePage = ({ title }) => {
+const HomePage = () => {
   const classes = useStyles();
-  const { loading, identity } = useGetIdentity();
+  const redirect = useRedirect();
+  const { data: identity, isLoading } = useGetIdentity();
   const translate = useTranslate();
 
-  if (loading) return null;
+  useEffect(() => {
+    if (!isLoading && identity?.id) {
+      redirect('list', 'Event');
+    }
+  }, [identity, isLoading, redirect]);
 
-  return identity?.id ? (
-    <Redirect to="/Event" />
-  ) : (
+  if (isLoading) return null;
+
+  return (
     <ThemeProvider theme={theme}>
       <Box className={classes.root}>
         <AppIcon className={classes.logo} />
         <Typography variant="h4" className={classes.title}>
-          {title}
+          {process.env.REACT_APP_NAME}
         </Typography>
         <Typography align="center" className={classes.description}>
-          {translate('app.description_short')}
+          {process.env.REACT_APP_DESCRIPTION}
         </Typography>
-        {process.env.REACT_APP_ORGANIZATION_NAME &&
-          <a href={process.env.REACT_APP_ORGANIZATION_URL} target="_blank" rel="noopener noreferrer" className={classes.link}>
+        {process.env.REACT_APP_ORGANIZATION_NAME && (
+          <a
+            href={process.env.REACT_APP_ORGANIZATION_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={classes.link}
+          >
             <Typography align="center" className={classes.description}>
-              {translate('app.backed_by_organization', { organizationName: process.env.REACT_APP_ORGANIZATION_NAME})}
+              {translate('app.backed_by_organization', { organizationName: process.env.REACT_APP_ORGANIZATION_NAME })}
             </Typography>
           </a>
-        }
+        )}
         <Box display="flex" pt={2} pb={1} alignItems="center">
           <Link to="/login?signup">
             <Button variant="contained" color="secondary" className={classes.button}>
