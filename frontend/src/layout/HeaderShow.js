@@ -79,7 +79,7 @@ const HeaderShow = ({ type, details, actions }) => {
                     <TextField source="rdfs:label" variant="subtitle2" component="span" />
                   </ReferenceField>
                 </ReferenceField>
-                &nbsp;&nbsp;>&nbsp;&nbsp;
+                &nbsp;&nbsp;&gt;&nbsp;&nbsp;
                 <ReferenceField source={type} reference="Format" link={false}>
                   <TextField source="rdfs:label" variant="subtitle2" component="span" />
                 </ReferenceField>

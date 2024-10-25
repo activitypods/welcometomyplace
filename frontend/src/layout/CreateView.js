@@ -7,9 +7,9 @@ const CreateView = ({ actions = [<ListButton />], title, children }) => {
   const xs = useMediaQuery(theme => theme.breakpoints.down('sm'), { noSsr: true });
   return (
     <Container disableGutters={xs}>
-      <Grid container sx={{ mt: 2 }}>
+      <Grid container sx={{ mt: 2, px: { xs: 2, sm: 0 } }}>
         <Grid item xs={8}>
-          <Typography variant="h2" component="h1">
+          <Typography variant="h2" component="h1" sx={{ lineHeight: '1.2 !important' }}>
             {title || defaultTitle}
           </Typography>
         </Grid>
