@@ -103,7 +103,7 @@ const HeaderShow = ({ type, details, actions }) => {
         )}
         <Drawer anchor="bottom" open={xs && showDrawer} variant="persistent">
           <Box className={classes.drawer} pt={1} pb={1}>
-            <JoinButton variant="contained" color="grey" />
+            <JoinButton variant="contained" color="primary" />
           </Box>
         </Drawer>
       </Container>
