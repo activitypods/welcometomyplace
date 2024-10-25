@@ -34,7 +34,7 @@ const EventList = props => {
   useCheckAuthenticated();
   const classes = useStyles();
   const [tab, setTab] = useState(0);
-  const xs = useMediaQuery(theme => theme.breakpoints.down('xs'), { noSsr: true });
+  const xs = useMediaQuery(theme => theme.breakpoints.down('sm'), { noSsr: true });
   const translate = useTranslate();
   return (
     <>

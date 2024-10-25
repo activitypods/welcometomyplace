@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   details: {
     display: 'flex',
     marginBottom: 15,
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       flexDirection: 'column'
     }
   },
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     minWidth: 180,
     minHeight: 145,
     backgroundColor: theme.palette.grey['300'],
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       width: '100%'
     }
   },
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       width: '100%'
     },
     padding: 0,
@@ -52,7 +52,7 @@ const useStyles = makeStyles(theme => ({
     flexShrink: 1,
     paddingTop: 10,
     paddingBottom: '16px !important',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       padding: 10
     }
   }

@@ -59,7 +59,10 @@ const EventShow = props => {
             </EventJoinCard>
           }
         >
-          <ImageField source="image" />
+          <ImageField
+            source="image"
+            sx={{ '& .RaImageField-image': { margin: 0, width: '100%', height: 225, objectFit: 'cover' } }}
+          />
           <MarkdownField source="content" />
           <EventConditionsField source="name" />
           <ReferenceCollectionField reference="Actor" source="apods:attendees" addLabel>

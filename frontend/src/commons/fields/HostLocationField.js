@@ -6,7 +6,7 @@ import { useRecordContext, useTranslate } from 'react-admin';
 
 const HostLocationField = ({ label, source }) => {
   const record = useRecordContext();
-  const xs = useMediaQuery(theme => theme.breakpoints.down('xs'), { noSsr: true });
+  const xs = useMediaQuery(theme => theme.breakpoints.down('sm'), { noSsr: true });
   const translate = useTranslate();
   return (
     <ReferenceField reference="Location" record={record} source={source} link={false}>

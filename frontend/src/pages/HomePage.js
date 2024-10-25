@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
   title: {
     lineHeight: 1,
     color: 'white',
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       fontSize: '1.8em'
     }
   },

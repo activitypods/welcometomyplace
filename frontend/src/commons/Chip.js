@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Chip as MuiChip } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     backgroundColor: 'unset',
     height: 20
@@ -10,8 +10,8 @@ const useStyles = makeStyles(theme => ({
   icon: {
     width: 14,
     height: 14,
-    marginLeft: 0,
-    marginRight: 2
+    marginLeft: '2px !important',
+    marginRight: '0px !important'
   },
   label: {
     paddingLeft: 4,

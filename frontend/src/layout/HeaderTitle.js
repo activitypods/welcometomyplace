@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
 const HeaderTitle = ({ children, actions }) => {
   const record = useRecordContext();
   const classes = useStyles();
-  const xs = useMediaQuery(theme => theme.breakpoints.down('xs'), { noSsr: true });
+  const xs = useMediaQuery(theme => theme.breakpoints.down('sm'), { noSsr: true });
   return (
     <Box width={1} className={classes.background}>
       <Container>

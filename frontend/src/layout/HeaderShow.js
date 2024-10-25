@@ -9,7 +9,7 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: 'white',
     paddingTop: 25,
     paddingBottom: 10,
-    [theme.breakpoints.down('xs')]: {
+    [theme.breakpoints.down('sm')]: {
       paddingTop: 10,
       paddingBottom: 0,
       marginBottom: 0
@@ -42,7 +42,7 @@ const useStyles = makeStyles(theme => ({
       margin: '5px 0 10px 0',
       height: '100%',
       maxHeight: '15rem',
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down('sm')]: {
         maxHeight: '8rem'
       }
     }
@@ -58,7 +58,7 @@ const useStyles = makeStyles(theme => ({
 const HeaderShow = ({ type, details, actions }) => {
   const classes = useStyles();
   const { record } = useShowContext();
-  const xs = useMediaQuery(theme => theme.breakpoints.down('xs'), { noSsr: true });
+  const xs = useMediaQuery(theme => theme.breakpoints.down('sm'), { noSsr: true });
 
   // Calculate header height
   const headerRef = useRef(null);
@@ -103,7 +103,7 @@ const HeaderShow = ({ type, details, actions }) => {
         )}
         <Drawer anchor="bottom" open={xs && showDrawer} variant="persistent">
           <Box className={classes.drawer} pt={1} pb={1}>
-            <JoinButton variant="contained" color="primary" />
+            <JoinButton variant="contained" color="grey" />
           </Box>
         </Drawer>
       </Container>
