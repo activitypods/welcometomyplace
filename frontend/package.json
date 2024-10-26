@@ -4,7 +4,7 @@
   "dependencies": {
     "@mui/styles": "^5.0.2",
     "@react-hook/debounce": "^4.0.0",
-    "@activitypods/react": "2.0.0",
+    "@activitypods/react": "2.0.2",
     "@semapps/activitypub-components": "1.0.0",
     "@semapps/auth-provider": "1.0.0",
     "@semapps/date-components": "1.0.0",
