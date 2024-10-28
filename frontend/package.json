@@ -56,7 +56,7 @@
     "yalc": "1.0.0-pre.53"
   },
   "scripts": {
-    "start": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && react-scripts start",
     "build": "export GENERATE_SOURCEMAP=false NODE_OPTIONS=--openssl-legacy-provider && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

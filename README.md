@@ -71,7 +71,7 @@ Now you can launch the app frontend.
 ```bash
 cd frontend
 yarn install
-yarn start
+yarn run dev
 ```
 
 A browser window should automatically be launched. If not, you can access the app frontend at http://localhost:4000
