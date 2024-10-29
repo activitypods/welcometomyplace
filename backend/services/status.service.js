@@ -91,9 +91,17 @@ module.exports = {
       });
     },
     async tagUpdatedEvent(ctx) {
-      const { event, actorUri } = ctx.params;
+      let { event, eventUri, actorUri } = ctx.params;
       let maxAttendeesReached = false;
       let closingTimeReached = false;
+
+      if (!event) {
+        if (!eventUri) throw new Error(`If no event param is passed, the eventUri param is required`);
+        ({ body: event } = await ctx.call('pod-resources.get', {
+          resourceUri: eventUri,
+          actorUri
+        }));
+      }
 
       const isClosed = await this.actions.isClosed({ event }, { parentCtx: ctx });
       const isFinished = await this.actions.isFinished({ event }, { parentCtx: ctx });
@@ -116,9 +124,9 @@ module.exports = {
       }
 
       if (event['apods:maxAttendees']) {
-        const attendeesCollectionUri = await ctx.call('attendees.getCollectionUriFromResource', { 
-          resource: event, 
-          actorUri 
+        const attendeesCollectionUri = await ctx.call('attendees.getCollectionUriFromResource', {
+          resource: event,
+          actorUri
         });
 
         const { body: attendeesCollection } = await ctx.call('pod-resources.get', {
@@ -140,7 +148,7 @@ module.exports = {
             actionName: 'status.tagAsClosed',
             params: { event, actorUri }
           });
-        }    
+        }
       }
     },
     isFinished(ctx) {
@@ -152,11 +160,11 @@ module.exports = {
       const { event } = ctx.params;
       const status = arrayOf(event['apods:hasStatus']);
       return status.includes('apods:Closed') || status.includes(STATUS_CLOSED);
-    },
+    }
   },
   methods: {
     isPastDate(date) {
-      const diff = (new Date()).getTime() - (new Date(date)).getTime();
+      const diff = new Date().getTime() - new Date(date).getTime();
       return diff > 0;
     }
   }
