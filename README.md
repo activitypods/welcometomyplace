@@ -99,7 +99,7 @@ Linking frontend packages with `yarn link` doesn't work because it causes versio
 
 ```bash
 cd /SEMAPPS_REPO/src/frontend
-yarn run link-all
+yarn run yalc:publish
 cd /ACTIVITYPODS_REPO/app-framework
 yarn run link-all
 cd /THIS_REPO/frontend
