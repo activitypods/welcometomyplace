@@ -3,34 +3,34 @@ services:
     image: traefik:v2.3
     container_name: traefik
     command:
-      - "--api.insecure=true"
-      - "--providers.docker=true"
-      - "--providers.docker.exposedbydefault=false"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
-      - "--entrypoints.web.http.redirections.entryPoint.to=websecure"
-      - "--entrypoints.web.http.redirections.entryPoint.scheme=https"
-      - "--entrypoints.web.http.redirections.entrypoint.permanent=true"
-      - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
-      - "--certificatesresolvers.myresolver.acme.email=${LETSENCRYPT_EMAIL}"
-      - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
+      - '--api.insecure=true'
+      - '--providers.docker=true'
+      - '--providers.docker.exposedbydefault=false'
+      - '--entrypoints.web.address=:80'
+      - '--entrypoints.websecure.address=:443'
+      - '--entrypoints.web.http.redirections.entryPoint.to=websecure'
+      - '--entrypoints.web.http.redirections.entryPoint.scheme=https'
+      - '--entrypoints.web.http.redirections.entrypoint.permanent=true'
+      - '--certificatesresolvers.myresolver.acme.tlschallenge=true'
+      - '--certificatesresolvers.myresolver.acme.email=${LETSENCRYPT_EMAIL}'
+      - '--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json'
     ports:
-      - "80:80"
-      - "443:443"
-      - "8080:8080"
+      - '80:80'
+      - '443:443'
+      - '8080:8080'
     volumes:
-      - ./data/letsencrypt:/letsencrypt
-      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - ./data/letsencrypt:/letsencrypt:z
+      - /var/run/docker.sock:/var/run/docker.sock:ro,z
 
   fuseki:
     image: semapps/jena-fuseki-webacl
     container_name: fuseki
     volumes:
-      - ./data/fuseki:/fuseki
+      - ./data/fuseki:/fuseki:z
     ports:
-      - "3030:3030"
+      - '3030:3030'
     expose:
-      - "3030"
+      - '3030'
     environment:
       ADMIN_PASSWORD: ${FUSEKI_PASSWORD}
 
@@ -53,12 +53,12 @@ services:
     container_name: frontend
     restart: always
     expose:
-      - "4000"
+      - '4000'
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.frontend.rule=Host(`${DOMAIN_NAME}`)"
-      - "traefik.http.routers.frontend.entrypoints=websecure"
-      - "traefik.http.routers.frontend.tls.certresolver=myresolver"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.frontend.rule=Host(`${DOMAIN_NAME}`)'
+      - 'traefik.http.routers.frontend.entrypoints=websecure'
+      - 'traefik.http.routers.frontend.tls.certresolver=myresolver'
 
   app-backend:
     build:
@@ -70,16 +70,16 @@ services:
       - fuseki
       - redis
     volumes:
-      - ./data/backend/logs:/app/backend/logs
-      - ./data/backend/jwt:/app/backend/jwt
-      - ./data/backend/uploads:/app/backend/uploads
+      - ./data/backend/logs:/app/backend/logs:z
+      - ./data/backend/jwt:/app/backend/jwt:z
+      - ./data/backend/uploads:/app/backend/uploads:z
     expose:
-      - "3000"
+      - '3000'
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.backend.rule=(Host(`${DOMAIN_NAME}`) && (PathPrefix(`${BACKEND_PATH}`) || PathPrefix(`/.well-known`)))"
-      - "traefik.http.routers.backend.entrypoints=websecure"
-      - "traefik.http.routers.backend.tls.certresolver=myresolver"
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.backend.rule=(Host(`${DOMAIN_NAME}`) && (PathPrefix(`${BACKEND_PATH}`) || PathPrefix(`/.well-known`)))'
+      - 'traefik.http.routers.backend.entrypoints=websecure'
+      - 'traefik.http.routers.backend.tls.certresolver=myresolver'
     env_file:
       - ./backend/.env
       - ./backend/.env.production
@@ -90,22 +90,22 @@ services:
     image: redis
     container_name: redis
     expose:
-      - "6379"
+      - '6379'
     volumes:
       - ./data/redis:/data:z
-    command: [ "redis-server", "--appendonly", "yes" ]
+    command: ['redis-server', '--appendonly', 'yes']
 
   arena:
     image: activitypods/arena
     container_name: arena
     restart: always
     volumes:
-      - ./docker/arena-prod.json:/opt/arena/src/server/config/index.json
+      - ./docker/arena-prod.json:/opt/arena/src/server/config/index.json:z
     depends_on:
       - redis
     ports:
-      - "4567:4567"
+      - '4567:4567'
     expose:
-      - "4567"
+      - '4567'
     environment:
-      REDIS_HOST: "redis"
+      REDIS_HOST: 'redis'
