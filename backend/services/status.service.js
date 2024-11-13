@@ -66,7 +66,7 @@ module.exports = {
         statusToRemove: STATUS_COMING,
         actorUri
       });
-      ctx.emit('event.finished', { event, actorUri });
+      ctx.emit('event.finished', { eventUri: event.id, actorUri });
     },
     async tagNewEvent(ctx) {
       const { event, actorUri } = ctx.params;
