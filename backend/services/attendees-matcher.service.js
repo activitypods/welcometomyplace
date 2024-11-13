@@ -82,7 +82,7 @@ module.exports = {
                 target: otherAttendeeUri,
                 to: otherAttendeeUri
               },
-              actorUri: otherAttendeeUri
+              actorUri: attendees[attendeeUri].id
             });
           }
         }
