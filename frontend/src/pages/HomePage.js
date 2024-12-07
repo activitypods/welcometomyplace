@@ -1,54 +1,11 @@
 import React, { useEffect } from 'react';
 import { Box, Button, Typography, ThemeProvider } from '@mui/material';
-import makeStyles from '@mui/styles/makeStyles';
-import { Link, useGetIdentity, useTranslate, useRedirect } from 'react-admin';
-import AppIcon from '../config/AppIcon';
+import { useGetIdentity, useTranslate, useRedirect } from 'react-admin';
+import { Link } from 'react-router-dom';
+import AppBar from '../layout/AppBar';
 import theme from '../config/theme';
 
-const useStyles = makeStyles(() => ({
-  root: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
-    height: '1px',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`
-  },
-  title: {
-    lineHeight: 1,
-    color: 'white',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '1.8em'
-    }
-  },
-  description: {
-    color: 'white',
-    fontStyle: 'italic',
-    marginTop: 16,
-    maxWidth: 250,
-    whiteSpace: 'pre-line'
-  },
-  link: {
-    textDecoration: 'underline',
-    color: 'white'
-  },
-  text: {
-    color: 'white'
-  },
-  logo: {
-    fontSize: 100,
-    color: 'white'
-  },
-  button: {
-    margin: 5
-  }
-}));
-
 const HomePage = () => {
-  const classes = useStyles();
   const redirect = useRedirect();
   const { data: identity, isLoading } = useGetIdentity();
   const translate = useTranslate();
@@ -63,35 +20,47 @@ const HomePage = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box className={classes.root}>
-        <AppIcon className={classes.logo} />
-        <Typography variant="h4" className={classes.title}>
-          {process.env.REACT_APP_NAME}
-        </Typography>
-        <Typography align="center" className={classes.description}>
-          {process.env.REACT_APP_DESCRIPTION}
-        </Typography>
-        {process.env.REACT_APP_ORGANIZATION_NAME && (
-          <a
-            href={process.env.REACT_APP_ORGANIZATION_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={classes.link}
+      <Box
+        sx={{
+          backgroundImage: 'url("/images/background.png")',
+          backgroundPosition: { xs: 'center bottom -50px', sm: 'center bottom -150px' },
+          backgroundSize: 'cover',
+          width: '100%',
+          height: '100vh'
+        }}
+      >
+        <AppBar title={process.env.REACT_APP_NAME} />
+        <Box
+          sx={{
+            position: 'absolute',
+            top: { xs: 100, sm: 150 },
+            width: '100%',
+            p: 2,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Typography
+            align="center"
+            sx={{ fontSize: { xs: 30, sm: 50 }, fontWeight: 'bold', maxWidth: 650, lineHeight: 1.1 }}
           >
-            <Typography align="center" className={classes.description}>
-              {translate('app.backed_by_organization', { organizationName: process.env.REACT_APP_ORGANIZATION_NAME })}
-            </Typography>
-          </a>
-        )}
-        <Box display="flex" pt={2} pb={1} alignItems="center">
-          <Link to="/login?signup">
-            <Button variant="contained" color="secondary" className={classes.button}>
-              {translate('auth.action.signup')}
-            </Button>
-          </Link>
+            Ouvrez votre maison pour des rencontres simples et enrichissantes
+          </Typography>
+          <br />
+          <Typography align="center" sx={{ fontSize: { xs: 20, sm: 30 }, maxWidth: 650, lineHeight: 1.1 }}>
+            ... et contribuez au développement d’un réseau de confiance dans votre région
+          </Typography>
+        </Box>
+        <Box sx={{ position: 'absolute', bottom: 50, width: '100%', textAlign: 'center' }}>
           <Link to="/login">
-            <Button variant="contained" color="secondary" className={classes.button}>
-              {translate('ra.auth.sign_in')}
+            <Button
+              variant="contained"
+              color="white"
+              sx={{ px: 5, py: 2, borderRadius: 10, color: 'orange', fontSize: 20, fontFamily: 'Chewy' }}
+            >
+              {translate('auth.action.login')}
             </Button>
           </Link>
         </Box>
