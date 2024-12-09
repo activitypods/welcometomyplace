@@ -8,7 +8,8 @@ import AppIcon from '../config/AppIcon';
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
-    backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`
+    backgroundColor: 'unset',
+    boxShadow: 'unset'
   },
   menuButton: {
     color: 'white'
@@ -23,6 +24,8 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
     marginLeft: 4,
+    fontSize: 30,
+    fontFamily: 'Chewy',
     '& a': {
       color: 'white',
       textDecoration: 'none'
@@ -40,7 +43,7 @@ const AppBar = ({ title }) => {
             <AppIcon fontSize="large" />
           </IconButton>
         </Link>
-        <Typography variant="h4" className={classes.title}>
+        <Typography className={classes.title}>
           <Link to="/Event">{title}</Link>
         </Typography>
         <UserMenu />

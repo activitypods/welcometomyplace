@@ -3,8 +3,8 @@ import { grey } from '@mui/material/colors';
 
 const defaultTheme = createTheme();
 
-const font1 = '"Kaushan Script", "serif"';
-const font2 = '"Roboto", "Open Sans", "sans-serif"';
+const font1 = '"Chewy", "serif"';
+const font2 = '"Open Sans", "sans-serif"';
 
 const theme = createTheme({
   palette: {
@@ -28,6 +28,12 @@ const theme = createTheme({
       light: '#000000',
       dark: '#000000',
       contrastText: '#FFFFFF'
+    },
+    white: {
+      main: '#FFFFFF',
+      light: '#FFFFFF',
+      dark: '#FFFFFF',
+      contrastText: '#000000'
     }
   },
   typography: {
@@ -52,6 +58,17 @@ const theme = createTheme({
         fontSize: 28,
         lineHeight: '41px'
       }
+    },
+    h3: {
+      fontFamily: font1,
+      fontSize: 30
+      // fontStyle: 'normal',
+      // fontWeight: 'normal',
+      // lineHeight: '44px',
+      // [defaultTheme.breakpoints.down('sm')]: {
+      //   fontSize: 18,
+      //   lineHeight: '26px'
+      // }
     },
     h4: {
       fontFamily: font1,

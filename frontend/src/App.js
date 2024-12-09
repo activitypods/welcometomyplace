@@ -13,7 +13,7 @@ import Layout from './layout/Layout';
 import theme from './config/theme';
 import ontologies from './config/ontologies.json';
 
-import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 
 const customPodProviders = process.env.REACT_APP_POD_PROVIDER_BASE_URL && [
   { 'apods:baseUrl': process.env.REACT_APP_POD_PROVIDER_BASE_URL, 'apods:area': 'Local server' }
