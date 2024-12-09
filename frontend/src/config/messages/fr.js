@@ -36,6 +36,23 @@ module.exports = {
     page: {
       events: 'Tableau de bord'
     },
+    homepage: {
+      step_1: {
+        description:
+          'En quelques minutes, je propose une rencontre chez moi, en fixant la date et le nombre maximum de participants',
+        hashtag: '#simplicité'
+      },
+      step_2: {
+        description:
+          "J'invite les contacts de mon choix, en leur donnant éventuellement le droit de partager à leurs propres contacts",
+        hashtag: '#souveraineté'
+      },
+      step_3: {
+        description:
+          'A la fin de la rencontre, tous les participants ont la possibilité d’ajouter les autres participants à leurs contacts.',
+        hashtag: '#décentralisation'
+      }
+    },
     tab: {
       next_events: 'Prochaines rencontres',
       finished_events: 'Rencontres terminées'
