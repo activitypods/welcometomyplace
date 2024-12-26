@@ -1,14 +1,20 @@
 import React from 'react';
-import { Typography, AppBar as MuiAppBar, IconButton, Toolbar } from '@mui/material';
+import { Typography, AppBar as MuiAppBar, IconButton, Toolbar, useScrollTrigger } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import { Link } from 'react-router-dom';
 import { UserMenu } from '@activitypods/react';
 import AppIcon from '../config/AppIcon';
 
-const useStyles = makeStyles(theme => ({
-  root: {
+const useStyles = makeStyles(() => ({
+  rootTransparent: {
     flexGrow: 1,
-    backgroundColor: 'unset',
+    backgroundColor: 'transparent',
+    boxShadow: 'unset'
+  },
+  rootOpaque: {
+    backgroundImage: 'url("/images/background.png")',
+    backgroundPosition: 'center bottom -150px',
+    backgroundSize: 'cover',
     boxShadow: 'unset'
   },
   menuButton: {
@@ -35,8 +41,9 @@ const useStyles = makeStyles(theme => ({
 
 const AppBar = ({ title }) => {
   const classes = useStyles();
+  const trigger = useScrollTrigger({ threshold: window.innerHeight - 64, disableHysteresis: true });
   return (
-    <MuiAppBar position="sticky" className={classes.root}>
+    <MuiAppBar className={trigger ? classes.rootOpaque : classes.rootTransparent}>
       <Toolbar>
         <Link to="/Event">
           <IconButton edge="start" className={classes.menuButton} color="inherit">

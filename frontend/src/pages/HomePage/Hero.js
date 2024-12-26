@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, Button, Typography } from '@mui/material';
 import { useTranslate } from 'react-admin';
 import { Link } from 'react-router-dom';
-import AppBar from '../../layout/AppBar';
 
 const Hero = () => {
   const translate = useTranslate();
@@ -16,7 +15,6 @@ const Hero = () => {
         height: '100vh'
       }}
     >
-      <AppBar title={process.env.REACT_APP_NAME} />
       <Box
         sx={{
           position: 'absolute',
@@ -40,7 +38,7 @@ const Hero = () => {
           ... et contribuez au développement d’un réseau de confiance dans votre région
         </Typography>
       </Box>
-      <Box sx={{ position: 'absolute', bottom: 50, width: '100%', textAlign: 'center' }}>
+      <Box sx={{ position: 'absolute', bottom: 64, width: '100%', textAlign: 'center' }}>
         <Link to="/login">
           <Button
             variant="contained"

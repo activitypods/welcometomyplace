@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { ThemeProvider } from '@mui/material';
+import { ThemeProvider, Box } from '@mui/material';
 import { useGetIdentity, useRedirect } from 'react-admin';
 import theme from '../../config/theme';
 import Hero from './Hero';
 import Tutorial from './Tutorial';
+import AppBar from '../../layout/AppBar';
 
 const HomePage = () => {
   const redirect = useRedirect();
@@ -19,8 +20,10 @@ const HomePage = () => {
 
   return (
     <ThemeProvider theme={theme}>
+      <AppBar title={process.env.REACT_APP_NAME} />
       <Hero />
       <Tutorial />
+      <Box height={1000} />
     </ThemeProvider>
   );
 };

@@ -44,7 +44,7 @@ module.exports = {
       },
       step_2: {
         description:
-          "J'invite les contacts de mon choix, en leur donnant éventuellement le droit de partager à leurs propres contacts",
+          "J'invite les contacts de mon choix, en leur donnant éventuellement le droit de partager l'invitation à leurs propres contacts",
         hashtag: '#souveraineté'
       },
       step_3: {
