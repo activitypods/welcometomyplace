@@ -11,11 +11,11 @@ const Layout = ({ children, title }) => {
   return (
     <BackgroundChecks
       clientId={process.env.REACT_APP_BACKEND_CLIENT_ID}
-      listeningTo={[identity?.webIdData?.inbox, identity?.webIdData?.outbox]}
+      // listeningTo={[identity?.webIdData?.inbox, identity?.webIdData?.outbox]}
     >
       <ScrollToTop />
-      <AppBar title={title} />
-      <Box>{children}</Box>
+      <AppBar title={title} opaque />
+      <Box sx={{ mt: '64px' }}>{children}</Box>
     </BackgroundChecks>
   );
 };

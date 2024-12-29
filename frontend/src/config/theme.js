@@ -9,7 +9,7 @@ const font2 = '"Open Sans", "sans-serif"';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#D2123F',
+      main: '#FDA100',
       light: '#FD7426',
       contrastText: '#FFFFFF'
     },

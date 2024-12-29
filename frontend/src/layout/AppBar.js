@@ -39,11 +39,11 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const AppBar = ({ title }) => {
+const AppBar = ({ title, opaque }) => {
   const classes = useStyles();
   const trigger = useScrollTrigger({ threshold: window.innerHeight - 64, disableHysteresis: true });
   return (
-    <MuiAppBar className={trigger ? classes.rootOpaque : classes.rootTransparent}>
+    <MuiAppBar className={opaque || trigger ? classes.rootOpaque : classes.rootTransparent}>
       <Toolbar>
         <Link to="/Event">
           <IconButton edge="start" className={classes.menuButton} color="inherit">
