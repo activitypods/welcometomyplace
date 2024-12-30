@@ -15,17 +15,16 @@ const dataServers = {
     },
     uploadsContainer: '/semapps/file'
   },
-  common: {
-    name: 'Common data',
+  app: {
     baseUrl: process.env.REACT_APP_BACKEND_URL,
     default: true,
-    noProxy: true,
     containers: {
-      common: {
+      app: {
         'apods:EventFormat': ['/apods/event-format']
       }
     },
-    void: false
+    void: false,
+    uploadsContainer: '/semapps/file'
   }
 };
 

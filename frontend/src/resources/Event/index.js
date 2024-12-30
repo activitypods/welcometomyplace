@@ -1,7 +1,6 @@
 import EventEdit from './EventEdit';
 import EventList from './EventList';
 import EventShow from './EventShow';
-import EventIcon from '@mui/icons-material/Event';
 import EventCreate from './EventCreate';
 
 export default {
@@ -9,11 +8,7 @@ export default {
     list: EventList,
     show: EventShow,
     create: EventCreate,
-    edit: EventEdit,
-    icon: EventIcon,
-    options: {
-      label: 'Événements'
-    }
+    edit: EventEdit
   },
   dataModel: {
     types: ['as:Event']
