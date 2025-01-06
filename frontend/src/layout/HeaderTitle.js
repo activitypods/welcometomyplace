@@ -28,7 +28,7 @@ const HeaderTitle = ({ children, actions }) => {
         <Box pt={xs ? 3 : 4} pb={xs ? 3 : 4}>
           <Grid container spacing={3}>
             <Grid item xs={8}>
-              <Typography variant="h2" className={classes.title} id="react-admin-title">
+              <Typography variant="h1" className={classes.title} id="react-admin-title">
                 {typeof children === 'string' ? children : React.cloneElement(children, { record })}
               </Typography>
             </Grid>

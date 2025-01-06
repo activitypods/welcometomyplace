@@ -1,18 +1,11 @@
-import FormatCreate from './FormatCreate';
-import FormatEdit from './FormatEdit';
-import FormatList from './FormatList';
-import FormatShow from './FormatShow';
+import HelperCreate from './HelperCreate';
 
 export default {
   config: {
-    show: FormatShow,
-    create: FormatCreate,
-    edit: FormatEdit,
-    list: FormatList,
-    recordRepresentation: record => record.name
+    create: HelperCreate
   },
   dataModel: {
-    types: ['apods:EventFormat'],
+    types: ['apods:Helper'],
     list: {
       fetchContainer: true
     },
@@ -40,12 +33,15 @@ export default {
     //   }
     // },
     fr: {
-      name: 'Format |||| Formats',
+      name: 'Personne ressource |||| Personnes ressource',
       fields: {
-        name: 'Nom',
-        summary: 'Résumé',
-        image: 'Image',
-        'apods:recipe': 'Recette'
+        'apods:eventFormat': 'Types de rencontres',
+        location: 'Ville',
+        radius: 'Rayon',
+        'apods:availableForCall': 'Disponible pour appel avant la réunion',
+        'apods:availableForFacilitation': 'Disponible pour venir (co-)faciliter sur place',
+        'apods:validated': 'Validé',
+        description: 'Commentaire'
       }
     }
   }

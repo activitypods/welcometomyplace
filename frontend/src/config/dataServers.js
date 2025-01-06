@@ -20,7 +20,8 @@ const dataServers = {
     default: true,
     containers: {
       app: {
-        'apods:EventFormat': ['/apods/event-format']
+        'apods:EventFormat': ['/apods/event-format'],
+        'apods:Helper': ['/apods/helper']
       }
     },
     void: false,

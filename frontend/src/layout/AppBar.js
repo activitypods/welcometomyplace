@@ -45,13 +45,13 @@ const AppBar = ({ title, opaque }) => {
   return (
     <MuiAppBar className={opaque || trigger ? classes.rootOpaque : classes.rootTransparent}>
       <Toolbar>
-        <Link to="/Event">
+        <Link to="/">
           <IconButton edge="start" className={classes.menuButton} color="inherit">
             <AppIcon fontSize="large" />
           </IconButton>
         </Link>
         <Typography className={classes.title}>
-          <Link to="/Event">{title}</Link>
+          <Link to="/">{title}</Link>
         </Typography>
         <UserMenu />
       </Toolbar>

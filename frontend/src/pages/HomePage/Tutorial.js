@@ -14,7 +14,7 @@ const icons = {
 const Tutorial = () => {
   const translate = useTranslate();
   return (
-    <Box sx={{ color: 'grey', py: 12 }}>
+    <Box sx={{ py: 12, backgroundColor: '#FFFFFF' }}>
       <Typography
         align="center"
         sx={{ fontSize: { xs: 30, sm: 50 }, fontFamily: 'Chewy', color: 'orange', height: 70 }}

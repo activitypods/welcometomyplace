@@ -21,10 +21,10 @@ const theme = createTheme({
       main: grey[300],
       light: grey[200],
       dark: grey[400],
-      contrastText: '#000000'
+      contrastText: '#FFFFFF'
     },
     black: {
-      main: '#000000',
+      main: '#141414',
       light: '#000000',
       dark: '#000000',
       contrastText: '#FFFFFF'
@@ -38,7 +38,7 @@ const theme = createTheme({
   },
   typography: {
     h1: {
-      fontFamily: font2,
+      fontFamily: font1,
       fontSize: 48,
       fontStyle: 'normal',
       fontWeight: 'normal',
@@ -49,7 +49,7 @@ const theme = createTheme({
       }
     },
     h2: {
-      fontFamily: font2,
+      fontFamily: font1,
       fontSize: 40,
       fontStyle: 'normal',
       fontWeight: 'normal',
@@ -60,10 +60,10 @@ const theme = createTheme({
       }
     },
     h3: {
-      fontFamily: font1,
-      fontSize: 30
+      fontFamily: font2,
+      fontSize: 30,
       // fontStyle: 'normal',
-      // fontWeight: 'normal',
+      fontWeight: 'bold'
       // lineHeight: '44px',
       // [defaultTheme.breakpoints.down('sm')]: {
       //   fontSize: 18,
@@ -71,10 +71,10 @@ const theme = createTheme({
       // }
     },
     h4: {
-      fontFamily: font1,
-      fontSize: 30,
+      fontFamily: font2,
+      fontSize: 24,
       fontStyle: 'normal',
-      fontWeight: 'normal',
+      fontWeight: 'bold',
       lineHeight: '44px',
       [defaultTheme.breakpoints.down('sm')]: {
         fontSize: 18,
@@ -82,7 +82,7 @@ const theme = createTheme({
       }
     },
     h6: {
-      fontFamily: font1,
+      fontFamily: font2,
       fontSize: 24,
       fontStyle: 'normal',
       fontWeight: 'normal',
