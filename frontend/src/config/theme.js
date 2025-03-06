@@ -3,13 +3,13 @@ import { grey } from '@mui/material/colors';
 
 const defaultTheme = createTheme();
 
-const font1 = '"Kaushan Script", "serif"';
-const font2 = '"Roboto", "Open Sans", "sans-serif"';
+const font1 = '"Chewy", "serif"';
+const font2 = '"Open Sans", "sans-serif"';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#D2123F',
+      main: '#FDA100',
       light: '#FD7426',
       contrastText: '#FFFFFF'
     },
@@ -21,18 +21,24 @@ const theme = createTheme({
       main: grey[300],
       light: grey[200],
       dark: grey[400],
-      contrastText: '#000000'
+      contrastText: '#FFFFFF'
     },
     black: {
-      main: '#000000',
+      main: '#141414',
       light: '#000000',
       dark: '#000000',
       contrastText: '#FFFFFF'
+    },
+    white: {
+      main: '#FFFFFF',
+      light: '#FFFFFF',
+      dark: '#FFFFFF',
+      contrastText: '#000000'
     }
   },
   typography: {
     h1: {
-      fontFamily: font2,
+      fontFamily: font1,
       fontSize: 48,
       fontStyle: 'normal',
       fontWeight: 'normal',
@@ -43,7 +49,7 @@ const theme = createTheme({
       }
     },
     h2: {
-      fontFamily: font2,
+      fontFamily: font1,
       fontSize: 40,
       fontStyle: 'normal',
       fontWeight: 'normal',
@@ -53,11 +59,22 @@ const theme = createTheme({
         lineHeight: '41px'
       }
     },
-    h4: {
-      fontFamily: font1,
+    h3: {
+      fontFamily: font2,
       fontSize: 30,
+      // fontStyle: 'normal',
+      fontWeight: 'bold'
+      // lineHeight: '44px',
+      // [defaultTheme.breakpoints.down('sm')]: {
+      //   fontSize: 18,
+      //   lineHeight: '26px'
+      // }
+    },
+    h4: {
+      fontFamily: font2,
+      fontSize: 24,
       fontStyle: 'normal',
-      fontWeight: 'normal',
+      fontWeight: 'bold',
       lineHeight: '44px',
       [defaultTheme.breakpoints.down('sm')]: {
         fontSize: 18,
@@ -65,7 +82,7 @@ const theme = createTheme({
       }
     },
     h6: {
-      fontFamily: font1,
+      fontFamily: font2,
       fontSize: 24,
       fontStyle: 'normal',
       fontWeight: 'normal',

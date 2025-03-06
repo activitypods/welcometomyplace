@@ -13,7 +13,7 @@ import Layout from './layout/Layout';
 import theme from './config/theme';
 import ontologies from './config/ontologies.json';
 
-import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 
 const MyLoginPage = props => (
   <LoginPage
