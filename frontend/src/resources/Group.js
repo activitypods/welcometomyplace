@@ -1,10 +1,10 @@
+import urlJoin from 'url-join';
+
 export default {
   dataModel: {
-    types: ['vcard:Group'],
+    shapeTreeUri: urlJoin(process.env.REACT_APP_SHAPE_REPOSITORY_URL, 'shapetrees/vcard/Group'),
     list: {
-      servers: 'pod',
-      blankNodes: ['vcard:hasMember'],
-      containers: { pod: ['/vcard/group'] }
+      blankNodes: ['vcard:hasMember']
     }
   }
 };

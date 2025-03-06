@@ -1,31 +1,15 @@
 const dataServers = {
-  pod: {
-    pod: true,
-    default: true,
-    authServer: true,
-    baseUrl: null, // Calculated from the token
-    sparqlEndpoint: null, // Calculated from the token
-    containers: {
-      pod: {
-        'as:Event': ['/as/event'],
-        'vcard:Location': ['/vcard/location'],
-        'vcard:Individual': ['/vcard/individual'],
-        'vcard:Group': ['/vcard/group']
-      }
-    },
-    uploadsContainer: '/semapps/file'
-  },
   common: {
     name: 'Common data',
     baseUrl: process.env.REACT_APP_BACKEND_URL,
     default: true,
     noProxy: true,
-    containers: {
-      common: {
-        'apods:EventFormat': ['/apods/event-format']
+    containers: [
+      {
+        types: 'apods:EventFormat',
+        path: '/apods/event-format'
       }
-    },
-    void: false
+    ]
   }
 };
 
