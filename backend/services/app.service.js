@@ -37,6 +37,10 @@ module.exports = {
           shapeTreeUri: urlJoin(CONFIG.SHAPE_REPOSITORY_URL, 'shapetrees/vcard/Group'),
           accessMode: 'acl:Read'
         },
+        {
+          shapeTreeUri: urlJoin(CONFIG.SHAPE_REPOSITORY_URL, 'shapetrees/File'),
+          accessMode: ['acl:Read', 'acl:Write']
+        },
         'apods:ReadInbox',
         'apods:ReadOutbox',
         'apods:PostOutbox',
