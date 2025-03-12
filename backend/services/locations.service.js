@@ -6,8 +6,7 @@ module.exports = {
   name: 'locations',
   mixins: [PodResourcesHandlerMixin],
   settings: {
-    shapeTreeUri: urlJoin(CONFIG.SHAPE_REPOSITORY_URL, 'shapetrees/as/Event'),
-    type: 'vcard:Location'
+    shapeTreeUri: urlJoin(CONFIG.SHAPE_REPOSITORY_URL, 'shapetrees/as/Event')
   },
   actions: {
     async giveReadPermissionsToAnnouncesGroup(ctx) {

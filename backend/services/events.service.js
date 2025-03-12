@@ -7,7 +7,6 @@ module.exports = {
   mixins: [PodResourcesHandlerMixin],
   settings: {
     shapeTreeUri: urlJoin(CONFIG.SHAPE_REPOSITORY_URL, 'shapetrees/as/Event'),
-    type: 'Event'
   },
   actions: {
     async getAnnouncesGroupUri(ctx) {
