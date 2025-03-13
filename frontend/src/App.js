@@ -11,7 +11,6 @@ import * as resources from './resources';
 
 import Layout from './layout/Layout';
 import theme from './config/theme';
-import ontologies from './config/ontologies.json';
 
 import HomePage from './pages/HomePage';
 
@@ -45,7 +44,7 @@ const App = () => (
           <Resource key={key} name={key} {...resource.config} />
         ))}
         <CustomRoutes>
-          <Route exact path="/r" element={<RedirectPage ontologies={ontologies} />} />,
+          <Route exact path="/r" element={<RedirectPage />} />,
         </CustomRoutes>
         <CustomRoutes noLayout>
           <Route exact path="/" element={<HomePage />} />,

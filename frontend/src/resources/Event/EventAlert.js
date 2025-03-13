@@ -16,8 +16,8 @@ const EventAlert = () => {
   let message;
 
   if (record?.['dc:creator'] === identity?.id) {
-    // If there is only one invitee (the organizer)
-    if (announces?.length === 1) {
+    // If there is only no invitee yet
+    if (announces?.length === 0) {
       message = translate('app.helper.event_draft_mode');
     }
   } else {
