@@ -13,13 +13,9 @@ module.exports = {
           type: OBJECT_TYPES.EVENT
         }
       },
-      async onEmit(ctx, activity, emitterUri) {
-        if (emitterUri !== activity.object['dc:creator']) {
-          throw new Error('Only the creator has the right to share the object ' + activity.object.id);
-        }
-
+      async onEmit(ctx, activity) {
         // We send the notification directly to the recipients, in case they haven't installed the app yet
-        for (const recipientUri of arrayOf(activity.target)) {
+        for (const recipientUri of arrayOf(activity.to)) {
           await ctx.call('pod-notifications.send', {
             template: {
               title: {
@@ -42,6 +38,6 @@ module.exports = {
           });
         }
       }
-    },
+    }
   }
 };
