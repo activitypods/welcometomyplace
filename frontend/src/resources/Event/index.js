@@ -1,3 +1,4 @@
+import urlJoin from 'url-join';
 import EventEdit from './EventEdit';
 import EventList from './EventList';
 import EventShow from './EventShow';
@@ -11,7 +12,7 @@ export default {
     edit: EventEdit
   },
   dataModel: {
-    types: ['as:Event']
+    shapeTreeUri: urlJoin(process.env.REACT_APP_SHAPE_REPOSITORY_URL, 'shapetrees/as/Event')
   },
   translations: {
     en: {

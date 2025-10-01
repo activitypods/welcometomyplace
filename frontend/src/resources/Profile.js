@@ -1,5 +1,7 @@
+import urlJoin from 'url-join';
+
 export default {
   dataModel: {
-    types: ['vcard:Individual', 'as:Profile']
+    shapeTreeUri: urlJoin(process.env.REACT_APP_SHAPE_REPOSITORY_URL, 'shapetrees/as/Profile')
   }
 };
