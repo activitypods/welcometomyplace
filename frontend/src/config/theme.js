@@ -9,13 +9,13 @@ const font2 = '"Open Sans", "sans-serif"';
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#FDA100',
-      light: '#FD7426',
+      main: '#FFA500',
+      light: '#FFC300',
       contrastText: '#FFFFFF'
     },
     secondary: {
-      main: '#203142',
-      contrastText: '#FFFFFF'
+      main: '#FFC300',
+      contrastText: '#000000'
     },
     grey: {
       main: grey[300],
@@ -60,7 +60,7 @@ const theme = createTheme({
       }
     },
     h3: {
-      fontFamily: font2,
+      fontFamily: font1,
       fontSize: 30,
       // fontStyle: 'normal',
       fontWeight: 'bold'
@@ -71,7 +71,7 @@ const theme = createTheme({
       // }
     },
     h4: {
-      fontFamily: font2,
+      fontFamily: font1,
       fontSize: 24,
       fontStyle: 'normal',
       fontWeight: 'bold',
@@ -82,7 +82,7 @@ const theme = createTheme({
       }
     },
     h6: {
-      fontFamily: font2,
+      fontFamily: font1,
       fontSize: 24,
       fontStyle: 'normal',
       fontWeight: 'normal',

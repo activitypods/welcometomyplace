@@ -3,7 +3,7 @@ import FormatEdit from './FormatEdit';
 import FormatList from './FormatList';
 import FormatShow from './FormatShow';
 
-export default {
+const Format = {
   config: {
     show: FormatShow,
     create: FormatCreate,
@@ -50,3 +50,5 @@ export default {
     }
   }
 };
+
+export default Format;

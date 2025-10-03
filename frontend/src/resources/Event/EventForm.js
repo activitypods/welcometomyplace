@@ -41,7 +41,7 @@ const EventForm = () => {
         <Box m={2} mb={1}>
           <Alert severity="info">
             {translate('app.helper.first_event')}&nbsp;
-            <a href={`https://forum.reseauxdevie.org`} target="_blank" rel="noopener noreferrer">
+            <a href={`https://forum.reconnexion.coop`} target="_blank" rel="noopener noreferrer">
               {translate('app.forum_name')}
             </a>
           </Alert>

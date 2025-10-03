@@ -2,7 +2,7 @@
 
 module.exports = {
   app: {
-    forum_name: 'Forum Réseaux de Vie',
+    forum_name: 'Forum Reconnexion',
     backed_by_organization: 'Proposé par %{organizationName}',
     action: {
       accept: 'Accepter',
@@ -37,6 +37,9 @@ module.exports = {
       events: 'Tableau de bord'
     },
     homepage: {
+      title: 'Ouvrez votre maison pour des rencontres simples et enrichissantes',
+      subtitle: '... et contribuez au développement d’un réseau de confiance dans votre région',
+      how_does_it_work: 'Comment ça marche ?',
       step_1: {
         description:
           'En quelques minutes, je propose une rencontre chez moi, en fixant la date et le nombre maximum de participants',
@@ -51,7 +54,17 @@ module.exports = {
         description:
           'A la fin de la rencontre, tous les participants ont la possibilité d’ajouter les autres participants à leurs contacts.',
         hashtag: '#décentralisation'
-      }
+      },
+      events_ideas: 'Des idées de rencontres',
+      app_supported_by: 'Une application sociale portée par',
+      reconnexion_tagline:
+        "Faciliter l'émergence d'un Réseau Social Universel favorisant la rencontre, l'entraide et la coopération"
+    },
+    formats: {
+      open_table: 'Table ouverte',
+      film_debate: 'Ciné-échanges',
+      book_club: 'Cercle de lecture',
+      talking_circle: 'Cercle de parole'
     },
     tab: {
       next_events: 'Prochaines rencontres',
@@ -109,7 +122,8 @@ module.exports = {
       event_finished: 'Cette rencontre est terminé',
       no_condition: 'Aucune',
       you_participated_to_same_event: 'Vous avez participé à la même rencontre',
-      event_message_title: `%{username} vous écrit au sujet de "%{event}"`
+      event_message_title: `%{username} vous écrit au sujet de "%{event}"`,
+      event_creation: 'Rencontre en cours de création'
     },
     notification: {
       contact_request_accepted: 'Demande de contact acceptée',

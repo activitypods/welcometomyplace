@@ -1,6 +1,6 @@
 import HelperCreate from './HelperCreate';
 
-export default {
+const Helper = {
   config: {
     create: HelperCreate
   },
@@ -46,3 +46,5 @@ export default {
     }
   }
 };
+
+export default Helper;

@@ -2,7 +2,7 @@
 
 module.exports = {
   app: {
-    forum_name: 'Forum Réseaux de Vie',
+    forum_name: 'Forum Reconnexion',
     backed_by_organization: 'Backed by %{organizationName}',
     action: {
       accept: 'Accept',
@@ -35,6 +35,36 @@ module.exports = {
     },
     page: {
       events: 'My events'
+    },
+    homepage: {
+      title: 'Open your home for simple and enriching encounters',
+      subtitle: '... and contribute to the development of a network of trust in your area',
+      how_does_it_work: 'How does it work?',
+      step_1: {
+        description:
+          'In just a few minutes, I can organize a meeting at my place, setting the date and maximum number of participants.',
+        hashtag: '#simplicity'
+      },
+      step_2: {
+        description:
+          'I invite the contacts of my choice, possibly giving them the right to share the invitation with their own contacts.',
+        hashtag: '#sovereignty'
+      },
+      step_3: {
+        description:
+          'At the end of the meeting, all participants have the opportunity to add the other participants to their contacts.',
+        hashtag: '#decentralization'
+      },
+      events_ideas: 'Ideas for events',
+      app_supported_by: 'A social app supported by',
+      reconnexion_tagline:
+        'Facilitating the emergence of a Universal Social Network promoting encounters, mutual aid, and cooperation.'
+    },
+    formats: {
+      open_table: 'Open table',
+      film_debate: 'Film debate',
+      book_club: 'Book club',
+      talking_circle: 'Talking circle'
     },
     tab: {
       next_events: 'Coming events',
@@ -88,7 +118,8 @@ module.exports = {
       event_finished: 'This event is finished',
       no_condition: 'None',
       you_participated_to_same_event: 'You participated to the same event',
-      event_message_title: `%{username} writes you about "%{event}"`
+      event_message_title: `%{username} writes you about "%{event}"`,
+      event_creation: 'The event is being created'
     },
     notification: {
       contact_request_accepted: 'Contact request accepted',

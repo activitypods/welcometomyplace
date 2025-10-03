@@ -9,7 +9,7 @@ const Hero = () => {
     <Box
       sx={{
         backgroundImage: 'url("/images/background.png")',
-        backgroundPosition: { xs: 'center bottom -50px', sm: 'center bottom -150px' },
+        backgroundPosition: { xs: 'center bottom', sm: 'center bottom' },
         backgroundSize: 'cover',
         width: '100%',
         height: '100vh'
@@ -29,16 +29,24 @@ const Hero = () => {
       >
         <Typography
           align="center"
-          sx={{ fontSize: { xs: 30, sm: 50 }, fontWeight: 'bold', maxWidth: 650, lineHeight: 1.1 }}
+          sx={{ fontSize: { xs: 30, sm: 50 }, fontWeight: 'bold', maxWidth: 650, lineHeight: 1.1, mb: 2 }}
         >
-          Ouvrez votre maison pour des rencontres simples et enrichissantes
+          {translate('app.homepage.title')}
         </Typography>
-        <br />
         <Typography align="center" sx={{ fontSize: { xs: 20, sm: 30 }, maxWidth: 650, lineHeight: 1.1 }}>
-          ... et contribuez au développement d’un réseau de confiance dans votre région
+          {translate('app.homepage.subtitle')}
         </Typography>
       </Box>
       <Box sx={{ position: 'absolute', bottom: 64, width: '100%', textAlign: 'center' }}>
+        <Link to="/login?signup=true">
+          <Button
+            variant="contained"
+            color="white"
+            sx={{ px: 5, py: 2, borderRadius: 10, color: 'orange', fontSize: 20, fontFamily: 'Chewy', mr: 2 }}
+          >
+            {translate('auth.action.signup')}
+          </Button>
+        </Link>
         <Link to="/login">
           <Button
             variant="contained"

@@ -6,18 +6,19 @@ import Hero from './Hero';
 import Tutorial from './Tutorial';
 import AppBar from '../../layout/AppBar';
 import FeaturedFormats from './FeaturedFormats';
+import Reconnexion from './Reconnexion';
 
 const HomePage = () => {
   const redirect = useRedirect();
   const { data: identity, isLoading } = useGetIdentity();
 
-  // useEffect(() => {
-  //   if (!isLoading && identity?.id) {
-  //     redirect('list', 'Event');
-  //   }
-  // }, [identity, isLoading, redirect]);
+  useEffect(() => {
+    if (!isLoading && identity?.id) {
+      redirect('list', 'Event');
+    }
+  }, [identity, isLoading, redirect]);
 
-  // if (isLoading) return null;
+  if (isLoading) return null;
 
   return (
     <ThemeProvider theme={theme}>
@@ -25,6 +26,7 @@ const HomePage = () => {
       <Hero />
       <Tutorial />
       <FeaturedFormats />
+      <Reconnexion />
     </ThemeProvider>
   );
 };

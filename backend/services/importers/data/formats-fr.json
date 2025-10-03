@@ -1,0 +1,91 @@
+[
+  {
+    "label": "Convivialité"
+  },
+  {
+    "label": "Pouvoir d'agir"
+  },
+  {
+    "label": "Ouverture d'esprit"
+  },
+  {
+    "label": "Terrasse ouverte",
+    "parent": "convivialite"
+  },
+  {
+    "label": "Restaurant à domicile",
+    "parent": "convivialite"
+  },
+  {
+    "label": "Conférence",
+    "parent": "ouverture-d-esprit"
+  },
+  {
+    "label": "Chants",
+    "parent": "convivialite"
+  },
+  {
+    "label": "Accélérateurs de projets",
+    "parent": "pouvoir-d-agir"
+  },
+  {
+    "label": "Cercle de parole",
+  "parent": "ouverture-d-esprit"
+  },
+  {
+    "label": "Ciné-débat",
+  "parent": "ouverture-d-esprit"
+  },
+  {
+    "label": "Co-apprentissage",
+  "parent": "pouvoir-d-agir"
+  },
+  {
+    "label": "Débat mouvant",
+    "parent": "ouverture-d-esprit"
+  },
+  {
+    "label": "Place du marché",
+    "parent": "pouvoir-d-agir"
+  },
+  {
+    "label": "Jeux",
+    "parent": "convivialite"
+  },
+  {
+    "label": "Formation",
+    "parent": "pouvoir-d-agir"
+  },
+  {
+    "label": "Chantier participatif",
+    "parent": "pouvoir-d-agir"
+  },
+  {
+    "label": "Soirée festive",
+    "parent": "convivialite"
+  },
+  {
+    "label": "Musique",
+    "parent": "convivialite"
+  },
+  {
+    "label": "Club de lecture",
+    "parent": "ouverture-d-esprit"
+  },
+  {
+    "label": "Réunion-rencontre",
+    "parent": "pouvoir-d-agir"
+  },
+  {
+    "label": "Théâtre",
+    "parent": "convivialite"
+  },
+  {
+    "label": "Partage de pratiques",
+    "parent": "pouvoir-d-agir"
+  },
+  {
+    "label": "Repas partagé",
+    "parent": "convivialite"
+  }
+]
