@@ -14,8 +14,8 @@ const Layout = ({ children, title }) => {
       listeningTo={[identity?.webIdData?.inbox, identity?.webIdData?.outbox]}
     >
       <ScrollToTop />
-      <AppBar title={title} />
-      <Box>{children}</Box>
+      <AppBar title={title} opaque />
+      <Box sx={{ mt: '56px' }}>{children}</Box>
     </BackgroundChecks>
   );
 };

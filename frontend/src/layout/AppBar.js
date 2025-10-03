@@ -1,14 +1,22 @@
 import React from 'react';
-import { Typography, AppBar as MuiAppBar, IconButton, Toolbar } from '@mui/material';
+import { Typography, AppBar as MuiAppBar, IconButton, Toolbar, useScrollTrigger } from '@mui/material';
+import { useGetIdentity } from 'react-admin';
 import makeStyles from '@mui/styles/makeStyles';
 import { Link } from 'react-router-dom';
 import { UserMenu } from '@activitypods/react';
 import AppIcon from '../config/AppIcon';
 
 const useStyles = makeStyles(theme => ({
-  root: {
+  rootTransparent: {
     flexGrow: 1,
-    backgroundImage: `radial-gradient(circle at 50% 14em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`
+    backgroundColor: 'transparent',
+    boxShadow: 'unset'
+  },
+  rootOpaque: {
+    flexGrow: 1,
+    backgroundColor: 'primary',
+    backgroundImage: `radial-gradient(circle at 50% 4em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
+    boxShadow: 'unset'
   },
   menuButton: {
     color: 'white'
@@ -23,6 +31,8 @@ const useStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1,
     marginLeft: 4,
+    fontSize: 30,
+    fontFamily: 'Chewy',
     '& a': {
       color: 'white',
       textDecoration: 'none'
@@ -30,18 +40,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const AppBar = ({ title }) => {
+const AppBar = ({ title, opaque }) => {
   const classes = useStyles();
+  const trigger = useScrollTrigger({ threshold: window.innerHeight - 64, disableHysteresis: true });
+  const { data: identity } = useGetIdentity();
   return (
-    <MuiAppBar position="sticky" className={classes.root}>
+    <MuiAppBar className={opaque || trigger ? classes.rootOpaque : classes.rootTransparent}>
       <Toolbar>
-        <Link to="/Event">
+        <Link to={identity?.id ? '/Event' : '/'}>
           <IconButton edge="start" className={classes.menuButton} color="inherit">
             <AppIcon fontSize="large" />
           </IconButton>
         </Link>
-        <Typography variant="h4" className={classes.title}>
-          <Link to="/Event">{title}</Link>
+        <Typography className={classes.title}>
+          <Link to={identity?.id ? '/Event' : '/'}>{title}</Link>
         </Typography>
         <UserMenu />
       </Toolbar>

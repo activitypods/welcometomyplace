@@ -17,9 +17,10 @@ const useStyles = makeStyles(theme => ({
   span: {
     color: theme.palette.primary.contrastText,
     backgroundImage: `radial-gradient(circle at 50% 4em, ${theme.palette.primary.light} 0%, ${theme.palette.primary.main} 100%)`,
+    paddingTop: theme.spacing(0.25),
     paddingBottom: theme.spacing(0.25),
     paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(5)
+    paddingRight: theme.spacing(4)
   }
 }));
 

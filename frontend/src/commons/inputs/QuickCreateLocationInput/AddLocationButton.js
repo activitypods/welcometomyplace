@@ -13,7 +13,7 @@ import {
   useGetList
 } from 'react-admin';
 import { useFormContext } from 'react-hook-form';
-import { Button, Dialog, DialogTitle, DialogContent, DialogActions } from '@mui/material';
+import { Button, Dialog, DialogTitle, DialogContent, DialogActions, useMediaQuery } from '@mui/material';
 import makeStyles from '@mui/styles/makeStyles';
 import IconCancel from '@mui/icons-material/Cancel';
 import AddIcon from '@mui/icons-material/Add';
@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     margin: '10px 0 0 12px',
     padding: '8px 12px',
     [theme.breakpoints.down('sm')]: {
-      margin: '-12px 0 12px 0'
+      margin: '11px 0 12px 6px'
     }
   }
 }));
@@ -37,6 +37,7 @@ const AddLocationButton = ({ reference, source, onChange }) => {
   const [showDialog, setShowDialog] = useState(false);
   const [create, { isLoading }] = useCreate();
   const { data: existingLocations } = useGetList(reference);
+  const xs = useMediaQuery(theme => theme.breakpoints.down('sm'), { noSsr: true });
   const translate = useTranslate();
   const notify = useNotify();
 
@@ -78,7 +79,7 @@ const AddLocationButton = ({ reference, source, onChange }) => {
           color="primary"
           startIcon={<AddIcon />}
         >
-          {translate('app.action.add_location')}
+          {translate(xs ? 'app.action.add' : 'app.action.add_location')}
         </Button>
         <Dialog fullWidth open={showDialog} onClose={() => setShowDialog(false)}>
           <DialogTitle>{translate('app.action.add_location')}</DialogTitle>

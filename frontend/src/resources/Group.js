@@ -1,6 +1,6 @@
 import urlJoin from 'url-join';
 
-export default {
+const Group = {
   dataModel: {
     shapeTreeUri: urlJoin(process.env.REACT_APP_SHAPE_REPOSITORY_URL, 'shapetrees/vcard/Group'),
     list: {
@@ -8,3 +8,5 @@ export default {
     }
   }
 };
+
+export default Group;

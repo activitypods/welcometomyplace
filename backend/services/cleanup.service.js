@@ -14,18 +14,22 @@ module.exports = {
       for (const actorUri of actorsUris) {
         this.logger.info(`Cleaning up events of ${actorUri}...`);
 
-        const { body: eventsContainer } = await ctx.call('events.list', { actorUri });
+        try {
+          const { body: eventsContainer } = await ctx.call('events.list', { actorUri });
 
-        for (const event of arrayOf(eventsContainer?.['ldp:contains'])) {
-          const endTimeDate = new Date(event.endTime);
-          if (endTimeDate < limitDate && event['dc:creator'] === actorUri) {
-            this.logger.info(`Event ${event.name} finished more than 18 months ago (${endTimeDate}), deleting...`);
+          for (const event of arrayOf(eventsContainer?.['ldp:contains'])) {
+            const endTimeDate = new Date(event.endTime);
+            if (endTimeDate < limitDate && event['dc:creator'] === actorUri) {
+              this.logger.info(`Event ${event.name} finished more than 18 months ago (${endTimeDate}), deleting...`);
 
-            await ctx.call('events.delete', { resourceUri: event.id || event['@id'], actorUri });
+              await ctx.call('events.delete', { resourceUri: event.id || event['@id'], actorUri });
 
-            // Wait 1min, to ensure all users have deleted their cache
-            await delay(180000);
+              // Wait 1min, to ensure all users have deleted their cache
+              await delay(180000);
+            }
           }
+        } catch (e) {
+          this.logger.warn(`Could not delete old events of actor ${actorUri}. Error: ${e.message}`);
         }
       }
     },

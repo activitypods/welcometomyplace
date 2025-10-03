@@ -4,7 +4,7 @@ import EventList from './EventList';
 import EventShow from './EventShow';
 import EventCreate from './EventCreate';
 
-export default {
+const Event = {
   config: {
     list: EventList,
     show: EventShow,
@@ -53,3 +53,5 @@ export default {
     }
   }
 };
+
+export default Event;

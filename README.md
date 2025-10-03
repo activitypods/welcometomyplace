@@ -61,7 +61,7 @@ You can see the application details at http://localhost:3001/app
 You now have access to Moleculer CLI. Enter this command to insert all the available event formats:
 
 ```
-call formats.freshImport
+call importers.formats.freshImport
 ```
 
 ### Launch the frontend

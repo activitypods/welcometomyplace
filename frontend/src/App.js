@@ -12,7 +12,7 @@ import * as resources from './resources';
 import Layout from './layout/Layout';
 import theme from './config/theme';
 
-import HomePage from './pages/HomePage';
+import HomePage from './pages/HomePage/HomePage';
 
 const MyLoginPage = props => (
   <LoginPage

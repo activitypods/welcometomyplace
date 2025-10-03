@@ -73,7 +73,7 @@ const EventShow = props => {
                     label="vcard:given-name"
                     image="vcard:photo"
                     defaultLabel={translate('app.user.unknown')}
-                    labelColor="grey"
+                    // labelColor="grey"
                   />
                 </LinkToExternalApp>
               </ReferenceField>

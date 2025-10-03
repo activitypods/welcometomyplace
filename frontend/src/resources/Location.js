@@ -1,6 +1,6 @@
 import urlJoin from 'url-join';
 
-export default {
+const Location = {
   dataModel: {
     shapeTreeUri: urlJoin(process.env.REACT_APP_SHAPE_REPOSITORY_URL, 'shapetrees/vcard/Location')
   },
@@ -23,3 +23,5 @@ export default {
     }
   }
 };
+
+export default Location;
