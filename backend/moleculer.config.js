@@ -15,6 +15,7 @@ const cacherConfig = CONFIG.REDIS_CACHE_URL
     }
   : undefined;
 
+// Temporary solution for https://github.com/assemblee-virtuelle/semapps/issues/1424
 const SkipOrphanBlankNodesCleanupMiddleware = () => ({
   name: 'SkipOrphanBlankNodesCleanupMiddleware',
   localAction: (next, action) => {
