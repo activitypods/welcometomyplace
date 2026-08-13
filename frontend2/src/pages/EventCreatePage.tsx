@@ -4,7 +4,7 @@ import { useForm } from '@refinedev/antd';
 import { useNavigate } from 'react-router';
 import { Button, Card, Form, Spin } from 'antd';
 
-import AuthenticatedLayout from '../components/layout/AuthenticatedLayout';
+import PageLayout from '../components/layout/PageLayout';
 import EventForm from '../components/event/EventForm';
 import useWaitForPredicates from '../hooks/useWaitForPredicates';
 import type { EventRecord } from '../types';
@@ -29,17 +29,17 @@ const EventCreatePage = () => {
 
   if (creating) {
     return (
-      <AuthenticatedLayout>
+      <PageLayout>
         <div style={{ padding: 48, textAlign: 'center' }}>
           <Spin size="large" />
           <p style={{ marginTop: 16 }}>{t('event.event_creating')}</p>
         </div>
-      </AuthenticatedLayout>
+      </PageLayout>
     );
   }
 
   return (
-    <AuthenticatedLayout>
+    <PageLayout>
       <div style={{ maxWidth: 800, margin: '0 auto', padding: 24 }}>
         <h1 className="ap-font-display">{t('event.create')}</h1>
         <Card>
@@ -53,7 +53,7 @@ const EventCreatePage = () => {
           </Form>
         </Card>
       </div>
-    </AuthenticatedLayout>
+    </PageLayout>
   );
 };
 

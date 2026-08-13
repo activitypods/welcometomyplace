@@ -68,6 +68,15 @@
     "book_club": "Book club",
     "talking_circle": "Talking circle"
   },
+  "format": {
+    "all_formats": "All event formats",
+    "recipe": "Recipe",
+    "propose_this": "Host this kind of encounter",
+    "name": "Name",
+    "summary": "Summary",
+    "create": "Add a format",
+    "edit": "Edit format"
+  },
   "time": {
     "days_one": "{{count}} day",
     "days_other": "{{count}} days",

@@ -10,7 +10,7 @@ import ScrollToTop from './ScrollToTop';
  * `@activitypods/refine-providers`'s `auth-provider.ts` — so there's nothing left to do here
  * beyond the visual chrome.
  */
-const AuthenticatedLayout = ({ children }: { children: ReactNode }) => (
+const PageLayout = ({ children }: { children: ReactNode }) => (
   <>
     <ScrollToTop />
     <AppBar opaque />
@@ -18,4 +18,4 @@ const AuthenticatedLayout = ({ children }: { children: ReactNode }) => (
   </>
 );
 
-export default AuthenticatedLayout;
+export default PageLayout;

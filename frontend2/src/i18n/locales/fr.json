@@ -68,6 +68,15 @@
     "book_club": "Cercle de lecture",
     "talking_circle": "Cercle de parole"
   },
+  "format": {
+    "all_formats": "Tous les formats d'événements",
+    "recipe": "Recette",
+    "propose_this": "Proposer ce type de rencontre chez soi",
+    "name": "Nom",
+    "summary": "Résumé",
+    "create": "Ajouter un format",
+    "edit": "Modifier le format"
+  },
   "time": {
     "days_one": "{{count}} jour",
     "days_other": "{{count}} jours",

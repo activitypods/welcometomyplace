@@ -3,20 +3,17 @@ import { useForm } from '@refinedev/antd';
 import { Button, Card, Form, Spin } from 'antd';
 
 import PageLayout from '../components/layout/PageLayout';
-import EventForm from '../components/event/EventForm';
-import type { EventRecord } from '../types';
+import FormatForm from '../components/format/FormatForm';
+import type { FormatRecord } from '../types';
 
-const EventEditPage = () => {
+const FormatEditPage = () => {
   const { t } = useTranslation();
-  const { formProps, form, saveButtonProps, formLoading } = useForm<EventRecord>({
-    resource: 'event',
-    redirect: 'show'
-  });
+  const { formProps, saveButtonProps, formLoading } = useForm<FormatRecord>({ resource: 'format', redirect: 'show' });
 
   return (
     <PageLayout>
       <div style={{ maxWidth: 800, margin: '0 auto', padding: 24 }}>
-        <h1 className="ap-font-display">{formProps.initialValues?.name}</h1>
+        <h1 className="ap-font-display">{t('format.edit')}</h1>
         <Card>
           {formLoading ? (
             <div style={{ textAlign: 'center', padding: 48 }}>
@@ -24,7 +21,7 @@ const EventEditPage = () => {
             </div>
           ) : (
             <Form {...formProps} layout="vertical">
-              <EventForm form={form} />
+              <FormatForm />
               <Form.Item style={{ marginBottom: 0 }}>
                 <Button type="primary" {...saveButtonProps}>
                   {t('actions.save')}
@@ -38,4 +35,4 @@ const EventEditPage = () => {
   );
 };
 
-export default EventEditPage;
+export default FormatEditPage;

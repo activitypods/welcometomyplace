@@ -5,7 +5,7 @@ import { Alert, Button, Col, Grid, Row, Spin, Tabs } from 'antd';
 import { HomeOutlined, PlusOutlined } from '@ant-design/icons';
 import { Link } from 'react-router';
 
-import AuthenticatedLayout from '../components/layout/AuthenticatedLayout';
+import PageLayout from '../components/layout/PageLayout';
 import EventListItem from '../components/event/EventListItem';
 import ProfileCard from '../components/event/ProfileCard';
 import { APP_DESCRIPTION, ORGANIZATION_NAME, ORGANIZATION_URL } from '../config/env';
@@ -30,7 +30,7 @@ const EventListPage = () => {
   });
 
   return (
-    <AuthenticatedLayout>
+    <PageLayout>
       <div style={{ backgroundColor: '#fff', padding: '24px 24px 0' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <h1 className="ap-font-display" style={{ margin: 0 }}>
@@ -84,7 +84,7 @@ const EventListPage = () => {
           </Col>
         </Row>
       </div>
-    </AuthenticatedLayout>
+    </PageLayout>
   );
 };
 

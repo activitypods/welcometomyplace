@@ -2,7 +2,7 @@ import { useTranslation } from 'react-i18next';
 import { useOne, useParsed } from '@refinedev/core';
 import { Col, Grid, Image, Row, Space, Spin } from 'antd';
 
-import AuthenticatedLayout from '../components/layout/AuthenticatedLayout';
+import PageLayout from '../components/layout/PageLayout';
 import EventDetails from '../components/event/EventDetails';
 import EventAlert from '../components/event/EventAlert';
 import EventConditions from '../components/event/EventConditions';
@@ -41,26 +41,26 @@ const EventShowPage = () => {
 
   if (query.isLoading || !event) {
     return (
-      <AuthenticatedLayout>
+      <PageLayout>
         <div style={{ padding: 48, textAlign: 'center' }}>
           <Spin size="large" />
         </div>
-      </AuthenticatedLayout>
+      </PageLayout>
     );
   }
 
   const image = Array.isArray(event.image) ? event.image[0] : event.image;
 
   return (
-    <AuthenticatedLayout>
+    <PageLayout>
       <div style={{ backgroundColor: '#fff', paddingTop: 16, paddingBottom: 8 }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
           <Row justify="space-between" align="top" gutter={[16, 16]}>
             <Col xs={24} sm={18}>
               {format && (
                 <div style={{ fontSize: 14, marginBottom: 4 }}>
-                  {formatParent?.['rdfs:label'] && <>{formatParent['rdfs:label']} &nbsp;&gt;&nbsp; </>}
-                  {format['rdfs:label']}
+                  {formatParent?.name && <>{formatParent.name} &nbsp;&gt;&nbsp; </>}
+                  {format.name}
                 </div>
               )}
               <h1 className="ap-font-display" style={{ margin: 0, lineHeight: 1.15 }}>
@@ -139,7 +139,7 @@ const EventShowPage = () => {
           )}
         </Row>
       </div>
-    </AuthenticatedLayout>
+    </PageLayout>
   );
 };
 

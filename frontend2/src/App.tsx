@@ -14,12 +14,16 @@ import { authProvider, dataProvider, formatDataProvider } from './providers';
 import { i18nProvider } from './i18n';
 import { APP_LANG, DEFAULT_POD_PROVIDER } from './config/env';
 import theme from './theme';
-import AuthenticatedLayout from './components/layout/AuthenticatedLayout';
+import PageLayout from './components/layout/PageLayout';
 import HomePage from './pages/HomePage';
 import EventListPage from './pages/EventListPage';
 import EventShowPage from './pages/EventShowPage';
 import EventCreatePage from './pages/EventCreatePage';
 import EventEditPage from './pages/EventEditPage';
+import FormatListPage from './pages/FormatListPage';
+import FormatShowPage from './pages/FormatShowPage';
+import FormatCreatePage from './pages/FormatCreatePage';
+import FormatEditPage from './pages/FormatEditPage';
 
 const antdLocale = APP_LANG === 'fr' ? frFR : enUS;
 
@@ -37,7 +41,14 @@ const App = () => (
             { name: 'location' },
             { name: 'profile' },
             { name: 'group' },
-            { name: 'format', list: '/formats', show: '/formats/:id', meta: { dataProviderName: 'appServer' } }
+            {
+              name: 'format',
+              list: '/formats',
+              show: '/formats/:id',
+              create: '/formats/create',
+              edit: '/formats/:id/edit',
+              meta: { dataProviderName: 'appServer' }
+            }
           ]}
           notificationProvider={useNotificationProvider}
           options={{
@@ -48,6 +59,10 @@ const App = () => (
         >
           <Routes>
             <Route path="/" element={<HomePage />} />
+
+            {/* Public, reachable anonymously — matches the old app's `disableAuthentication` list/show. */}
+            <Route path="/formats" element={<FormatListPage />} />
+            <Route path="/formats/:id" element={<FormatShowPage />} />
 
             {/*
               Not wrapped in <Authenticated>: AntdAuthPage handles every stage (provider picker,
@@ -70,14 +85,16 @@ const App = () => (
               <Route path="/events/create" element={<EventCreatePage />} />
               <Route path="/events/:id" element={<EventShowPage />} />
               <Route path="/events/:id/edit" element={<EventEditPage />} />
+              <Route path="/formats/create" element={<FormatCreatePage />} />
+              <Route path="/formats/:id/edit" element={<FormatEditPage />} />
             </Route>
 
             <Route
               element={
                 <Authenticated key="catch-all">
-                  <AuthenticatedLayout>
+                  <PageLayout>
                     <Outlet />
-                  </AuthenticatedLayout>
+                  </PageLayout>
                 </Authenticated>
               }
             >
