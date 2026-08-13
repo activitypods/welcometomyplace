@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 
 import PageLayout from '../components/layout/PageLayout';
 import MarkdownContent from '../components/common/MarkdownContent';
-import EditButton from '../components/common/EditButton';
 import type { FormatRecord } from '../types';
 
 const FormatShowPage = () => {
@@ -27,9 +26,6 @@ const FormatShowPage = () => {
     <PageLayout>
       <div style={{ backgroundColor: '#fff', padding: '32px 24px' }}>
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
-          <div style={{ textAlign: 'right' }}>
-            <EditButton creatorUri={format['dc:creator']} to={`/formats/${encodeURIComponent(format.id)}/edit`} />
-          </div>
           <h1 className="ap-font-display" style={{ textAlign: 'center', margin: '16px 0' }}>
             {format.name}
           </h1>

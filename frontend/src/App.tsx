@@ -86,6 +86,8 @@ const App = () => (
               <Route path="/events/create" element={<EventCreatePage />} />
               <Route path="/events/:id" element={<EventShowPage />} />
               <Route path="/events/:id/edit" element={<EventEditPage />} />
+              {/* No button anywhere links here — matches the old app, where these routes existed
+                  but weren't linked from the UI either (Format isn't meant to be user-writable). */}
               <Route path="/formats/create" element={<FormatCreatePage />} />
               <Route path="/formats/:id/edit" element={<FormatEditPage />} />
             </Route>
