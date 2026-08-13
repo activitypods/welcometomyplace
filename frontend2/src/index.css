@@ -89,6 +89,13 @@ h4,
   color: #ff8c00 !important;
 }
 
+.ap-hero {
+  /* `dvh` accounts for mobile browser chrome (address bar) so the hero doesn't jump/clip on
+     scroll; falls back to `vh` on browsers that don't support it. */
+  height: 100vh;
+  height: 100dvh;
+}
+
 /* Rendered Markdown content (event descriptions, format recipes). */
 .ap-markdown p {
   white-space: pre-wrap;

@@ -79,11 +79,6 @@ const EventShowPage = () => {
           <div style={{ padding: '16px 0' }}>
             <EventDetails event={event} orientation={isMobile ? 'vertical' : 'horizontal'} />
           </div>
-          {isMobile && (
-            <div style={{ paddingBottom: 16 }}>
-              <JoinButton event={event} type="primary" block />
-            </div>
-          )}
         </div>
       </div>
 
@@ -139,6 +134,23 @@ const EventShowPage = () => {
           )}
         </Row>
       </div>
+
+      {isMobile && (
+        <div
+          className="ap-gradient-surface"
+          style={{
+            position: 'fixed',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            padding: '8px 16px',
+            zIndex: 100,
+            boxShadow: '0 -2px 8px rgba(0,0,0,0.15)'
+          }}
+        >
+          <JoinButton event={event} type="primary" block />
+        </div>
+      )}
     </PageLayout>
   );
 };

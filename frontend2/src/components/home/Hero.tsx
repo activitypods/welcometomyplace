@@ -7,12 +7,12 @@ const Hero = () => {
 
   return (
     <div
+      className="ap-hero"
       style={{
         backgroundImage: 'url("/images/background.png")',
         backgroundPosition: 'center bottom',
         backgroundSize: 'cover',
         width: '100%',
-        height: '100vh',
         position: 'relative'
       }}
     >

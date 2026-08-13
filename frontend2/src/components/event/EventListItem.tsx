@@ -1,4 +1,4 @@
-import { Card } from 'antd';
+import { Card, Grid } from 'antd';
 import { Link } from 'react-router';
 
 import EventCard from './EventCard';
@@ -9,21 +9,24 @@ type Props = {
 };
 
 const EventListItem = ({ event }: Props) => {
+  const screens = Grid.useBreakpoint();
+  const isMobile = !screens.sm;
   const image = Array.isArray(event.image) ? event.image[0] : event.image;
   const startDate = new Date(event.startTime);
+
+  const imageBlockStyle = isMobile ? { width: '100%', height: 160 } : { width: 180, minWidth: 180 };
 
   return (
     <Link to={`/events/${encodeURIComponent(event.id)}`} style={{ color: 'inherit' }}>
       <Card
-        styles={{ body: { display: 'flex', padding: 0 } }}
+        styles={{ body: { display: 'flex', flexDirection: isMobile ? 'column' : 'row', padding: 0 } }}
         style={{ marginBottom: 16, overflow: 'hidden' }}
         hoverable
       >
         {image ? (
           <div
             style={{
-              width: 180,
-              minWidth: 180,
+              ...imageBlockStyle,
               backgroundImage: `url("${image}")`,
               backgroundSize: 'cover',
               backgroundPosition: 'center'
@@ -33,8 +36,7 @@ const EventListItem = ({ event }: Props) => {
           <div
             className="ap-gradient-surface"
             style={{
-              width: 180,
-              minWidth: 180,
+              ...imageBlockStyle,
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',

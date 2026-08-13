@@ -1,5 +1,5 @@
 import { useOne } from '@refinedev/core';
-import { Alert, Spin } from 'antd';
+import { Alert, Grid, Spin } from 'antd';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 import 'leaflet/dist/leaflet.css';
@@ -13,6 +13,7 @@ type Props = {
 };
 
 const HostLocationMap = ({ locationUri }: Props) => {
+  const screens = Grid.useBreakpoint();
   const { result: location, query } = useOne<LocationRecord>({
     resource: 'location',
     id: locationUri,
@@ -31,7 +32,12 @@ const HostLocationMap = ({ locationUri }: Props) => {
   return (
     <div>
       {lat && lng ? (
-        <MapContainer center={[lat, lng]} zoom={15} style={{ height: 400, width: '100%', borderRadius: 8 }} scrollWheelZoom={false}>
+        <MapContainer
+          center={[lat, lng]}
+          zoom={15}
+          style={{ height: screens.sm ? 400 : 250, width: '100%', borderRadius: 8 }}
+          scrollWheelZoom={false}
+        >
           <TileLayer
             attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
