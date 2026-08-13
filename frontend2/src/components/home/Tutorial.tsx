@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Col, Row, Typography } from 'antd';
+import { Col, Row } from 'antd';
 import { MailOutlined, TeamOutlined, ThunderboltOutlined } from '@ant-design/icons';
 
 const steps = [
@@ -13,23 +13,15 @@ const Tutorial = () => {
 
   return (
     <div style={{ padding: '96px 16px', backgroundColor: '#fff' }}>
-      <Typography.Title
-        level={2}
-        className="ap-font-display"
-        style={{ textAlign: 'center', fontSize: 'clamp(40px, 5vw, 50px)', color: '#FFA500' }}
-      >
-        {t('home.how_does_it_work')}
-      </Typography.Title>
+      <h2 className="ap-heading-accent ap-font-display">{t('home.how_does_it_work')}</h2>
       <Row gutter={[64, 48]} style={{ maxWidth: 1100, margin: '0 auto' }}>
         {steps.map(({ key, Icon }) => (
           <Col xs={24} sm={8} key={key}>
             <div style={{ textAlign: 'center' }}>
               <Icon style={{ fontSize: 60, color: '#FFA500', marginBottom: 16 }} />
             </div>
-            <Typography.Paragraph style={{ textAlign: 'center', fontSize: 20, color: '#000' }}>
-              {t(`home.${key}.description`)}
-            </Typography.Paragraph>
-            <Typography.Text
+            <p style={{ textAlign: 'center', fontSize: 20, color: '#000' }}>{t(`home.${key}.description`)}</p>
+            <span
               className="ap-font-display"
               style={{
                 display: 'block',
@@ -41,7 +33,7 @@ const Tutorial = () => {
               }}
             >
               {t(`home.${key}.hashtag`)}
-            </Typography.Text>
+            </span>
           </Col>
         ))}
       </Row>

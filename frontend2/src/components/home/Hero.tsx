@@ -1,16 +1,6 @@
-import type { CSSProperties } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Button, Typography } from 'antd';
+import { Button } from 'antd';
 import { Link } from 'react-router';
-
-const ctaButtonStyle: CSSProperties = {
-  padding: '28px 40px',
-  borderRadius: 999,
-  color: '#FFA500',
-  fontSize: 20,
-  fontFamily: 'Chewy, serif',
-  height: 'auto'
-};
 
 const Hero = () => {
   const { t } = useTranslation();
@@ -38,36 +28,17 @@ const Hero = () => {
           justifyContent: 'center'
         }}
       >
-        <Typography.Title
-          style={{
-            textAlign: 'center',
-            fontSize: 'clamp(30px, 5vw, 50px)',
-            fontWeight: 'bold',
-            maxWidth: 650,
-            lineHeight: 1.1,
-            marginBottom: 16,
-            fontFamily: 'inherit',
-            color: '#fff'
-          }}
-        >
-          {t('home.title')}
-        </Typography.Title>
-        <Typography.Text
-          style={{ textAlign: 'center', fontSize: 'clamp(20px, 3vw, 30px)', maxWidth: 650, lineHeight: 1.1, color: '#fff' }}
-        >
-          {t('home.subtitle')}
-        </Typography.Text>
+        <h1 className="ap-hero-title">{t('home.title')}</h1>
+        <p className="ap-hero-subtitle">{t('home.subtitle')}</p>
       </div>
       <div style={{ position: 'absolute', bottom: 64, width: '100%', textAlign: 'center' }}>
         <Link to="/login?signup=true">
-          <Button type="default" style={{ ...ctaButtonStyle, marginRight: 16 }}>
+          <Button className="ap-btn-pill ap-btn-pill-white" style={{ marginRight: 16 }}>
             {t('actions.signup')}
           </Button>
         </Link>
         <Link to="/login">
-          <Button type="default" style={ctaButtonStyle}>
-            {t('actions.login')}
-          </Button>
+          <Button className="ap-btn-pill ap-btn-pill-white">{t('actions.login')}</Button>
         </Link>
       </div>
     </div>

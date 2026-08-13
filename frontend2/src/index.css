@@ -24,3 +24,67 @@ h4,
   background-image: radial-gradient(circle at 50% 3em, #ffc300 0%, #ffa500 100%);
   color: #fff;
 }
+
+/* Bespoke marketing sections (home page) use plain tags + these classes instead of Antd's
+   Typography/Button, so their colors/sizing are never at the mercy of Antd's own component
+   styles (which take precedence over inline `style` on some versions/components). */
+.ap-hero-title,
+.ap-hero-subtitle {
+  color: #fff !important;
+  text-align: center;
+  margin: 0;
+}
+
+.ap-hero-title {
+  /* The hero headline uses the regular body font (bold), not the Chewy display font used
+     elsewhere — overrides the global `h1{font-family:Chewy}` rule below. */
+  font-family: inherit;
+  font-size: clamp(30px, 5vw, 50px);
+  font-weight: 700;
+  line-height: 1.15;
+  max-width: 650px;
+  margin-bottom: 16px;
+}
+
+.ap-hero-subtitle {
+  font-size: clamp(20px, 3vw, 30px);
+  line-height: 1.2;
+  max-width: 650px;
+}
+
+.ap-appbar-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 28px;
+  color: #fff !important;
+}
+
+.ap-heading-accent {
+  color: #ffa500 !important;
+  text-align: center;
+  font-size: clamp(36px, 5vw, 50px);
+}
+
+.ap-btn-pill.ant-btn {
+  border-radius: 999px;
+  font-family: 'Chewy', serif;
+  font-weight: 400;
+  font-size: 18px;
+  height: auto;
+  line-height: 1.3;
+  padding: 10px 32px;
+}
+
+.ap-btn-pill-white.ant-btn {
+  background: #fff;
+  border-color: #fff;
+  color: #ffa500 !important;
+}
+
+.ap-btn-pill-white.ant-btn:hover,
+.ap-btn-pill-white.ant-btn:focus {
+  background: #fff6e6;
+  border-color: #fff6e6;
+  color: #ff8c00 !important;
+}

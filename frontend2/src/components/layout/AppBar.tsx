@@ -1,4 +1,4 @@
-import { Layout, Typography } from 'antd';
+import { Layout } from 'antd';
 import { Link } from 'react-router';
 import { useGetIdentity } from '@refinedev/core';
 
@@ -40,10 +40,8 @@ const AppBar = ({ opaque }: Props) => {
         transition: 'background-color 0.2s ease'
       }}
     >
-      <Link to={homeLink} style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#fff' }}>
-        <Typography.Text className="ap-font-display" style={{ fontSize: 28, color: '#fff' }}>
-          {APP_NAME}
-        </Typography.Text>
+      <Link to={homeLink} className="ap-appbar-title ap-font-display">
+        {APP_NAME}
       </Link>
       <UserMenu />
     </Layout.Header>
