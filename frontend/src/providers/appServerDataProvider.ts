@@ -32,8 +32,13 @@ const appServerDataProvider = ({ authProvider, resources }: AppServerDataProvide
 
   const getToken = () => authProvider.getSession()?.token;
 
+  // Reads are always anonymous: `formats.service.js` (and any other resource hosted on this
+  // provider) grants `anon: { read: true }`, and this app backend — unlike the Pod provider —
+  // has no `auth` service to validate a bearer token against. Sending one anyway makes the LDP
+  // catch-all route's authenticate hook call the (nonexistent) `auth.authenticate` action, which
+  // fails with a `ServiceNotFoundError` that Moleculer serializes as an unrelated-looking 404.
   const fetchOne = async (id: string) => {
-    const { json } = await fetchJson(id, {}, getToken());
+    const { json } = await fetchJson(id);
     return normalizeRecord(json, json['@context']);
   };
 
@@ -42,7 +47,7 @@ const appServerDataProvider = ({ authProvider, resources }: AppServerDataProvide
 
     getList: async ({ resource, pagination, sorters, filters }) => {
       const { containerUri } = requireResourceConfig(resource);
-      const { json: container } = await fetchJson(containerUri, {}, getToken());
+      const { json: container } = await fetchJson(containerUri);
       let records = arrayOf(container['ldp:contains']).map(item => normalizeRecord(item, container['@context']));
 
       records = applyFilters(records, filters);
