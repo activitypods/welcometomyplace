@@ -12,7 +12,9 @@
     "signup": "S'inscrire",
     "logout": "Se déconnecter",
     "back": "Retour",
-    "refresh": "Actualiser"
+    "refresh": "Actualiser",
+    "upload": "Choisir une image",
+    "add": "Ajouter"
   },
   "nav": {
     "my_events": "Mes rencontres",
@@ -50,6 +52,16 @@
     "app_supported_by": "Une application sociale portée par",
     "reconnexion_tagline": "Faciliter l'émergence d'un Réseau Social Universel favorisant la rencontre, l'entraide et la coopération."
   },
+  "validation": {
+    "required": "Champ requis",
+    "future_date": "Doit être dans le futur",
+    "after_start_time": "Doit être après la date de début",
+    "before_start_time": "Doit être avant la date de début"
+  },
+  "markdown": {
+    "write": "Écrire",
+    "preview": "Aperçu"
+  },
   "formats": {
     "open_table": "Table ouverte",
     "film_debate": "Ciné-échanges",
@@ -74,6 +86,28 @@
     "max_attendees": "Participants maximum",
     "attendees": "Participants",
     "location": "Adresse",
+    "search_address": "Rechercher une adresse",
+    "add_location": "Ajouter une adresse",
+    "add_short": "Ajouter",
+    "location_name": "Nom du lieu",
+    "location_comment": "Indications supplémentaires pour aider les invités à trouver ce lieu",
+    "select_location": "Choisir un lieu",
+    "no_location": "Aucun lieu pour l'instant",
+    "default_location_name": "Chez {{name}}",
+    "content": "Présentation",
+    "start_time": "Date de début",
+    "end_time": "Date de fin",
+    "event_type": "Type d'événement",
+    "other_conditions": "Autres conditions",
+    "other_conditions_help": "Vous pouvez entrer plusieurs conditions supplémentaires (une par ligne)",
+    "max_attendees_help": "Attention : vous êtes compté comme participant",
+    "event_created": "Rencontre créée",
+    "event_updated": "Rencontre mise à jour",
+    "event_creating": "Rencontre en cours de création",
+    "title": "Titre",
+    "image": "Image",
+    "first_event_help": "Si vous avez des questions ou difficultés concernant la création de rencontres, n'hésitez pas à nous contacter sur le",
+    "forum_name": "Forum Reconnexion",
     "unknown_user": "Inconnu",
     "tab_coming": "Prochaines rencontres",
     "tab_finished": "Rencontres terminées",

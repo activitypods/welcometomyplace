@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useList } from '@refinedev/core';
-import { Alert, Col, Row, Spin, Tabs } from 'antd';
-import { HomeOutlined } from '@ant-design/icons';
+import { Alert, Button, Col, Grid, Row, Spin, Tabs } from 'antd';
+import { HomeOutlined, PlusOutlined } from '@ant-design/icons';
+import { Link } from 'react-router';
 
 import AuthenticatedLayout from '../components/layout/AuthenticatedLayout';
 import EventListItem from '../components/event/EventListItem';
@@ -13,6 +14,7 @@ import type { EventRecord } from '../types';
 const EventListPage = () => {
   const { t } = useTranslation();
   const [tab, setTab] = useState<'coming' | 'finished'>('coming');
+  const screens = Grid.useBreakpoint();
 
   const { result, query } = useList<EventRecord>({
     resource: 'event',
@@ -30,10 +32,15 @@ const EventListPage = () => {
   return (
     <AuthenticatedLayout>
       <div style={{ backgroundColor: '#fff', padding: '24px 24px 0' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
           <h1 className="ap-font-display" style={{ margin: 0 }}>
             {t('event.my_events')}
           </h1>
+          <Link to="/events/create">
+            <Button type="primary" icon={<PlusOutlined />}>
+              {screens.sm ? t('event.create') : t('event.create_short')}
+            </Button>
+          </Link>
         </div>
       </div>
       <Tabs

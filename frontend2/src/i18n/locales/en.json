@@ -12,7 +12,9 @@
     "signup": "Sign up",
     "logout": "Log out",
     "back": "Back",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "upload": "Upload",
+    "add": "Add"
   },
   "nav": {
     "my_events": "My events",
@@ -50,6 +52,16 @@
     "app_supported_by": "A social app supported by",
     "reconnexion_tagline": "Facilitating the emergence of a Universal Social Network promoting encounters, mutual aid, and cooperation."
   },
+  "validation": {
+    "required": "Required",
+    "future_date": "Must be in the future",
+    "after_start_time": "Must be after the start time",
+    "before_start_time": "Must be before the start time"
+  },
+  "markdown": {
+    "write": "Write",
+    "preview": "Preview"
+  },
   "formats": {
     "open_table": "Open table",
     "film_debate": "Film debate",
@@ -74,6 +86,28 @@
     "max_attendees": "Max attendees",
     "attendees": "Attendees",
     "location": "Location",
+    "search_address": "Search an address",
+    "add_location": "Add an address",
+    "add_short": "Add",
+    "location_name": "Location name",
+    "location_comment": "Additional information to help attendees find this place",
+    "select_location": "Choose a location",
+    "no_location": "No location yet",
+    "default_location_name": "At {{name}}'s",
+    "content": "About",
+    "start_time": "Start time",
+    "end_time": "End time",
+    "event_type": "Event type",
+    "other_conditions": "Other conditions",
+    "other_conditions_help": "You can enter several additional conditions (one per line)",
+    "max_attendees_help": "Warning: you are counted as an attendee",
+    "event_created": "Event created",
+    "event_updated": "Event updated",
+    "event_creating": "The event is being created",
+    "title": "Title",
+    "image": "Image",
+    "first_event_help": "If you have questions or troubles regarding the creation of events, feel free to contact us on",
+    "forum_name": "Forum Reconnexion",
     "unknown_user": "Unknown",
     "tab_coming": "Coming events",
     "tab_finished": "Finished events",
