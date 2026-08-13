@@ -5,12 +5,14 @@ import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router';
 
 import useOpenExternalApp from '../../hooks/useOpenExternalApp';
+import useOwnActor from '../../hooks/useOwnActor';
 import type { Identity } from '../../types';
 
 const UserMenu = () => {
   const { t } = useTranslation();
   const { data: identity, isLoading } = useGetIdentity<Identity>();
   const { mutate: logout } = useLogout();
+  const { data: ownActor } = useOwnActor();
   const openExternalApp = useOpenExternalApp();
 
   if (isLoading) return null;
@@ -23,7 +25,7 @@ const UserMenu = () => {
     );
   }
 
-  const profileUrl = openExternalApp('as:Profile', identity.id, 'edit');
+  const profileUrl = openExternalApp('as:Profile', ownActor?.url, 'edit');
 
   return (
     <Dropdown

@@ -88,3 +88,43 @@ h4,
   border-color: #fff6e6;
   color: #ff8c00 !important;
 }
+
+/* Rendered Markdown content (event descriptions, format recipes). */
+.ap-markdown p {
+  white-space: pre-wrap;
+  margin: 0 0 10px;
+}
+
+.ap-markdown h1 {
+  font-family: inherit;
+  margin: 20px 0 5px;
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.ap-markdown h2 {
+  font-family: inherit;
+  margin: 20px 0 5px;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+/* Section heading "pill" used throughout show pages (BodyLabel in the old app): an orange
+   gradient badge behind the label text. */
+.ap-body-label {
+  font-size: 20px;
+  line-height: 1.3;
+  margin: 24px 0 12px;
+}
+
+.ap-body-label:first-child {
+  margin-top: 0;
+}
+
+.ap-body-label span {
+  display: inline-block;
+  color: #fff;
+  background-image: radial-gradient(circle at 50% 4em, #ffc300 0%, #ffa500 100%);
+  padding: 2px 24px 2px 12px;
+  border-radius: 4px;
+}

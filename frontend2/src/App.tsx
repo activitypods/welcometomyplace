@@ -17,6 +17,7 @@ import theme from './theme';
 import AuthenticatedLayout from './components/layout/AuthenticatedLayout';
 import HomePage from './pages/HomePage';
 import EventListPage from './pages/EventListPage';
+import EventShowPage from './pages/EventShowPage';
 
 const antdLocale = APP_LANG === 'fr' ? frFR : enUS;
 
@@ -64,6 +65,7 @@ const App = () => (
               }
             >
               <Route path="/events" element={<EventListPage />} />
+              <Route path="/events/:id" element={<EventShowPage />} />
             </Route>
 
             <Route
