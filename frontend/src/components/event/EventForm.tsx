@@ -56,8 +56,10 @@ const EventForm = ({ form }: Props) => {
         rules={[
           { required: true },
           {
-            validator: async (_, value: Dayjs) => {
-              if (value && value.isBefore(dayjs())) return Promise.reject(t('validation.future_date'));
+            // `value` here is already the normalized ISO string (Form.Item runs rules against
+            // the stored value, i.e. post-`normalize`), not the Dayjs object the picker emits.
+            validator: async (_, value: string) => {
+              if (value && dayjs(value).isBefore(dayjs())) return Promise.reject(t('validation.future_date'));
             }
           }
         ]}
@@ -74,9 +76,11 @@ const EventForm = ({ form }: Props) => {
         rules={[
           { required: true },
           {
-            validator: async (_, value: Dayjs) => {
+            validator: async (_, value: string) => {
               const startTime = form.getFieldValue('startTime');
-              if (value && startTime && !value.isAfter(startTime)) return Promise.reject(t('validation.after_start_time'));
+              if (value && startTime && !dayjs(value).isAfter(dayjs(startTime))) {
+                return Promise.reject(t('validation.after_start_time'));
+              }
             }
           }
         ]}
@@ -110,9 +114,11 @@ const EventForm = ({ form }: Props) => {
         dependencies={['startTime']}
         rules={[
           {
-            validator: async (_, value: Dayjs) => {
+            validator: async (_, value: string) => {
               const startTime = form.getFieldValue('startTime');
-              if (value && startTime && !value.isBefore(startTime)) return Promise.reject(t('validation.before_start_time'));
+              if (value && startTime && !dayjs(value).isBefore(dayjs(startTime))) {
+                return Promise.reject(t('validation.before_start_time'));
+              }
             }
           }
         ]}
