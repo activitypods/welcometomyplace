@@ -66,6 +66,42 @@ h4,
   font-size: clamp(36px, 5vw, 50px);
 }
 
+.ap-page-title {
+  margin: 0;
+  font-size: clamp(32px, 5vw, 48px);
+  color: #000;
+}
+
+.ap-btn-uppercase.ant-btn {
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.ap-tabs-uppercase.ant-tabs .ant-tabs-nav {
+  margin-bottom: 0;
+}
+
+.ap-tabs-uppercase.ant-tabs .ant-tabs-tab {
+  padding: 16px 4px;
+}
+
+.ap-tabs-uppercase.ant-tabs .ant-tabs-tab + .ant-tabs-tab {
+  margin-left: 32px;
+}
+
+.ap-tabs-uppercase.ant-tabs .ant-tabs-tab-btn {
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: rgba(0, 0, 0, 0.65);
+}
+
+.ap-tabs-uppercase.ant-tabs .ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #ffa500 !important;
+}
+
 .ap-btn-pill.ant-btn {
   border-radius: 999px;
   font-family: 'Chewy', serif;

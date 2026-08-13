@@ -31,29 +31,30 @@ const EventListPage = () => {
 
   return (
     <PageLayout>
-      <div style={{ backgroundColor: '#fff', padding: '24px 24px 0' }}>
+      <div style={{ backgroundColor: '#fff', padding: '32px 24px 24px' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
-          <h1 className="ap-font-display" style={{ margin: 0 }}>
-            {t('event.my_events')}
-          </h1>
+          <h1 className="ap-page-title">{t('event.my_events')}</h1>
           <Link to="/events/create">
-            <Button type="primary" icon={<PlusOutlined />}>
+            <Button type="primary" icon={<PlusOutlined />} className="ap-btn-uppercase">
               {screens.sm ? t('event.create') : t('event.create_short')}
             </Button>
           </Link>
         </div>
       </div>
-      <Tabs
-        activeKey={tab}
-        onChange={key => setTab(key as 'coming' | 'finished')}
-        centered={false}
-        style={{ backgroundColor: '#fff', paddingLeft: 0 }}
-        tabBarStyle={{ maxWidth: 1100, margin: '0 auto', paddingLeft: 24 }}
-        items={[
-          { key: 'coming', label: t('event.tab_coming') },
-          { key: 'finished', label: t('event.tab_finished') }
-        ]}
-      />
+      <div style={{ backgroundColor: '#eee' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
+          <Tabs
+            activeKey={tab}
+            onChange={key => setTab(key as 'coming' | 'finished')}
+            centered={false}
+            className="ap-tabs-uppercase"
+            items={[
+              { key: 'coming', label: t('event.tab_coming') },
+              { key: 'finished', label: t('event.tab_finished') }
+            ]}
+          />
+        </div>
+      </div>
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: 24 }}>
         <Row gutter={24}>
           <Col xs={24} md={16} lg={17}>
