@@ -66,11 +66,17 @@ const App = () => (
 
             {/*
               Not wrapped in <Authenticated>: AntdAuthPage handles every stage (provider picker,
-              OAuth callback, app registration) from the URL's search params, so this single
-              route doubles as the OIDC redirectUri (defaults to `${origin}/login`).
+              OAuth callback, app registration) from the URL's search params. `/login` is the
+              friendly entry point (linked from the home page); `/auth-callback` is the exact
+              redirect_uri the backend registers this app's OIDC client with (see providers.ts),
+              which the Pod provider redirects back to after login — both render the same page.
             */}
             <Route
               path="/login"
+              element={<AntdAuthPage authProvider={authProvider} defaultPodProvider={DEFAULT_POD_PROVIDER} redirect="/events" />}
+            />
+            <Route
+              path="/auth-callback"
               element={<AntdAuthPage authProvider={authProvider} defaultPodProvider={DEFAULT_POD_PROVIDER} redirect="/events" />}
             />
 

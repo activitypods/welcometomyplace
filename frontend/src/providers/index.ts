@@ -4,7 +4,11 @@ import { BACKEND_URL, CLIENT_ID, SHAPE_REPOSITORY_URL } from '../config/env';
 import appServerDataProvider from './appServerDataProvider';
 
 export const authProvider = apAuthProvider({
-  clientId: CLIENT_ID
+  clientId: CLIENT_ID,
+  // Must match the redirect_uris the backend registers this app's OIDC client with (see
+  // `backend/services/app.service.js`'s `oidc.redirectUris`) — it's `{FRONT_URL}/auth-callback`,
+  // not the package's own `/login` default, and the backend isn't ours to change.
+  redirectUri: urlJoin(window.location.origin, 'auth-callback')
 });
 
 /** Resources living on the logged-in user's own Pod, discovered via shape trees. */
