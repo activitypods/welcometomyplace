@@ -14,6 +14,11 @@ node_modules
 # misc
 .DS_Store
 /frontend/.env.local
+/frontend2/.env.local
+/frontend2/dist
+/frontend2/*.tsbuildinfo
+/frontend2/vite.config.js
+/frontend2/vite.config.d.ts
 /middleware/.env.local
 
 npm-debug.log*

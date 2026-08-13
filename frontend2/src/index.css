@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  background-color: #eaeaea;
+}
+
+a {
+  color: #ffa500;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+.ap-font-display {
+  font-family: 'Chewy', serif;
+  font-weight: 400;
+}
+
+/* The recurring orange "sunburst" gradient used across cards/headers in the current design
+   (event cards, join card, app bar, section labels). Kept as a single reusable class instead of
+   redefining it per-component. */
+.ap-gradient-surface {
+  background-image: radial-gradient(circle at 50% 3em, #ffc300 0%, #ffa500 100%);
+  color: #fff;
+}
