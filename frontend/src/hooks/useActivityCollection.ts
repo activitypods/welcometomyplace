@@ -4,6 +4,12 @@ import { arrayOf, fetchJson } from '@activitypods/refine-providers/utils';
 import { authProvider } from '../providers';
 import useOwnActor from './useOwnActor';
 
+// A stable reference for "no items yet" — `?? []` would create a new array on every call, which
+// breaks anything depending on referential stability (e.g. ShareDialog's `useEffect(() => {...},
+// [announces, announcers])`, which would then re-run — and reset in-progress toggle state — on
+// every render instead of only when the collection's actual contents change).
+const EMPTY_ITEMS: string[] = [];
+
 /**
  * Read an ActivityPub (Ordered)Collection: either a full URI, or a predicate (e.g.
  * `apods:contacts`) resolved against the logged-in user's own actor document — mirrors
@@ -42,7 +48,7 @@ const useActivityCollection = (predicateOrUri?: string) => {
   });
 
   return {
-    items: query.data ?? [],
+    items: query.data ?? EMPTY_ITEMS,
     isLoading: query.isLoading,
     error: query.error,
     refetch: query.refetch,

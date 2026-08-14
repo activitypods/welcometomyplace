@@ -19,7 +19,11 @@
   "nav": {
     "my_events": "My events",
     "home": "Home",
-    "my_profile": "My profile"
+    "my_profile": "My profile",
+    "network": "My network",
+    "apps": "My apps",
+    "data": "My data",
+    "settings": "Settings"
   },
   "pages": {
     "login": {

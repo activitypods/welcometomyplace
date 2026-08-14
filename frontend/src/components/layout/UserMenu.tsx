@@ -1,11 +1,13 @@
 import { useTranslation } from 'react-i18next';
 import { useGetIdentity, useLogout } from '@refinedev/core';
 import { Avatar, Button, Dropdown, Space } from 'antd';
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, DatabaseOutlined, LogoutOutlined, SettingOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router';
 
 import useOpenExternalApp from '../../hooks/useOpenExternalApp';
 import useOwnActor from '../../hooks/useOwnActor';
+import useNodeinfo from '../../hooks/useNodeinfo';
+import urlJoin from '../../utils/urlJoin';
 import type { Identity } from '../../types';
 
 const UserMenu = () => {
@@ -14,6 +16,9 @@ const UserMenu = () => {
   const { mutate: logout } = useLogout();
   const { data: ownActor } = useOwnActor();
   const openExternalApp = useOpenExternalApp();
+  // The Pod provider's own frontend (network/apps/data/settings pages all live there, not in
+  // this app) is discovered via the standard nodeinfo protocol against the WebID's own host.
+  const { data: nodeinfo } = useNodeinfo(identity?.id ? new URL(identity.id).host : undefined);
 
   if (isLoading) return null;
 
@@ -26,6 +31,7 @@ const UserMenu = () => {
   }
 
   const profileUrl = openExternalApp('as:Profile', ownActor?.url, 'edit');
+  const frontendUrl = nodeinfo?.metadata?.frontend_url;
 
   return (
     <Dropdown
@@ -40,6 +46,46 @@ const UserMenu = () => {
             ),
             icon: <UserOutlined />
           },
+          ...(frontendUrl
+            ? [
+                {
+                  key: 'network',
+                  label: (
+                    <a href={urlJoin(frontendUrl, 'network')} rel="noopener noreferrer">
+                      {t('nav.network')}
+                    </a>
+                  ),
+                  icon: <TeamOutlined />
+                },
+                {
+                  key: 'apps',
+                  label: (
+                    <a href={urlJoin(frontendUrl, 'apps')} rel="noopener noreferrer">
+                      {t('nav.apps')}
+                    </a>
+                  ),
+                  icon: <AppstoreOutlined />
+                },
+                {
+                  key: 'data',
+                  label: (
+                    <a href={urlJoin(frontendUrl, 'data')} rel="noopener noreferrer">
+                      {t('nav.data')}
+                    </a>
+                  ),
+                  icon: <DatabaseOutlined />
+                },
+                {
+                  key: 'settings',
+                  label: (
+                    <a href={urlJoin(frontendUrl, 'settings')} rel="noopener noreferrer">
+                      {t('nav.settings')}
+                    </a>
+                  ),
+                  icon: <SettingOutlined />
+                }
+              ]
+            : []),
           {
             key: 'logout',
             label: t('actions.logout'),

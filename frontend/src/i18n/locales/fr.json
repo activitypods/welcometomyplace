@@ -19,7 +19,11 @@
   "nav": {
     "my_events": "Mes rencontres",
     "home": "Accueil",
-    "my_profile": "Mon profil"
+    "my_profile": "Mon profil",
+    "network": "Mon réseau",
+    "apps": "Mes applis",
+    "data": "Mes données",
+    "settings": "Paramètres"
   },
   "pages": {
     "login": {
