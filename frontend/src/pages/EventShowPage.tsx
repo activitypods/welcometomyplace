@@ -54,7 +54,7 @@ const EventShowPage = () => {
 
   return (
     <PageLayout>
-      <div style={{ backgroundColor: '#fff', paddingTop: 16, paddingBottom: 8 }}>
+      <div style={{ backgroundColor: '#fff', paddingTop: 24, paddingBottom: 8 }}>
         <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
           <Row justify="space-between" align="top" gutter={[16, 16]}>
             <Col xs={24} sm={18}>

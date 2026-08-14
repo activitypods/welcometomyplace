@@ -62,11 +62,21 @@ const JoinButton = ({ event, ...buttonProps }: Props) => {
   };
 
   return joined ? (
-    <Button onClick={() => post('Leave')} disabled={pending || isOrganizer || isFinished} {...buttonProps}>
+    <Button
+      className="ap-btn-uppercase"
+      onClick={() => post('Leave')}
+      disabled={pending || isOrganizer || isFinished}
+      {...buttonProps}
+    >
       {t('event.leave')}
     </Button>
   ) : (
-    <Button onClick={() => post('Join')} disabled={pending || isOrganizer || isClosed || isFinished} {...buttonProps}>
+    <Button
+      className="ap-btn-uppercase"
+      onClick={() => post('Join')}
+      disabled={pending || isOrganizer || isClosed || isFinished}
+      {...buttonProps}
+    >
       {t('event.join')}
     </Button>
   );
