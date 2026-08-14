@@ -9,7 +9,9 @@ import type { ThemeConfig } from 'antd';
 const theme: ThemeConfig = {
   token: {
     colorPrimary: '#FFA500',
-    colorInfo: '#FFA500',
+    // Deliberately not overridden: the only "info"-typed elements in this app are plain
+    // Alert banners (draft-mode/join-right/share-right notices, location notes), which are meant
+    // to look like the old app's light-blue MUI info alerts, not brand orange.
     colorLink: '#FFA500',
     fontFamily: '"Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif',
     borderRadius: 8

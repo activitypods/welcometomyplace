@@ -158,6 +158,13 @@ h4,
   color: #fff;
 }
 
+/* Antd centers the icon against the whole (possibly wrapped, multi-line) message by default,
+   which reads as too low against a long message's first line — align it to the top instead. */
+.ant-alert-icon {
+  align-self: flex-start;
+  margin-top: 4px;
+}
+
 .ap-alert-solid .ant-alert-message a {
   color: #fff;
   text-decoration: underline;
