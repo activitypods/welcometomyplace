@@ -1,4 +1,14 @@
 {
+  "notifications": {
+    "success": "Success",
+    "error": "Error",
+    "createSuccess": "Successfully created {{resource}}",
+    "createError": "Error creating: {{statusCode}}",
+    "editSuccess": "Successfully updated {{resource}}",
+    "editError": "Error updating: {{statusCode}}",
+    "deleteSuccess": "Successfully deleted {{resource}}",
+    "deleteError": "Error deleting: {{statusCode}}"
+  },
   "actions": {
     "close": "Close",
     "cancel": "Cancel",
@@ -90,6 +100,7 @@
     "minutes_other": "{{count}} minutes"
   },
   "event": {
+    "event": "The event",
     "organizer": "Organizer",
     "date": "Date",
     "duration": "Duration",

@@ -1,4 +1,14 @@
 {
+  "notifications": {
+    "success": "Succès",
+    "error": "Erreur",
+    "createSuccess": "{{resource}} créé(e) avec succès",
+    "createError": "Erreur lors de la création : {{statusCode}}",
+    "editSuccess": "{{resource}} mis(e) à jour avec succès",
+    "editError": "Erreur lors de la mise à jour : {{statusCode}}",
+    "deleteSuccess": "{{resource}} supprimé(e) avec succès",
+    "deleteError": "Erreur lors de la suppression : {{statusCode}}"
+  },
   "actions": {
     "close": "Fermer",
     "cancel": "Annuler",
@@ -73,6 +83,7 @@
     "talking_circle": "Cercle de parole"
   },
   "format": {
+    "format": "Le format",
     "all_formats": "Tous les formats d'événements",
     "recipe": "Recette",
     "propose_this": "Proposer ce type de rencontre chez soi",
@@ -90,6 +101,7 @@
     "minutes_other": "{{count}} minutes"
   },
   "event": {
+    "event": "La rencontre",
     "organizer": "Organisateur",
     "date": "Date",
     "duration": "Durée",

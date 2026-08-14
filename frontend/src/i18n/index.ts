@@ -20,7 +20,13 @@ i18next.use(initReactI18next).init({
  * call it) but nothing in this app calls it today.
  */
 export const i18nProvider: I18nProvider = {
-  translate: (key: string, options?: any) => i18next.t(key, options) as string,
+  // Refine calls `translate(key, options, defaultMessage)` for its own built-in strings (e.g. the
+  // create/update/delete success/error notifications) — keys we haven't added to en/fr.json
+  // ourselves. Without forwarding that third argument as i18next's `defaultValue`, a missing key
+  // renders as the raw key itself (e.g. "notifications.createSuccess") instead of falling back to
+  // Refine's sensible built-in English default.
+  translate: (key: string, options?: any, defaultMessage?: string) =>
+    i18next.t(key, { ...options, defaultValue: defaultMessage }) as string,
   changeLocale: (lang: string) => i18next.changeLanguage(lang),
   getLocale: () => i18next.language
 };
