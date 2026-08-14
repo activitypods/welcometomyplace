@@ -64,7 +64,7 @@ const EventShowPage = () => {
                   {format['rdfs:label']}
                 </div>
               )}
-              <h1 className="ap-font-display" style={{ margin: 0, lineHeight: 1.15 }}>
+              <h1 className="ap-font-display" style={{ margin: 0, fontSize: 'clamp(28px, 4vw, 40px)', lineHeight: 1.15 }}>
                 {event.name}
               </h1>
             </Col>
@@ -83,11 +83,11 @@ const EventShowPage = () => {
         </div>
       </div>
 
-      <EventAlert event={event} />
-
       <div style={{ maxWidth: 1100, margin: '0 auto', padding: '24px 24px 80px' }}>
         <Row gutter={24}>
           <Col xs={24} md={16} lg={17}>
+            <EventAlert event={event} />
+
             {image && (
               <img
                 src={image}
@@ -105,11 +105,13 @@ const EventShowPage = () => {
             {attendeeUris.length > 0 && (
               <>
                 <BodyLabel>{t('event.attendees')}</BodyLabel>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 16, marginBottom: 24 }}>
+                <Row gutter={[16, 16]} style={{ marginBottom: 24 }}>
                   {attendeeUris.map(uri => (
-                    <AttendeeAvatar key={uri} actorUri={uri} />
+                    <Col key={uri} xs={8} sm={4}>
+                      <AttendeeAvatar actorUri={uri} />
+                    </Col>
                   ))}
-                </div>
+                </Row>
               </>
             )}
 

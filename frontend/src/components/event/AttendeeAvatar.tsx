@@ -18,10 +18,10 @@ const AttendeeAvatar = ({ actorUri }: Props) => {
   return (
     <a
       href={openExternalApp('as:Profile', actorUri, 'show')}
-      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, color: 'inherit', width: 80 }}
+      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, color: 'inherit' }}
     >
-      <Avatar size={56} src={profile?.['vcard:photo']} icon={!profile?.['vcard:photo'] && <UserOutlined />} />
-      <span style={{ fontSize: 12, textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: 80 }}>
+      <Avatar size={72} src={profile?.['vcard:photo']} icon={!profile?.['vcard:photo'] && <UserOutlined />} />
+      <span style={{ fontSize: 12, textAlign: 'center', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', maxWidth: '100%' }}>
         {name}
       </span>
     </a>

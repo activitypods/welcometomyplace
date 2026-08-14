@@ -27,8 +27,10 @@ const IconsList = ({ items, orientation = 'horizontal' }: Props) => {
           <div style={{ display: 'flex', alignItems: 'flex-start', gap: 8 }}>
             {item.icon && <span style={{ fontSize: '1.5rem', lineHeight: '1.5rem', marginTop: 2 }}>{item.icon}</span>}
             <div>
-              <div style={{ fontSize: 13, fontWeight: 600 }}>{item.label}</div>
-              <div style={{ fontSize: 14 }}>{item.value}</div>
+              <div style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.03em' }}>
+                {item.label}
+              </div>
+              <div style={{ fontSize: 16 }}>{item.value}</div>
             </div>
           </div>
         </div>

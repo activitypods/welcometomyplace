@@ -36,11 +36,7 @@ const EventAlert = ({ event }: Props) => {
 
   if (!messageKey) return null;
 
-  return (
-    <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px' }}>
-      <Alert type="info" showIcon message={t(messageKey)} style={{ marginTop: 16 }} />
-    </div>
-  );
+  return <Alert type="info" showIcon message={t(messageKey)} style={{ marginBottom: 16 }} />;
 };
 
 export default EventAlert;

@@ -52,8 +52,8 @@ const ContactField = ({ event }: Props) => {
         <Alert type="warning" showIcon style={{ marginBottom: 12 }} message={t('event.message_profile_show_right')} />
       )}
       <Form form={form} layout="vertical" onFinish={onFinish}>
-        <Form.Item name="content" label={t('event.message')} rules={[{ required: true }]}>
-          <Input.TextArea rows={4} />
+        <Form.Item name="content" rules={[{ required: true }]}>
+          <Input.TextArea rows={4} placeholder={t('event.message')} />
         </Form.Item>
         <Form.Item style={{ marginBottom: 0 }}>
           <Button type="primary" htmlType="submit" icon={<SendOutlined />} className="ap-btn-uppercase">

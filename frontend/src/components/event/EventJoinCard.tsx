@@ -26,7 +26,9 @@ const EventJoinCard = ({ event, children }: Props) => {
       style={{ overflow: 'hidden' }}
     >
       <div className="ap-gradient-surface" style={{ padding: 16 }}>
-        <h3 style={{ margin: 0, fontFamily: 'inherit', color: '#fff' }}>{event.name}</h3>
+        <h3 className="ap-font-display" style={{ margin: 0, fontSize: 22, color: '#fff' }}>
+          {event.name}
+        </h3>
       </div>
       <div style={{ padding: 24 }}>{children}</div>
       <div style={{ padding: '0 24px 24px', textAlign: 'center' }}>
