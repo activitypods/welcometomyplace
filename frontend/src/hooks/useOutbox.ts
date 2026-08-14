@@ -6,10 +6,9 @@ import useOwnActor from './useOwnActor';
 import urlJoin from '../utils/urlJoin';
 import { BACKEND_URL } from '../config/env';
 
-// Merges in the backend's own JSON-LD context, same reasoning as providers/index.ts: without the
-// `interop` prefix it defines, `interop:delegationAllowed`/`interop:delegationLimit` (sent when
-// granting share rights) would submit as plain string-keyed literals instead of being correctly
-// typed, since the bare activitystreams context knows nothing about that vocabulary.
+// Merges in the backend's own JSON-LD context, same reasoning as providers/index.ts: the bare
+// activitystreams context alone doesn't type `apods`/`interop`-prefixed properties as IRI
+// references, which activities posted here sometimes carry (e.g. `target`/`object` nesting).
 const DEFAULT_CONTEXT = ['https://www.w3.org/ns/activitystreams', urlJoin(new URL(BACKEND_URL).origin, '.well-known/context.jsonld')];
 
 /**
