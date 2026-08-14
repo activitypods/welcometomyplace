@@ -33,6 +33,7 @@ const AppBar = ({ opaque }: Props) => {
         zIndex: 100,
         height: APP_BAR_HEIGHT,
         lineHeight: `${APP_BAR_HEIGHT}px`,
+        padding: '0 25px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
