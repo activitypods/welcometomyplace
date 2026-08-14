@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router';
 import { Button, Card, Form, Spin } from 'antd';
 
 import PageLayout from '../components/layout/PageLayout';
+import { APP_BAR_HEIGHT } from '../components/layout/AppBar';
 import EventForm from '../components/event/EventForm';
 import useWaitForPredicates from '../hooks/useWaitForPredicates';
 import type { EventRecord } from '../types';
@@ -30,7 +31,16 @@ const EventCreatePage = () => {
   if (creating) {
     return (
       <PageLayout>
-        <div style={{ padding: 48, textAlign: 'center' }}>
+        <div
+          style={{
+            minHeight: `calc(100vh - ${APP_BAR_HEIGHT}px)`,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            textAlign: 'center'
+          }}
+        >
           <Spin size="large" />
           <p style={{ marginTop: 16 }}>{t('event.event_creating')}</p>
         </div>
