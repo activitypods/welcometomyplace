@@ -42,7 +42,8 @@ const AddressAutocomplete = ({ value, onChange }: Props) => {
       value={keyword}
       options={options}
       onSearch={setKeyword}
-      onSelect={(_, option: any) => {
+      onSelect={(value: string, option: any) => {
+        setKeyword(value);
         setFeatures([]);
         onChange?.(parseAddressFeature(option.feature));
       }}
