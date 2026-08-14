@@ -22,7 +22,7 @@ const ShareButton = ({ event }: Props) => {
 
   return (
     <>
-      <Button icon={<ShareAltOutlined />} onClick={() => setOpen(true)}>
+      <Button type="text" className="ap-btn-text-action" icon={<ShareAltOutlined />} onClick={() => setOpen(true)}>
         {t('actions.share')}
       </Button>
       {open && <ShareDialog event={event} open={open} onClose={() => setOpen(false)} />}

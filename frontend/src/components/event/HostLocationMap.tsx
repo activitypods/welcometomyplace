@@ -31,7 +31,11 @@ const HostLocationMap = ({ locationUri }: Props) => {
 
   return (
     <div>
-      {lat && lng ? (
+      {address && <div style={{ marginBottom: 12 }}>{address}</div>}
+      {location?.['vcard:note'] && (
+        <Alert style={{ marginBottom: 12 }} type="info" message={<>{location['vcard:note']}</>} />
+      )}
+      {lat && lng && (
         <MapContainer
           center={[lat, lng]}
           zoom={15}
@@ -44,11 +48,6 @@ const HostLocationMap = ({ locationUri }: Props) => {
           />
           <Marker position={[lat, lng]}>{address && <Popup>{address}</Popup>}</Marker>
         </MapContainer>
-      ) : (
-        address && <div>{address}</div>
-      )}
-      {location?.['vcard:note'] && (
-        <Alert style={{ marginTop: 12 }} type="info" message={<>{location['vcard:note']}</>} />
       )}
     </div>
   );

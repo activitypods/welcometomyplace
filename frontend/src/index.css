@@ -78,6 +78,21 @@ h4,
   letter-spacing: 0.02em;
 }
 
+/* Minimalist "PARTAGER"/"MODIFIER" style action links on the event show header — text-only,
+   uppercase, orange, no button chrome. */
+.ap-btn-text-action.ant-btn {
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: #ffa500;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+.ap-btn-text-action.ant-btn:hover {
+  color: #ff8c00;
+}
+
 .ap-tabs-uppercase.ant-tabs .ant-tabs-nav {
   margin-bottom: 0;
 }

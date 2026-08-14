@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { useOne, useParsed } from '@refinedev/core';
-import { Col, Grid, Image, Row, Space, Spin } from 'antd';
+import { Col, Grid, Row, Space, Spin } from 'antd';
 
 import PageLayout from '../components/layout/PageLayout';
+import { APP_BAR_HEIGHT } from '../components/layout/AppBar';
 import EventDetails from '../components/event/EventDetails';
 import EventAlert from '../components/event/EventAlert';
 import EventConditions from '../components/event/EventConditions';
@@ -58,8 +59,8 @@ const EventShowPage = () => {
           <Row justify="space-between" align="top" gutter={[16, 16]}>
             <Col xs={24} sm={18}>
               {format && (
-                <div style={{ fontSize: 14, marginBottom: 4 }}>
-                  {formatParent?.['rdfs:label'] && <>{formatParent['rdfs:label']} &nbsp;&gt;&nbsp; </>}
+                <div style={{ fontSize: 13, marginBottom: 4, textTransform: 'uppercase', color: 'rgba(0,0,0,0.65)' }}>
+                  {formatParent?.['rdfs:label']}&nbsp;&nbsp;&gt;&nbsp;&nbsp;
                   {format['rdfs:label']}
                 </div>
               )}
@@ -88,13 +89,14 @@ const EventShowPage = () => {
         <Row gutter={24}>
           <Col xs={24} md={16} lg={17}>
             {image && (
-              <Image
+              <img
                 src={image}
                 alt={event.name}
-                style={{ width: '100%', height: 225, objectFit: 'cover', borderRadius: 8, marginBottom: 16 }}
+                style={{ display: 'block', width: '100%', height: 225, objectFit: 'cover', borderRadius: 8, marginBottom: 16 }}
               />
             )}
 
+            <BodyLabel>{t('event.content')}</BodyLabel>
             <MarkdownContent>{event.content}</MarkdownContent>
 
             <BodyLabel>{t('event.conditions')}</BodyLabel>
@@ -113,7 +115,7 @@ const EventShowPage = () => {
 
             {event.location && (
               <>
-                <BodyLabel>{t('event.location')}</BodyLabel>
+                <BodyLabel>{t('event.location_section')}</BodyLabel>
                 <HostLocationMap locationUri={event.location} />
               </>
             )}
@@ -125,7 +127,7 @@ const EventShowPage = () => {
 
           {!isMobile && (
             <Col md={8} lg={7}>
-              <div style={{ position: 'sticky', top: 24 }}>
+              <div style={{ position: 'sticky', top: APP_BAR_HEIGHT + 24 }}>
                 <EventJoinCard event={event}>
                   <EventDetails event={event} orientation="vertical" />
                 </EventJoinCard>

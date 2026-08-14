@@ -95,6 +95,7 @@
     "max_attendees": "Participants maximum",
     "attendees": "Participants",
     "location": "Adresse",
+    "location_section": "Localisation",
     "search_address": "Rechercher une adresse",
     "add_location": "Ajouter une adresse",
     "add_short": "Ajouter",

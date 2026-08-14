@@ -95,6 +95,7 @@
     "max_attendees": "Max attendees",
     "attendees": "Attendees",
     "location": "Location",
+    "location_section": "Location",
     "search_address": "Search an address",
     "add_location": "Add an address",
     "add_short": "Add",

@@ -1,8 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { useGetIdentity } from '@refinedev/core';
-import { App, Alert, Button, Form, Input, Typography } from 'antd';
+import { App, Alert, Button, Form, Input } from 'antd';
 import { SendOutlined } from '@ant-design/icons';
 
+import BodyLabel from '../common/BodyLabel';
 import useOutbox from '../../hooks/useOutbox';
 import useActivityCollection from '../../hooks/useActivityCollection';
 import type { EventRecord, Identity } from '../../types';
@@ -46,9 +47,7 @@ const ContactField = ({ event }: Props) => {
 
   return (
     <div>
-      <Typography.Title level={4} style={{ marginTop: 0 }}>
-        {label}
-      </Typography.Title>
+      <BodyLabel>{label}</BodyLabel>
       {!isOwner && !contactsLoading && !contacts.includes(event['dc:creator']) && (
         <Alert type="warning" showIcon style={{ marginBottom: 12 }} message={t('event.message_profile_show_right')} />
       )}
@@ -57,7 +56,7 @@ const ContactField = ({ event }: Props) => {
           <Input.TextArea rows={4} />
         </Form.Item>
         <Form.Item style={{ marginBottom: 0 }}>
-          <Button type="primary" htmlType="submit" icon={<SendOutlined />}>
+          <Button type="primary" htmlType="submit" icon={<SendOutlined />} className="ap-btn-uppercase">
             {t('event.send')}
           </Button>
         </Form.Item>

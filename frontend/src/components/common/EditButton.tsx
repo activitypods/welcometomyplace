@@ -21,7 +21,9 @@ const EditButton = ({ creatorUri, to }: Props) => {
 
   return (
     <Link to={to}>
-      <Button icon={<EditOutlined />}>{t('event.edit')}</Button>
+      <Button type="text" className="ap-btn-text-action" icon={<EditOutlined />}>
+        {t('event.edit')}
+      </Button>
     </Link>
   );
 };
