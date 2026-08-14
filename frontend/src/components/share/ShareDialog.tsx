@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useGetIdentity } from '@refinedev/core';
+import { useGetIdentity, useInvalidate } from '@refinedev/core';
 import { App, Button, Modal } from 'antd';
 
 import ContactsShareList from './ContactsShareList';
@@ -23,8 +23,11 @@ const ShareDialog = ({ event, open, onClose }: Props) => {
   const creatorUri = event['dc:creator'];
   const isCreator = creatorUri === identity?.id;
 
-  const { items: announces } = useActivityCollection(event['apods:announces']);
-  const { items: announcers } = useActivityCollection(isCreator ? event['apods:announcers'] : undefined);
+  const { items: announces, refetch: refetchAnnounces } = useActivityCollection(event['apods:announces']);
+  const { items: announcers, refetch: refetchAnnouncers } = useActivityCollection(
+    isCreator ? event['apods:announcers'] : undefined
+  );
+  const invalidate = useInvalidate();
 
   const [invitations, setInvitations] = useState<Record<string, InvitationState>>({});
   const [savedInvitations, setSavedInvitations] = useState<Record<string, InvitationState>>({});
@@ -66,7 +69,10 @@ const ShareDialog = ({ event, open, onClose }: Props) => {
       const withShare = Object.keys(newInvitations).filter(uri => newInvitations[uri].canShare);
 
       if (viewOnly.length > 0) {
-        await outbox.post({ type: 'Announce', actor: outbox.owner, object: event.id, to: viewOnly });
+        // `to` is what the Pod's announcer grants access and collection membership from;
+        // `target` is what the app backend's invitation.service.js reads to know who to email —
+        // two different consumers, both need the same recipient list.
+        await outbox.post({ type: 'Announce', actor: outbox.owner, object: event.id, to: viewOnly, target: viewOnly });
       }
       if (withShare.length > 0) {
         await outbox.post({
@@ -74,12 +80,22 @@ const ShareDialog = ({ event, open, onClose }: Props) => {
           actor: outbox.owner,
           object: event.id,
           to: withShare,
+          target: withShare,
           'interop:delegationAllowed': true,
           'interop:delegationLimit': 1
         });
       }
 
       toast.success(t('share.invitation_sent', { count: Object.keys(newInvitations).length }));
+
+      // The Pod may have just attached apods:announces/apods:announcers to the event for the
+      // first time (if this was the first share ever) — refetch the event itself so its props
+      // pick up the new collection URIs, and refetch the collections directly for immediate
+      // feedback next time this dialog opens rather than waiting on the event refetch to land.
+      invalidate({ resource: 'event', id: event.id, invalidates: ['detail'] });
+      refetchAnnounces();
+      refetchAnnouncers();
+
       onClose();
     } catch (e: any) {
       toast.error(e.message);
