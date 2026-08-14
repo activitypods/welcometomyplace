@@ -18,11 +18,16 @@ const EventListPage = () => {
 
   const { result, query } = useList<EventRecord>({
     resource: 'event',
+    // `apods:hasStatus` combines two independent axes (Coming/Finished and Open/Closed, e.g.
+    // `[apods:Coming, apods:Open]`) — the tabs only care about the Coming/Finished one. The
+    // backend returns this compacted to CURIE form (`apods:Coming`), not the full IRI the old
+    // app's (server-side, IRI-aware SPARQL) filter used — this data provider compares plain
+    // strings client-side, so the filter value has to match the actual returned representation.
     filters: [
       {
         field: 'apods:hasStatus',
         operator: 'eq',
-        value: tab === 'coming' ? 'http://activitypods.org/ns/core#Coming' : 'http://activitypods.org/ns/core#Finished'
+        value: tab === 'coming' ? 'apods:Coming' : 'apods:Finished'
       }
     ],
     sorters: [{ field: 'startTime', order: tab === 'coming' ? 'asc' : 'desc' }],
