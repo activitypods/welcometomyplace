@@ -2,7 +2,12 @@ import type { DataProvider } from '@refinedev/core';
 import type { AuthProvider } from '@activitypods/refine-providers';
 import { applyFilters, applySorters, arrayOf, fetchJson, normalizeRecord } from '@activitypods/refine-providers/utils';
 
-const JSON_CONTEXT = ['https://www.w3.org/ns/activitystreams', { apods: 'http://activitypods.org/ns/core#' }];
+import urlJoin from '../utils/urlJoin';
+import { BACKEND_URL } from '../config/env';
+
+// The backend's own merged JSON-LD context (apods/interop/skos/... prefixes, with reference
+// properties correctly typed `@type: "@id"`) — see providers/index.ts for why this matters.
+const JSON_CONTEXT = ['https://www.w3.org/ns/activitystreams', urlJoin(new URL(BACKEND_URL).origin, '.well-known/context.jsonld')];
 
 type AppServerResourceConfig = {
   /** Full URL of the LDP container this resource lives in, on the app's own backend. */
@@ -85,7 +90,14 @@ const appServerDataProvider = ({ authProvider, resources }: AppServerDataProvide
     },
 
     update: async ({ id, variables }) => {
-      await fetchJson(`${id}`, { method: 'PUT', body: JSON.stringify({ '@context': JSON_CONTEXT, ...variables }) }, getToken());
+      // PUT replaces the whole resource — merge the current one in first, same reasoning as the
+      // main ActivityPods data provider's update() (see providers/index.ts's usage of it).
+      const { id: _id, '@context': _context, ...current } = await fetchOne(`${id}`);
+      await fetchJson(
+        `${id}`,
+        { method: 'PUT', body: JSON.stringify({ '@context': JSON_CONTEXT, ...current, ...variables }) },
+        getToken()
+      );
       return { data: (await fetchOne(`${id}`)) as any };
     },
 
