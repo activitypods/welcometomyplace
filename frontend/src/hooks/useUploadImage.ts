@@ -2,21 +2,28 @@ import { useCallback } from 'react';
 import { fetchJson, resolveContainerUri } from '@activitypods/refine-providers/utils';
 
 import { authProvider } from '../providers';
-import urlJoin from '../utils/urlJoin';
-import { SHAPE_REPOSITORY_URL } from '../config/env';
 
-const FILE_SHAPE_TREE_URI = urlJoin(SHAPE_REPOSITORY_URL, 'shapetrees/File');
-
-/** Upload a raw file to the user's Pod (the container registered for the `File` shape tree,
- *  granted by the `apods:ReadWrite` File access need in `app.service.js`), returning its URL. */
+/** Upload a raw file to the user's Pod, returning its URL.
+ *
+ * The `File` shape tree (granted via the `apods:ReadWrite` File access need in
+ * `app.service.js`) is intentionally non-RDF (`st:expectsType st:NonRDFResource`, no SHACL
+ * shape) — so it has no `sh:targetClass` to resolve a type from, and the usual
+ * `shapeTreeUri`-based container lookup doesn't apply. The Pod's type index instead registers
+ * this container's `solid:forClass` from the container service's plain `acceptedTypes` setting,
+ * which for `files.ts` is the conventional `semapps:File` class — so that's what we look up by,
+ * matching how `@semapps/semantic-data-provider`'s own `uploadFile` resolves it. */
 const useUploadImage = () => {
   return useCallback(async (file: File): Promise<string> => {
     const session = authProvider.getSession();
     if (!session) throw new Error('Not authenticated');
 
-    const containerUri = await resolveContainerUri('file', { shapeTreeUri: FILE_SHAPE_TREE_URI }, session.webId, session.token, [
-      'https://www.w3.org/ns/activitystreams'
-    ]);
+    const containerUri = await resolveContainerUri(
+      'file',
+      { types: ['http://semapps.org/ns/core#File'] },
+      session.webId,
+      session.token,
+      ['https://www.w3.org/ns/activitystreams']
+    );
 
     const { headers } = await fetchJson(
       containerUri,

@@ -38,9 +38,10 @@ export type LocationRecord = {
 
 export type FormatRecord = {
   id: string;
-  name?: string;
-  /** Optional parent category, for a breadcrumb — not currently set by `FormatForm`, but
-   *  harmless to keep supporting if it's ever populated (e.g. via seed data). */
+  /** The display name. `formats-importer.service.js` — the real seeding path (`call
+   *  importers.formats.freshImport`) documented in the README — writes this, not `name`. */
+  'rdfs:label'?: string;
+  /** Optional parent category, for a breadcrumb — populated by the importer via `data.parent`. */
   'skos:broader'?: string;
   summary?: string;
   image?: string;

@@ -15,7 +15,7 @@ const FormatCard = ({ format }: Props) => (
       styles={{ body: { padding: 16 } }}
       cover={format.image && <div style={{ height: 140, backgroundImage: `url("${format.image}")`, backgroundSize: 'cover', backgroundPosition: 'center' }} />}
     >
-      <h3 style={{ margin: '0 0 8px', fontFamily: 'inherit' }}>{format.name}</h3>
+      <h3 style={{ margin: '0 0 8px', fontFamily: 'inherit' }}>{format['rdfs:label']}</h3>
       <p
         style={{
           margin: 0,

@@ -59,8 +59,8 @@ const EventShowPage = () => {
             <Col xs={24} sm={18}>
               {format && (
                 <div style={{ fontSize: 14, marginBottom: 4 }}>
-                  {formatParent?.name && <>{formatParent.name} &nbsp;&gt;&nbsp; </>}
-                  {format.name}
+                  {formatParent?.['rdfs:label'] && <>{formatParent['rdfs:label']} &nbsp;&gt;&nbsp; </>}
+                  {format['rdfs:label']}
                 </div>
               )}
               <h1 className="ap-font-display" style={{ margin: 0, lineHeight: 1.15 }}>

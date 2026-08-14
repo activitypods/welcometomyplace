@@ -9,7 +9,7 @@ const FormatForm = () => {
 
   return (
     <>
-      <Form.Item name="name" label={t('format.name')} rules={[{ required: true }]}>
+      <Form.Item name="rdfs:label" label={t('format.name')} rules={[{ required: true }]}>
         <Input />
       </Form.Item>
       <Form.Item name="summary" label={t('format.summary')} rules={[{ required: true }]}>

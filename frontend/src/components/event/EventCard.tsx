@@ -32,9 +32,9 @@ const EventCard = ({ event }: Props) => {
             {organizerProfile['vcard:given-name']}
           </Tag>
         )}
-        {format?.name && (
+        {format?.['rdfs:label'] && (
           <Tag icon={<StarOutlined />} bordered={false}>
-            {format.name}
+            {format['rdfs:label']}
           </Tag>
         )}
       </div>

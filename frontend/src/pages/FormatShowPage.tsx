@@ -27,7 +27,7 @@ const FormatShowPage = () => {
       <div style={{ backgroundColor: '#fff', padding: '32px 24px' }}>
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
           <h1 className="ap-font-display" style={{ textAlign: 'center', margin: '16px 0' }}>
-            {format.name}
+            {format['rdfs:label']}
           </h1>
           {format.summary && (
             <p style={{ textAlign: 'center', fontStyle: 'italic', marginBottom: 32 }}>{format.summary}</p>

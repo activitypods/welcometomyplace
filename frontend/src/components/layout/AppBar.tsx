@@ -1,4 +1,5 @@
 import { Layout } from 'antd';
+import { HomeOutlined } from '@ant-design/icons';
 import { Link } from 'react-router';
 import { useGetIdentity } from '@refinedev/core';
 
@@ -41,6 +42,7 @@ const AppBar = ({ opaque }: Props) => {
       }}
     >
       <Link to={homeLink} className="ap-appbar-title ap-font-display">
+        <HomeOutlined style={{ fontSize: 24 }} />
         {APP_NAME}
       </Link>
       <UserMenu />

@@ -23,7 +23,7 @@ const EventForm = ({ form }: Props) => {
   const { result: formats } = useList<FormatRecord>({
     resource: 'format',
     pagination: { mode: 'off' },
-    sorters: [{ field: 'name', order: 'asc' }]
+    sorters: [{ field: 'rdfs:label', order: 'asc' }]
   });
 
   return (
@@ -101,7 +101,7 @@ const EventForm = ({ form }: Props) => {
       </Form.Item>
 
       <Form.Item name="apods:hasFormat" label={t('event.event_type')} rules={[{ required: true }]}>
-        <Select options={formats.data.map((format: FormatRecord) => ({ value: format.id, label: format.name }))} />
+        <Select options={formats.data.map((format: FormatRecord) => ({ value: format.id, label: format['rdfs:label'] }))} />
       </Form.Item>
 
       <BodyLabel>{t('event.conditions')}</BodyLabel>

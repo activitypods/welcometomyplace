@@ -11,7 +11,7 @@ const FormatListPage = () => {
   const { result, query } = useList<FormatRecord>({
     resource: 'format',
     pagination: { mode: 'off' },
-    sorters: [{ field: 'name', order: 'asc' }]
+    sorters: [{ field: 'rdfs:label', order: 'asc' }]
   });
 
   return (
