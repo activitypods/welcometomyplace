@@ -147,6 +147,22 @@ h4,
   height: 100dvh;
 }
 
+/* Solid orange mission banner on the events list, matching the old app's filled Alert. */
+.ap-alert-solid.ant-alert {
+  background-color: #ffa500;
+  border: none;
+}
+
+.ap-alert-solid .ant-alert-message,
+.ap-alert-solid .ant-alert-icon {
+  color: #fff;
+}
+
+.ap-alert-solid .ant-alert-message a {
+  color: #fff;
+  text-decoration: underline;
+}
+
 /* Rendered Markdown content (event descriptions, format recipes). */
 .ap-markdown p {
   white-space: pre-wrap;

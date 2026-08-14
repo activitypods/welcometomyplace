@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useList } from '@refinedev/core';
 import { Alert, Button, Col, Grid, Row, Spin, Tabs } from 'antd';
-import { HomeOutlined, PlusOutlined } from '@ant-design/icons';
+import { HomeFilled, PlusOutlined } from '@ant-design/icons';
 import { Link } from 'react-router';
 
 import PageLayout from '../components/layout/PageLayout';
@@ -75,9 +75,10 @@ const EventListPage = () => {
         <Row gutter={24}>
           <Col xs={24} md={16} lg={17}>
             <Alert
-              icon={<HomeOutlined />}
+              icon={<HomeFilled />}
               showIcon
               type="warning"
+              className="ap-alert-solid"
               style={{ marginBottom: 16 }}
               message={
                 <>
