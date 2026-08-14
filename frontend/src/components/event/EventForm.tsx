@@ -18,6 +18,28 @@ type Props = {
 const toDayjs = (value?: string) => (value ? dayjs(value) : undefined);
 const fromDayjs = (value?: Dayjs) => value?.toISOString();
 
+// Grey out hours/minutes strictly before `reference` (used when the picked date is the same day
+// as `reference` — an earlier day is already fully disabled by the corresponding `disabledDate`).
+const disableHoursMinutesBefore = (reference: Dayjs) => ({
+  disabledHours: () => Array.from({ length: reference.hour() }, (_, i) => i),
+  disabledMinutes: (selectedHour: number) =>
+    selectedHour === reference.hour() ? Array.from({ length: reference.minute() + 1 }, (_, i) => i) : []
+});
+
+// Grey out hours/minutes at or after `reference` (the mirror image, for "must be before X" fields).
+const disableHoursMinutesFrom = (reference: Dayjs) => ({
+  disabledHours: () => Array.from({ length: 24 - reference.hour() }, (_, i) => reference.hour() + i),
+  disabledMinutes: (selectedHour: number) =>
+    selectedHour === reference.hour() ? Array.from({ length: 60 - reference.minute() }, (_, i) => reference.minute() + i) : []
+});
+
+const disabledStartDate = (current: Dayjs) => current.isBefore(dayjs(), 'day');
+
+// Only relevant once a date is picked: if it's today, also grey out hours/minutes already past —
+// picking a future date has no such restriction.
+const disabledStartTime = (current: Dayjs | null) =>
+  current && current.isSame(dayjs(), 'day') ? disableHoursMinutesBefore(dayjs()) : {};
+
 const EventForm = ({ form }: Props) => {
   const { t } = useTranslation();
   const { result: formats } = useList<FormatRecord>({
@@ -25,6 +47,30 @@ const EventForm = ({ form }: Props) => {
     pagination: { mode: 'off' },
     sorters: [{ field: 'rdfs:label', order: 'asc' }]
   });
+
+  // Must be after startTime — falls back to "not in the past" until startTime is picked.
+  const disabledEndDate = (current: Dayjs) => {
+    const startTime = form.getFieldValue('startTime');
+    return current.isBefore(startTime ? dayjs(startTime) : dayjs(), 'day');
+  };
+  const disabledEndTime = (current: Dayjs | null) => {
+    const startTime = form.getFieldValue('startTime');
+    const reference = startTime ? dayjs(startTime) : dayjs();
+    return current && current.isSame(reference, 'day') ? disableHoursMinutesBefore(reference) : {};
+  };
+
+  // Must be before startTime, and not in the past.
+  const disabledClosingDate = (current: Dayjs) => {
+    if (current.isBefore(dayjs(), 'day')) return true;
+    const startTime = form.getFieldValue('startTime');
+    return !!startTime && current.isAfter(dayjs(startTime), 'day');
+  };
+  const disabledClosingTime = (current: Dayjs | null) => {
+    if (!current) return {};
+    const startTime = form.getFieldValue('startTime');
+    if (startTime && current.isSame(dayjs(startTime), 'day')) return disableHoursMinutesFrom(dayjs(startTime));
+    return current.isSame(dayjs(), 'day') ? disableHoursMinutesBefore(dayjs()) : {};
+  };
 
   return (
     <>
@@ -64,7 +110,13 @@ const EventForm = ({ form }: Props) => {
           }
         ]}
       >
-        <DatePicker showTime style={{ width: '100%' }} />
+        <DatePicker
+          showTime={{ format: 'HH:mm' }}
+          format="DD/MM/YYYY HH:mm"
+          disabledDate={disabledStartDate}
+          disabledTime={disabledStartTime}
+          style={{ width: '100%' }}
+        />
       </Form.Item>
 
       <Form.Item
@@ -85,7 +137,13 @@ const EventForm = ({ form }: Props) => {
           }
         ]}
       >
-        <DatePicker showTime style={{ width: '100%' }} />
+        <DatePicker
+          showTime={{ format: 'HH:mm' }}
+          format="DD/MM/YYYY HH:mm"
+          disabledDate={disabledEndDate}
+          disabledTime={disabledEndTime}
+          style={{ width: '100%' }}
+        />
       </Form.Item>
 
       <Form.Item name="location" label={t('event.location')}>
@@ -123,7 +181,13 @@ const EventForm = ({ form }: Props) => {
           }
         ]}
       >
-        <DatePicker showTime style={{ width: '100%' }} />
+        <DatePicker
+          showTime={{ format: 'HH:mm' }}
+          format="DD/MM/YYYY HH:mm"
+          disabledDate={disabledClosingDate}
+          disabledTime={disabledClosingTime}
+          style={{ width: '100%' }}
+        />
       </Form.Item>
 
       <Form.Item name="apods:maxAttendees" label={t('event.max_attendees')} help={t('event.max_attendees_help')}>

@@ -1,6 +1,8 @@
 import i18next from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import type { I18nProvider } from '@refinedev/core';
+import dayjs from 'dayjs';
+import 'dayjs/locale/fr';
 
 import { APP_LANG } from '../config/env';
 import en from './locales/en.json';
@@ -12,6 +14,11 @@ i18next.use(initReactI18next).init({
   fallbackLng: 'en',
   interpolation: { escapeValue: false }
 });
+
+// Antd's `ConfigProvider locale` (frFR/enUS, see App.tsx) only localizes Antd's own UI strings
+// (button labels, etc.) — month/day names and the first day of the week in DatePicker come from
+// dayjs's own locale, which is entirely separate and defaults to English/Sunday-first regardless.
+dayjs.locale(APP_LANG);
 
 /**
  * Language is fixed per deployment (via VITE_APP_LANG, see `config/env.ts`) — there is no
