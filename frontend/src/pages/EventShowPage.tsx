@@ -122,7 +122,7 @@ const EventShowPage = () => {
               </>
             )}
 
-            <div style={{ marginTop: 24 }}>
+            <div style={{ marginTop: 40 }}>
               <ContactField event={event} />
             </div>
           </Col>
