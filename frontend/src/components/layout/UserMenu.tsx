@@ -4,8 +4,6 @@ import { Avatar, Button, Dropdown, Space } from 'antd';
 import { AppstoreOutlined, DatabaseOutlined, LogoutOutlined, SettingOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router';
 
-import useOpenExternalApp from '../../hooks/useOpenExternalApp';
-import useOwnActor from '../../hooks/useOwnActor';
 import useNodeinfo from '../../hooks/useNodeinfo';
 import urlJoin from '../../utils/urlJoin';
 import type { Identity } from '../../types';
@@ -14,8 +12,6 @@ const UserMenu = () => {
   const { t } = useTranslation();
   const { data: identity, isLoading } = useGetIdentity<Identity>();
   const { mutate: logout } = useLogout();
-  const { data: ownActor } = useOwnActor();
-  const openExternalApp = useOpenExternalApp();
   // The Pod provider's own frontend (network/apps/data/settings pages all live there, not in
   // this app) is discovered via the standard nodeinfo protocol against the WebID's own host.
   const { data: nodeinfo } = useNodeinfo(identity?.id ? new URL(identity.id).host : undefined);
@@ -30,22 +26,12 @@ const UserMenu = () => {
     );
   }
 
-  const profileUrl = openExternalApp('as:Profile', ownActor?.url, 'edit');
   const frontendUrl = nodeinfo?.metadata?.frontend_url;
 
   return (
     <Dropdown
       menu={{
         items: [
-          {
-            key: 'profile',
-            label: (
-              <a href={profileUrl} rel="noopener noreferrer">
-                {t('nav.my_profile')}
-              </a>
-            ),
-            icon: <UserOutlined />
-          },
           ...(frontendUrl
             ? [
                 {
