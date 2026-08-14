@@ -1,8 +1,12 @@
 import { useTranslation } from 'react-i18next';
+import { useGetIdentity } from '@refinedev/core';
 import { UserOutlined } from '@ant-design/icons';
 
 import useActorProfile from '../../hooks/useActorProfile';
-import useOpenExternalApp from '../../hooks/useOpenExternalApp';
+import useNodeinfo from '../../hooks/useNodeinfo';
+import urlJoin from '../../utils/urlJoin';
+import { formatUsername } from '../../utils/formatUsername';
+import type { Identity } from '../../types';
 
 type Props = {
   actorUri: string;
@@ -10,17 +14,23 @@ type Props = {
 
 /** Matches the old app's `AvatarWithLabelField`: a full-width circular avatar (scales with the
  *  grid column, so it's larger on wider columns) with a pill-shaped name label overlapping its
- *  bottom edge, instead of a small fixed-size avatar with plain text underneath. */
+ *  bottom edge, instead of a small fixed-size avatar with plain text underneath. Links directly
+ *  to this attendee's profile on the Pod provider's network page (`/network/@user@host`, the
+ *  same webfinger-style handle `NetworkPage` itself links with) rather than through the generic
+ *  `openApp` redirect, which turned out to be unreliable (it resolves `type=as:Profile` against
+ *  the wrong resource for a bare WebID). */
 const AttendeeAvatar = ({ actorUri }: Props) => {
   const { t } = useTranslation();
+  const { data: identity } = useGetIdentity<Identity>();
   const { data: profile } = useActorProfile(actorUri);
-  const openExternalApp = useOpenExternalApp();
+  const { data: nodeinfo } = useNodeinfo(identity?.id ? new URL(identity.id).host : undefined);
   const name = profile?.['vcard:given-name'] || t('event.unknown_user');
   const photo = profile?.['vcard:photo'];
+  const frontendUrl = nodeinfo?.metadata?.frontend_url;
 
   return (
     <a
-      href={openExternalApp('as:Profile', actorUri, 'show')}
+      href={frontendUrl ? urlJoin(frontendUrl, `network/${formatUsername(actorUri)}`) : undefined}
       style={{ display: 'block', position: 'relative', color: 'inherit', marginBottom: 14 }}
     >
       <div style={{ width: '100%', paddingBottom: '100%', position: 'relative' }}>
