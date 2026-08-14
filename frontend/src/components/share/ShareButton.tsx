@@ -12,13 +12,17 @@ type Props = {
 };
 
 /** Only rendered if the viewer can actually read the event's `apods:announces` collection —
- *  i.e. they're the organizer, or someone the organizer delegated share rights to. */
+ *  i.e. they're the organizer, or someone the organizer delegated share rights to. Gated on a
+ *  positively-confirmed successful read (not just "no error yet"): if `apods:announces` is
+ *  missing from the event record (e.g. a stale cached record, fetched before the collection was
+ *  first attached), the query never runs at all, which looks identical to "loaded fine, no
+ *  error" — and would show the button by default instead of hiding it. */
 const ShareButton = ({ event }: Props) => {
   const { t } = useTranslation();
   const [open, setOpen] = useState(false);
-  const { isLoading, error } = useActivityCollection(event['apods:announces']);
+  const { isSuccess } = useActivityCollection(event['apods:announces']);
 
-  if (isLoading || error) return null;
+  if (!isSuccess) return null;
 
   return (
     <>

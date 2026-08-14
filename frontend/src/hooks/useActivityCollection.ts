@@ -56,6 +56,11 @@ const useActivityCollection = (predicateOrUri?: string) => {
     items: query.data ?? EMPTY_ITEMS,
     isLoading: query.isLoading,
     error: query.error,
+    // Distinct from `!isLoading && !error`: a disabled query (falsy/undefined collectionUri)
+    // also has isLoading:false and error:undefined despite never having run, so callers that
+    // need to positively confirm read access (e.g. ShareButton deciding whether to show itself)
+    // must check this instead — the safe default is "not confirmed", not "no error seen yet".
+    isSuccess: query.isSuccess,
     refetch: query.refetch,
     url: collectionUri,
     /** Optimistically add an item to the cached collection, without waiting for a refetch. */
