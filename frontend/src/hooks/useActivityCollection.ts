@@ -44,7 +44,12 @@ const useActivityCollection = (predicateOrUri?: string) => {
       const items: string[] = arrayOf(json.orderedItems || json.items).map((item: any) => item.id || item);
       return items;
     },
-    enabled: !!collectionUri && !!session
+    enabled: !!collectionUri && !!session,
+    // A permission-denied fetch (e.g. ShareButton probing whether the viewer can read
+    // apods:announces to decide whether to show itself) will never succeed on retry — the
+    // default 3 retries with backoff just delays the error (and whatever hides on it) for
+    // several seconds with nothing to show for it.
+    retry: false
   });
 
   return {
