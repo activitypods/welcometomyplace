@@ -1,17 +1,17 @@
 import { useTranslation } from 'react-i18next';
-import { useGetIdentity, useLogout } from '@refinedev/core';
+import { useGetIdentity } from '@refinedev/core';
 import { Avatar, Button, Dropdown, Space } from 'antd';
 import { AppstoreOutlined, DatabaseOutlined, LogoutOutlined, SettingOutlined, TeamOutlined, UserOutlined } from '@ant-design/icons';
 import { Link } from 'react-router';
 
 import useNodeinfo from '../../hooks/useNodeinfo';
 import urlJoin from '../../utils/urlJoin';
+import { authProvider } from '../../providers';
 import type { Identity } from '../../types';
 
 const UserMenu = () => {
   const { t } = useTranslation();
   const { data: identity, isLoading } = useGetIdentity<Identity>();
-  const { mutate: logout } = useLogout();
   // The Pod provider's own frontend (network/apps/data/settings pages all live there, not in
   // this app) is discovered via the standard nodeinfo protocol against the WebID's own host.
   const { data: nodeinfo } = useNodeinfo(identity?.id ? new URL(identity.id).host : undefined);
@@ -27,6 +27,15 @@ const UserMenu = () => {
   }
 
   const frontendUrl = nodeinfo?.metadata?.frontend_url;
+
+  // Bypass useLogout()'s mutation: the package's authProvider.logout() hardcodes a redirect to
+  // this app's own /login, and there's no way to override that from the caller. Calling
+  // authProvider.logout() directly still clears the session correctly; the full-page navigation
+  // that follows discards all React/Refine state on its own, so there's nothing left to clean up.
+  const handleLogout = async () => {
+    await authProvider.logout({});
+    window.location.href = frontendUrl || '/login';
+  };
 
   return (
     <Dropdown
@@ -76,7 +85,7 @@ const UserMenu = () => {
             key: 'logout',
             label: t('actions.logout'),
             icon: <LogoutOutlined />,
-            onClick: () => logout()
+            onClick: () => handleLogout()
           }
         ]
       }}
