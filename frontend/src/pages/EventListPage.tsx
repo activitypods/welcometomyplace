@@ -36,8 +36,19 @@ const EventListPage = () => {
 
   return (
     <PageLayout>
-      <div style={{ backgroundColor: '#fff', padding: '32px 24px 24px' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+      <div style={{ backgroundColor: '#fff', paddingTop: 32, paddingBottom: 24 }}>
+        <div
+          style={{
+            maxWidth: 1100,
+            margin: '0 auto',
+            padding: '0 24px',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            gap: 12
+          }}
+        >
           <h1 className="ap-page-title">{t('event.my_events')}</h1>
           <Link to="/events/create">
             <Button type="primary" icon={<PlusOutlined />} className="ap-btn-uppercase">
