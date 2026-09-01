@@ -2,10 +2,29 @@ import { authProvider as apAuthProvider, dataProvider as apDataProvider } from '
 import urlJoin from '../utils/urlJoin';
 import { BACKEND_URL, CLIENT_ID, SHAPE_REPOSITORY_URL } from '../config/env';
 import appServerDataProvider from './appServerDataProvider';
+import { getCurrentCapabilityToken } from '../utils/capability';
 
 export const authProvider = apAuthProvider({
   clientId: CLIENT_ID
 });
+
+/** Reads go through whichever credential the visitor actually has: the logged-in user's own
+ *  token, or — for someone who opened a public event link while logged out — the capability
+ *  presentation that link carries (see `utils/capability.ts`). Only the *data provider* is given
+ *  this; everything that writes (`useOutbox`, the VC endpoints) still requires a real session and
+ *  keeps using `authProvider` directly. The Pod accepts the presentation as a bearer token on
+ *  every LDP route, so no other plumbing is needed to make the read work. */
+const readAuthProvider: typeof authProvider = {
+  ...authProvider,
+  getSession: () => {
+    const session = authProvider.getSession();
+    if (session) return session;
+    const token = getCurrentCapabilityToken();
+    // A capability identifies no one, hence the empty WebID: the data provider only uses it to
+    // discover containers, which capability-based reads (always of a known URI) never need.
+    return token ? { token, webId: '' } : undefined;
+  }
+};
 
 /** Merges in the backend's own JSON-LD context (`apods`, `interop`, `skos`... prefixes, with
  *  reference properties like `apods:hasFormat` correctly typed `@type: "@id"`), matching the old
@@ -15,7 +34,7 @@ const JSON_CONTEXT = ['https://www.w3.org/ns/activitystreams', urlJoin(new URL(B
 
 /** Resources living on the logged-in user's own Pod, discovered via shape trees. */
 export const dataProvider = apDataProvider({
-  authProvider,
+  authProvider: readAuthProvider,
   jsonContext: JSON_CONTEXT,
   resources: {
     event: {

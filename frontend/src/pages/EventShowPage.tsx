@@ -1,5 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { useOne, useParsed } from '@refinedev/core';
+import { Navigate, useLocation } from 'react-router';
 import { Col, Grid, Row, Space, Spin } from 'antd';
 
 import PageLayout from '../components/layout/PageLayout';
@@ -17,11 +18,43 @@ import EditButton from '../components/common/EditButton';
 import ShareButton from '../components/share/ShareButton';
 import JoinButton from '../components/event/JoinButton';
 import useActivityCollection from '../hooks/useActivityCollection';
+import useCapability from '../hooks/useCapability';
+import useCapabilityImage from '../hooks/useCapabilityImage';
+import { authProvider } from '../providers';
+import type { Capability } from '../utils/capability';
 import type { EventRecord, FormatRecord } from '../types';
 
 const { useBreakpoint } = Grid;
 
+const Loading = () => (
+  <PageLayout>
+    <div style={{ padding: 48, textAlign: 'center' }}>
+      <Spin size="large" />
+    </div>
+  </PageLayout>
+);
+
+/**
+ * This route is public so that public event links work for people without an account. The page
+ * below is the same one members see; the only gate is here — a visitor with neither a session nor
+ * a credential to read the event with is sent to log in, and one arriving with `?cap=` waits for
+ * that credential to be loaded before any Pod read is attempted.
+ */
 const EventShowPage = () => {
+  const { capability, capabilityUri, ready } = useCapability();
+  const location = useLocation();
+  const session = authProvider.getSession();
+
+  if (!session && !capabilityUri) {
+    return <Navigate to={`/login?redirect=${encodeURIComponent(location.pathname + location.search)}`} replace />;
+  }
+
+  if (!ready) return <Loading />;
+
+  return <EventShowContent capability={capability} />;
+};
+
+const EventShowContent = ({ capability }: { capability?: Capability }) => {
   const { t } = useTranslation();
   const { id } = useParsed();
   const screens = useBreakpoint();
@@ -40,17 +73,12 @@ const EventShowPage = () => {
   });
   const { items: attendeeUris } = useActivityCollection(event?.['apods:attendees']);
 
-  if (query.isLoading || !event) {
-    return (
-      <PageLayout>
-        <div style={{ padding: 48, textAlign: 'center' }}>
-          <Spin size="large" />
-        </div>
-      </PageLayout>
-    );
-  }
+  const image = useCapabilityImage(
+    event && (Array.isArray(event.image) ? event.image[0] : event.image),
+    capability
+  );
 
-  const image = Array.isArray(event.image) ? event.image[0] : event.image;
+  if (query.isLoading || !event) return <Loading />;
 
   return (
     <PageLayout>

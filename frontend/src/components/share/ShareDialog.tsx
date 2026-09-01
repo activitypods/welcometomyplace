@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useGetIdentity, useInvalidate } from '@refinedev/core';
-import { App, Button, Modal } from 'antd';
+import { App, Button, Divider, Modal } from 'antd';
 
 import ContactsShareList from './ContactsShareList';
+import GeneralAccess from './GeneralAccess';
 import useOutbox from '../../hooks/useOutbox';
 import useActivityCollection from '../../hooks/useActivityCollection';
 import type { EventRecord, Identity, InvitationState } from '../../types';
@@ -144,6 +145,17 @@ const ShareDialog = ({ event, open, onClose }: Props) => {
       ]}
     >
       <ContactsShareList invitations={invitations} organizerUri={creatorUri} isCreator={isCreator} onChange={onChange} />
+
+      {/* Organizer only: the credential behind the link lives on their Pod, so a delegate could
+          neither read the current setting nor change it. */}
+      {isCreator && (
+        <>
+          <Divider style={{ marginTop: 16, marginBottom: 16 }} />
+
+          <div style={{ fontWeight: 500, marginBottom: 8 }}>{t('share.general_access')}</div>
+          <GeneralAccess event={event} />
+        </>
+      )}
     </Modal>
   );
 };

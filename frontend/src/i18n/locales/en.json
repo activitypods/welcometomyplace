@@ -44,7 +44,8 @@
       },
       "signin": "Sign in",
       "backToLogin": "Back to login"
-    }
+    },
+    "signup_redirecting": "Redirecting to account creation..."
   },
   "home": {
     "title": "Open your home for simple and enriching encounters",
@@ -166,6 +167,14 @@
     "send_invitation_one": "Send invitation",
     "send_invitation_other": "Send {{count}} invitations",
     "invitation_sent_one": "1 invitation sent",
-    "invitation_sent_other": "{{count}} invitations sent"
+    "invitation_sent_other": "{{count}} invitations sent",
+    "general_access": "General access",
+    "access_restricted": "Users who have been invited",
+    "access_restricted_help": "Only invited people can see this event.",
+    "access_anyone_with_link": "Anyone with the link",
+    "access_anyone_with_link_help": "Anyone with the link can see this event and ask to join it.",
+    "copy_link": "Copy link",
+    "link_copied": "Link copied",
+    "link_copy_error": "The link could not be copied"
   }
 }
