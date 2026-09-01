@@ -43,8 +43,8 @@ const useEventPublicLink = (event: EventRecord) => {
     queryFn: () =>
       findEventLinkCapability({ webId: session!.webId, token: session!.token, eventUri: event.id }),
     enabled: !!session,
-    // Listing the credentials container is a per-dialog-opening cost at worst; a failure here
-    // will not fix itself on retry (missing container, revoked access), so don't spin on it.
+    // A failure here (SPARQL endpoint unreachable, credential deleted underneath us) will not
+    // fix itself on retry, and the dialog has a sensible empty state, so don't spin on it.
     retry: false
   });
 

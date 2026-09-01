@@ -1,4 +1,4 @@
-import { arrayOf, DEFAULT_CONTEXT, fetchJson, resolveContainerUri } from '@activitypods/refine-providers/utils';
+import { arrayOf, fetchJson } from '@activitypods/refine-providers/utils';
 
 import urlJoin from './urlJoin';
 
@@ -22,18 +22,29 @@ const EVENT_LINK_NAME = 'Event Link';
 
 export type Capability = Record<string, any>;
 
-/** Full URI of the type registered for credentials by `@semapps/crypto`'s credentials container. */
-const VC_TYPE = 'https://www.w3.org/2018/credentials#VerifiableCredential';
-
-/** Where this Pod keeps its credentials. The container registers itself in the owner's (private)
- *  type index, which is the sanctioned way to find it; `<webId>/credentials` — the path the
- *  container is mounted on — is only a fallback for when that index can't be read. */
-const credentialsContainerUri = async (webId: string, token: string) => {
-  try {
-    return await resolveContainerUri('credential', { types: [VC_TYPE] }, webId, token, DEFAULT_CONTEXT);
-  } catch {
-    return urlJoin(webId, 'credentials');
-  }
+/**
+ * Query the Pod's own SPARQL endpoint, with the user's token. This is how credentials have to be
+ * looked up: the credentials container deliberately grants read access to nobody (see
+ * `VCCredentialsContainer`'s `permissions` in `@semapps/crypto`, which only ever returns an
+ * `anyUser` entry, false on a Pod provider), so it cannot be listed even by its owner. The
+ * ActivityPods frontend reaches its own invite-link credentials the same way — react-admin's
+ * semantic data provider sends `getList` through `fetchSparqlEndpoints` unless a resource opts
+ * into `list.fetchContainer`, which `VerifiableCredential` doesn't.
+ */
+const sparqlSelect = async (webId: string, token: string, query: string): Promise<any[]> => {
+  const response = await fetch(urlJoin(webId, 'sparql'), {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/sparql-query',
+      Accept: 'application/sparql-results+json',
+      Authorization: `Bearer ${token}`
+    },
+    body: query
+  });
+  if (!response.ok) throw new Error(`Could not query ${webId}'s SPARQL endpoint (${response.status})`);
+  const json = await response.json();
+  // ActivityPods answers with a plain array of bindings rather than the SPARQL JSON envelope
+  return Array.isArray(json) ? json : (json?.results?.bindings ?? []);
 };
 
 const vcApiUri = (webId: string, path: string) => urlJoin(urlJoin(webId, VC_API_PATH), path);
@@ -161,21 +172,21 @@ export const findEventLinkCapability = async ({
   token: string;
   eventUri: string;
 }): Promise<Capability | null> => {
-  let container: any;
-  try {
-    ({ json: container } = await fetchJson(await credentialsContainerUri(webId, token), {}, token));
-  } catch (e: any) {
-    // No credential was ever issued on this Pod, so the container doesn't exist yet
-    if (e.status === 404) return null;
-    throw e;
-  }
+  const rows = await sparqlSelect(
+    webId,
+    token,
+    `PREFIX cred: <https://www.w3.org/2018/credentials#>
+     PREFIX schema: <https://schema.org/>
+     SELECT ?vc WHERE { ?vc a cred:VerifiableCredential ; schema:name "${EVENT_LINK_NAME}" }`
+  );
 
-  for (const item of arrayOf(container?.['ldp:contains'])) {
-    const capability =
-      typeof item === 'string' || !item?.credentialSubject
-        ? (await fetchJson(item?.id ?? item, {}, token)).json
-        : item;
-    if (grantsJoinOn(capability, eventUri)) return capability;
+  for (const row of rows) {
+    const uri = row?.vc?.value;
+    if (!uri) continue;
+    // Which event a credential covers can only be read from its HTTP representation: the SPARQL
+    // endpoint hands back the nested grant as blank nodes, losing the URIs it points at.
+    const { json } = await fetchJson(uri, {}, token);
+    if (grantsJoinOn(json, eventUri)) return json;
   }
 
   return null;
