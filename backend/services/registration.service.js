@@ -97,7 +97,14 @@ module.exports = {
           const allowedByLink = await this.isAllowedByPublicLink(ctx, activity, event, organizerUri);
 
           if (!allowedByLink) {
-            throw new MoleculerError('You have not been invited to this event', 400, 'BAD REQUEST');
+            // Deliberately not a throw: someone trying to join without an invitation is an
+            // expected outcome, not a processing failure. `pod-activities-watcher.processWebhook`
+            // doesn't catch what a handler throws, so throwing here takes the whole app backend
+            // down — along with every other Pod it was watching.
+            this.logger.warn(
+              `Ignoring Join of ${activity.actor} on ${event.id}: not invited, and no valid public link capability`
+            );
+            return;
           }
 
           // Put them on the same footing as an invited guest rather than leaving them dependent
