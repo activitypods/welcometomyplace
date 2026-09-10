@@ -2,6 +2,7 @@ import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { arrayOf, fetchJson } from '@activitypods/refine-providers/utils';
 
 import { authProvider } from '../providers';
+import { getCurrentCapabilityToken } from '../utils/capability';
 import useOwnActor from './useOwnActor';
 
 // A stable reference for "no items yet" — `?? []` would create a new array on every call, which
@@ -19,23 +20,26 @@ const EMPTY_ITEMS: string[] = [];
  */
 const useActivityCollection = (predicateOrUri?: string) => {
   const { data: ownActor } = useOwnActor();
-  const session = authProvider.getSession();
+  // Falls back to a public event link's credential, so a logged-out visitor reads what the link
+  // grants. Several of these collections are public anyway (`apods:attendees` carries
+  // `acl:agentClass foaf:Agent`), which is why the query must run with no token at all too.
+  const token = authProvider.getSession()?.token ?? getCurrentCapabilityToken();
   const queryClient = useQueryClient();
 
   const isUri = predicateOrUri?.startsWith('http');
   const collectionUri = isUri ? predicateOrUri : predicateOrUri ? ownActor?.[predicateOrUri] : undefined;
 
-  const queryKey = ['activity-collection', collectionUri];
+  const queryKey = ['activity-collection', collectionUri, !!token];
 
   const query = useQuery({
     queryKey,
     queryFn: async () => {
-      let { json } = await fetchJson(collectionUri!, {}, session?.token);
+      let { json } = await fetchJson(collectionUri!, {}, token);
 
       if ((json.type === 'OrderedCollection' || json.type === 'Collection') && json.first) {
         const firstItems = json.first?.items || json.first?.orderedItems;
         if (!firstItems) {
-          ({ json } = await fetchJson(typeof json.first === 'string' ? json.first : json.first.id, {}, session?.token));
+          ({ json } = await fetchJson(typeof json.first === 'string' ? json.first : json.first.id, {}, token));
         } else {
           json = json.first;
         }
@@ -44,7 +48,10 @@ const useActivityCollection = (predicateOrUri?: string) => {
       const items: string[] = arrayOf(json.orderedItems || json.items).map((item: any) => item.id || item);
       return items;
     },
-    enabled: !!collectionUri && !!session,
+    // Deliberately not gated on having a session: the attendee list is world-readable, so a
+    // logged-out visitor following a public event link must still get it. A collection that is
+    // not readable simply 403s, and `retry: false` below keeps that cheap.
+    enabled: !!collectionUri,
     // A permission-denied fetch (e.g. ShareButton probing whether the viewer can read
     // apods:announces to decide whether to show itself) will never succeed on retry — the
     // default 3 retries with backoff just delays the error (and whatever hides on it) for

@@ -2,6 +2,7 @@ import { useCallback } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
 import { authProvider } from '../providers';
+import useOwnActor from './useOwnActor';
 import {
   eventLinkUrl,
   findEventLinkCapability,
@@ -11,14 +12,15 @@ import {
 } from '../utils/capability';
 import type { EventRecord } from '../types';
 
-/** Resources a holder of the link must be able to read for the event page to render fully. The
- *  organizer's profile is deliberately left out: the page doesn't show it, and there's no reason
- *  to expose personal data to everyone the link reaches. */
-const grantedResources = (event: EventRecord, webId: string) => {
+/** Resources a holder of the link must be able to read for the event page to render fully —
+ *  including the organizer's profile, which is where their display name lives (the actor document
+ *  only links to it). Without it the event page shows no organizer at all. */
+const grantedResources = (event: EventRecord, webId: string, profileUri?: string) => {
   const image = Array.isArray(event.image) ? event.image[0] : event.image;
   return [
     event.id,
     event.location,
+    profileUri,
     // Only if it lives on the organizer's own Pod — they have no control over anything else,
     // so the Pod would refuse to honour the grant anyway
     image?.startsWith(webId) ? image : undefined
@@ -35,6 +37,7 @@ const grantedResources = (event: EventRecord, webId: string) => {
  */
 const useEventPublicLink = (event: EventRecord) => {
   const session = authProvider.getSession();
+  const { data: ownActor } = useOwnActor();
   const queryClient = useQueryClient();
   const queryKey = ['event-public-link', event.id];
 
@@ -56,7 +59,7 @@ const useEventPublicLink = (event: EventRecord) => {
         webId: session!.webId,
         token: session!.token,
         eventUri: event.id,
-        accessTo: grantedResources(event, session!.webId)
+        accessTo: grantedResources(event, session!.webId, ownActor?.url)
       }),
     onSuccess: setCapability
   });
