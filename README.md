@@ -27,7 +27,7 @@ Fortunately MapBox has a generous free tier with 100,000 requests per month, so 
 Once you have your access token, create a `.env.local` file in the `/frontend` directory and set it there.
 
 ```bash
-REACT_APP_MAPBOX_ACCESS_TOKEN=
+VITE_MAPBOX_ACCESS_TOKEN=
 ```
 
 ### Run the Pod provider
@@ -61,7 +61,7 @@ You can see the application details at http://localhost:3001/app
 You now have access to Moleculer CLI. Enter this command to insert all the available event formats:
 
 ```
-call formats.freshImport
+call importers.formats.freshImport
 ```
 
 ### Launch the frontend
@@ -93,22 +93,7 @@ cd /THIS_REPO/backend
 yarn run link-packages
 ```
 
-### Linking frontend packages
-
-Linking frontend packages with `yarn link` doesn't work because it causes version mismatch errors for React and MUI (see [this PR](https://github.com/assemblee-virtuelle/semapps/pull/1180) for explainations). So you should use [Yalc](https://github.com/wclr/yalc) instead. Fortunately, we make it easy for you.
-
-```bash
-cd /SEMAPPS_REPO/src/frontend
-yarn run yalc:publish
-cd /ACTIVITYPODS_REPO/app-framework
-yarn run link-all
-cd /THIS_REPO/frontend
-yarn run link-packages
-```
-
-Additionally, frontend packages need to be rebuilt on every changes, or they will not be taken into account by ActivityPods. You can use `yarn run build` to build a package once, or `yarn run watch` to rebuild a package on every change. On every build, the new package will be published to Yalc.
-
-Thanks to Git hooks, the frontend packages will also be published to Yalc whenever git branches are changed.
+The frontend has no `@semapps/*` or `@activitypods/react` dependencies to link — it only depends on `@activitypods/refine-providers`, published normally to npm. If you need to test unpublished changes to that package, link it directly with `yarn link` from its own repository.
 
 ## Deploy to production
 
