@@ -24,6 +24,7 @@ import FormatListPage from './pages/FormatListPage';
 import FormatShowPage from './pages/FormatShowPage';
 import FormatCreatePage from './pages/FormatCreatePage';
 import FormatEditPage from './pages/FormatEditPage';
+import SignupPage from './pages/SignupPage';
 
 const antdLocale = APP_LANG === 'fr' ? frFR : enUS;
 
@@ -75,6 +76,16 @@ const App = () => (
               element={<AntdAuthPage authProvider={authProvider} defaultPodProvider={DEFAULT_POD_PROVIDER} redirect="/events" />}
             />
 
+            {/* Kicks off the Solid-OIDC flow in signup mode, then hands back to /login's callback */}
+            <Route path="/signup" element={<SignupPage />} />
+
+            {/*
+              Public on purpose, unlike every other event route: an event shared with a public
+              link is opened by people who have no account yet. EventShowPage itself sends a
+              visitor with neither a session nor a `?cap=` credential on to /login.
+            */}
+            <Route path="/events/:id" element={<EventShowPage />} />
+
             <Route
               element={
                 <Authenticated key="authenticated-routes" fallback={<CatchAllNavigate to="/login" />}>
@@ -84,7 +95,6 @@ const App = () => (
             >
               <Route path="/events" element={<EventListPage />} />
               <Route path="/events/create" element={<EventCreatePage />} />
-              <Route path="/events/:id" element={<EventShowPage />} />
               <Route path="/events/:id/edit" element={<EventEditPage />} />
               {/* No button anywhere links here — matches the old app, where these routes existed
                   but weren't linked from the UI either (Format isn't meant to be user-writable). */}

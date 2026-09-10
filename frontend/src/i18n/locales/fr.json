@@ -44,7 +44,8 @@
       },
       "signin": "Se connecter",
       "backToLogin": "Retour à la connexion"
-    }
+    },
+    "signup_redirecting": "Redirection vers la création de compte..."
   },
   "home": {
     "title": "Ouvrez votre maison pour des rencontres simples et enrichissantes",
@@ -167,6 +168,14 @@
     "send_invitation_one": "Envoyer l'invitation",
     "send_invitation_other": "Envoyer {{count}} invitations",
     "invitation_sent_one": "1 invitation envoyée",
-    "invitation_sent_other": "{{count}} invitations envoyées"
+    "invitation_sent_other": "{{count}} invitations envoyées",
+    "general_access": "Accès général",
+    "access_restricted": "Utilisateurs qui ont été invités",
+    "access_restricted_help": "Seules les personnes invitées peuvent voir cette rencontre.",
+    "access_anyone_with_link": "Tous les utilisateurs qui ont le lien",
+    "access_anyone_with_link_help": "Toute personne disposant du lien peut voir cette rencontre et demander à s'y inscrire.",
+    "copy_link": "Copier le lien",
+    "link_copied": "Lien copié",
+    "link_copy_error": "Le lien n'a pas pu être copié"
   }
 }

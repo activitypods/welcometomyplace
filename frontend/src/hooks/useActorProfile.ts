@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { fetchJson } from '@activitypods/refine-providers/utils';
 
 import { authProvider } from '../providers';
+import { getCurrentCapabilityToken } from '../utils/capability';
 
 export type ActorProfile = {
   'vcard:given-name'?: string;
@@ -16,14 +17,16 @@ export type ActorProfile = {
  * `dc:creator` or an `apods:attendees` collection item).
  */
 const useActorProfile = (actorUri?: string) => {
-  const session = authProvider.getSession();
+  // A logged-out visitor on a public event link has no session, but the link's credential grants
+  // read access to the organizer's profile — without this the organizer's name is simply missing.
+  const token = authProvider.getSession()?.token ?? getCurrentCapabilityToken();
 
   return useQuery({
-    queryKey: ['actor-profile', actorUri],
+    queryKey: ['actor-profile', actorUri, !!token],
     queryFn: async () => {
-      const { json: actor } = await fetchJson(actorUri!, {}, session?.token);
+      const { json: actor } = await fetchJson(actorUri!, {}, token);
       if (!actor.url) return null;
-      const { json: profile } = await fetchJson(actor.url, {}, session?.token);
+      const { json: profile } = await fetchJson(actor.url, {}, token);
       return profile as ActorProfile;
     },
     enabled: !!actorUri,
